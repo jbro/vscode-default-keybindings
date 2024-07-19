@@ -1,0 +1,24 @@
+name: Auto Update Keybindings
+
+# XXX this need to be on a schedule
+on: push
+
+jobs:
+  update_keybindings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update Keybindings
+        run: |
+          ./scripts/build-keybindings.py
+
+      - name: Diff
+        id: diff
+        run: |
+          if git diff --exit-code; then
+            echo "has-diff=false" >> $GITHUB_OUTPUT
+          else
+            echo "has-diff=true" >> $GITHUB_OUTPUT
+          fi
