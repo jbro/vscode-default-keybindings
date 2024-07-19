@@ -1,0 +1,16 @@
+name: Release extension to marketplace
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true && startsWith(github.ref, 'refs/heads/release/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish
+        run: |
+          npm install -g vsce
+          vsce publish 
