@@ -1,0 +1,54 @@
+name: Auto Update Keybindings
+
+on:
+  schedule:
+    - cron: '45 */12 * * *'
+
+jobs:
+  update_keybindings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update Keybindings
+        run: |
+          ./scripts/build-keybindings.py
+
+      - name: Diff
+        id: diff
+        run: |
+          if git diff --exit-code; then
+            echo "has-diff=false" >> $GITHUB_OUTPUT
+          else
+            echo "has-diff=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Bump version
+        if: steps.diff.outputs.has-diff == 'true'
+        run: |
+          npm version patch --no-git-tag-version
+
+      - name: Update changelog
+        if: steps.diff.outputs.has-diff == 'true'
+        id: changelog
+        run: |
+          version=$(jq -r .version package.json)
+          engineversion=$(jq -r .engines.vscode package.json | tr -d '^')
+          echo "" >> CHANGELOG.md
+          echo "## Release v${version}" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "- Update keybindings for vscode ${engineversion}" >> CHANGELOG.md
+          echo "extension_version=${version}" >> $GITHUB_OUTPUT
+          echo "engine_version=${engineversion}" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        if: steps.diff.outputs.has-diff == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.TOKEN }}
+          commit-message: Auto update keybindings from vscode v${{steps.changelog.outputs.engine_version}}
+          title: Auto update keybindings from vscode v${{steps.changelog.outputs.engine_version}}
+          body: |
+            This PR updates the keybindings for vscode ${{steps.changelog.outputs.engine_version}}
+          branch: release/v${{steps.changelog.outputs.extension_version}}
