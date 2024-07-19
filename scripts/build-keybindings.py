@@ -18,7 +18,7 @@ version = ''
 
 for expr, url in defaultKeybindings.items():
 
-  print(f'Downloading  keybindings...')
+  # Download keybindings
   response = requests.get(url)
   response.raise_for_status()
   
@@ -31,8 +31,10 @@ for expr, url in defaultKeybindings.items():
   # Remove comments
   body = re.sub(r'//.*\n', '', body)
 
+  # Parse keybindings
   keymap = json.loads(body)
   
+  # Update keybindings
   for k in keymap:
     if 'when' in k:
       k['when'] = f'{expr} && ({k["when"]})'
@@ -41,6 +43,7 @@ for expr, url in defaultKeybindings.items():
     
     keybindings.append(k)
 
+# Update package.json
 with open('package.json', 'r+') as f:
   package = json.load(f)
   
