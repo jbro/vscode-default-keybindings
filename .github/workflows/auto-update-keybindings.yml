@@ -3,6 +3,9 @@ name: Auto Update Keybindings
 on:
   schedule:
     - cron: '45 */12 * * *'
+  workflow_dispatch:
+    inputs: {}
+      
 
 jobs:
   update_keybindings:
