@@ -47,7 +47,6 @@ for expr, url in defaultKeybindings.items():
 with open('package.json', 'r+') as f:
   package = json.load(f)
   
-  package['version'] = version
   package['engines']['vscode'] = f'^{version}'
   package['contributes']['keybindings'] = keybindings
   
