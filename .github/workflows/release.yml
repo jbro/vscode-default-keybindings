@@ -18,4 +18,4 @@ jobs:
       - name: Publish
         run: |
           npm install -g vsce
-          vsce publish 
+          vsce publish -p ${{ secrets.VSCE_PAT }}
