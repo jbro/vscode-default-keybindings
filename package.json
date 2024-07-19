@@ -3,7 +3,7 @@
   "displayName": "VSCode Default Keybindings",
   "description": "VSCode Default Keybindings is a keymap that enables you to load VSCode's default keybindings from another OS. Eg. use Mac keybindings on Windows.",
   "license": "Unlicense",
-  "version": "1.91.1",
+  "version": "0.0.0",
   "engines": {
     "vscode": "^1.91.1"
   },
