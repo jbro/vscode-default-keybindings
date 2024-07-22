@@ -7,3 +7,8 @@
 ## Release v0.1.0
 
 - New icon
+
+## Release v0.1.1
+
+- Fix GitHub issues URL in package.json
+- Release to OPEN-VSX
