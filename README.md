@@ -2,6 +2,12 @@
 
 This a keymap extension that allows you to use the default keybindings of Visual Studio Code from any other operating system.
 
+Supported keymaps:
+
+- Linux
+- MacOS
+- Windows
+
 It builds on the very useful [vs-code-default-keybindings](https://github.com/codebling/vs-code-default-keybindings) which it wraps up and provides simple configuration for.
 
 ## Usage

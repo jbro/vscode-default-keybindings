@@ -12,3 +12,7 @@
 
 - Fix GitHub issues URL in package.json
 - Release to OPEN-VSX
+
+## Release v0.1.2
+
+- List supported keymaps in README.md
