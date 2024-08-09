@@ -16,3 +16,7 @@
 ## Release v0.1.2
 
 - List supported keymaps in README.md
+
+## Release v0.1.3
+
+- Update keybindings for vscode 1.92.0
