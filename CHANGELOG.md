@@ -20,3 +20,7 @@
 ## Release v0.1.4
 
 - Update keybindings for vscode 1.92.0
+
+## Release v0.1.5
+
+- Update keybindings for vscode 1.92.2
