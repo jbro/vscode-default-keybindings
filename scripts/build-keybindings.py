@@ -5,12 +5,12 @@ import re
 import requests
 
 defaultKeybindings = {
-  'config.vscode-default-keybindings.removeOSKeybindings && isLinux': 'https://raw.githubusercontent.com/codebling/vs-code-default-keybindings/master/linux.negative.keybindings.json',
-  'config.vscode-default-keybindings.removeOSKeybindings && isMac': 'https://raw.githubusercontent.com/codebling/vs-code-default-keybindings/master/macos.negative.keybindings.json',
-  'config.vscode-default-keybindings.removeOSKeybindings && isWindows': 'https://raw.githubusercontent.com/codebling/vs-code-default-keybindings/master/windows.negative.keybindings.json',
-  'config.vscode-default-keybindings.linuxKeybindings': 'https://raw.githubusercontent.com/codebling/vs-code-default-keybindings/master/linux.keybindings.json',
-  'config.vscode-default-keybindings.macOSKeybindings': 'https://raw.githubusercontent.com/codebling/vs-code-default-keybindings/master/macos.keybindings.json',
-  'config.vscode-default-keybindings.windowsKeybindings': 'https://raw.githubusercontent.com/codebling/vs-code-default-keybindings/master/windows.keybindings.json',
+  'config.vscode-default-keybindings.removeOSKeybindings && isLinux': 'https://raw.githubusercontent.com/jbro/vs-code-default-keybindings/master/linux.negative.keybindings.json',
+  'config.vscode-default-keybindings.removeOSKeybindings && isMac': 'https://raw.githubusercontent.com/jbro/vs-code-default-keybindings/master/macos.negative.keybindings.json',
+  'config.vscode-default-keybindings.removeOSKeybindings && isWindows': 'https://raw.githubusercontent.com/jbro/vs-code-default-keybindings/master/windows.negative.keybindings.json',
+  'config.vscode-default-keybindings.linuxKeybindings': 'https://raw.githubusercontent.com/jbro/vs-code-default-keybindings/master/linux.keybindings.json',
+  'config.vscode-default-keybindings.macOSKeybindings': 'https://raw.githubusercontent.com/jbro/vs-code-default-keybindings/master/macos.keybindings.json',
+  'config.vscode-default-keybindings.windowsKeybindings': 'https://raw.githubusercontent.com/jbro/vs-code-default-keybindings/master/windows.keybindings.json',
 }
 
 keybindings = []
