@@ -2,17 +2,62 @@ name: Auto Update Keybindings
 
 on:
   schedule:
-    - cron: '45 */12 * * *'
+    - cron: '0 */12 * * *'
   workflow_dispatch:
     inputs: {}
       
 
 jobs:
+  get-default-keybindings:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - run: npm ci
+      working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
+    - name: Run get-default-keybindings (Linux)
+      run: xvfb-run -a npm start
+      working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
+      if: runner.os == 'Linux'
+    - name: Run get-default-keybindings (macOS, Windows)
+      run: npm start
+      working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
+      if: runner.os != 'Linux'
+    - name: Upload the output file
+      uses: actions/upload-artifact@v4
+      with:
+        name: raw-default-keybindings-${{ matrix.os }}
+        path: vs-code-default-keybindings/scripts/*.keybindings.raw.json
+
   update_keybindings:
     runs-on: ubuntu-latest
+    needs: get-default-keybindings
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Download three JSON files
+        uses: actions/download-artifact@v4
+      - name: Copy JSON files
+        shell: bash
+        run: |
+          cp raw-default-keybindings-ubuntu-latest/linux.keybindings.raw.json vs-code-default-keybindings/scripts/
+          cp raw-default-keybindings-macos-latest/macos.keybindings.raw.json vs-code-default-keybindings/scripts/
+          cp raw-default-keybindings-windows-latest/windows.keybindings.raw.json vs-code-default-keybindings/scripts/
+      - name: Update keybindings files
+        run: python3 process_json.py
+        working-directory: vs-code-default-keybindings/scripts
 
       - name: Update Keybindings
         run: |
