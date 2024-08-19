@@ -24,3 +24,7 @@
 ## Release v0.1.5
 
 - Update keybindings for vscode 1.92.2
+
+## Release v0.2.0
+
+- Exclude non essential files from package
