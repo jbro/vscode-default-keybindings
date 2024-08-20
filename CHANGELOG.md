@@ -28,3 +28,7 @@
 ## Release v0.2.0
 
 - Exclude non essential files from package
+
+## Release v0.2.1
+
+- Update keybindings for vscode 1.92.2

@@ -16,7 +16,7 @@
   "icon": "icon.png",
   "publisher": "jbro",
   "license": "Unlicense",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "vscode": "^1.92.2"
   },
@@ -1956,7 +1956,7 @@
       {
         "key": "ctrl+k ctrl+k",
         "command": "-editor.action.defineKeybinding",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (resource == 'vscode-userdata:/home/runner/work/vs-code-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (resource == 'vscode-userdata:/home/runner/work/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
       },
       {
         "key": "tab",
@@ -7001,7 +7001,7 @@
       {
         "key": "cmd+k cmd+k",
         "command": "-editor.action.defineKeybinding",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (resource == 'vscode-userdata:/Users/runner/work/vs-code-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (resource == 'vscode-userdata:/Users/runner/work/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
       },
       {
         "key": "tab",
@@ -12155,7 +12155,7 @@
       {
         "key": "ctrl+k ctrl+k",
         "command": "-editor.action.defineKeybinding",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (resource == 'vscode-userdata:/d%3A/a/vs-code-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
       },
       {
         "key": "tab",
@@ -17055,7 +17055,7 @@
       {
         "key": "ctrl+k ctrl+k",
         "command": "editor.action.defineKeybinding",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (resource == 'vscode-userdata:/home/runner/work/vs-code-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (resource == 'vscode-userdata:/home/runner/work/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
       },
       {
         "key": "tab",
@@ -22100,7 +22100,7 @@
       {
         "key": "cmd+k cmd+k",
         "command": "editor.action.defineKeybinding",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (resource == 'vscode-userdata:/Users/runner/work/vs-code-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (resource == 'vscode-userdata:/Users/runner/work/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
       },
       {
         "key": "tab",
@@ -27254,7 +27254,7 @@
       {
         "key": "ctrl+k ctrl+k",
         "command": "editor.action.defineKeybinding",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (resource == 'vscode-userdata:/d%3A/a/vs-code-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
       },
       {
         "key": "tab",
