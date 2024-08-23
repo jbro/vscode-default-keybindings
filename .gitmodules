@@ -1,3 +1,4 @@
 [submodule "vs-code-default-keybindings"]
 	path = vs-code-default-keybindings
 	url = https://github.com/codebling/vs-code-default-keybindings.git
+	ignore = dirty
