@@ -32,3 +32,7 @@
 ## Release v0.2.1
 
 - Update keybindings for vscode 1.92.2
+
+## Release v0.2.2
+
+- Update keybindings for vscode 1.93.0
