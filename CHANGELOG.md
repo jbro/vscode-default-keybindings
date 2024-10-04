@@ -40,3 +40,7 @@
 ## Release v0.2.3
 
 - Update keybindings for vscode 1.93.1
+
+## Release v0.2.4
+
+- Update keybindings for vscode 1.94.0
