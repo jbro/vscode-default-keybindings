@@ -16,9 +16,9 @@
   "icon": "icon.png",
   "publisher": "jbro",
   "license": "Unlicense",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "engines": {
-    "vscode": "^1.93.1"
+    "vscode": "^1.94.0"
   },
   "categories": [
     "Keymaps"
@@ -336,7 +336,7 @@
       {
         "key": "ctrl+down",
         "command": "-notebook.cell.focusNextChatWidget",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && inputFocus && notebookEditorFocused && !accessibilityModeEnabled && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && inputFocus && isCompositeNotebook && !accessibilityModeEnabled && !isEmbeddedDiffEditor && !notebookCellEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top' || editorTextFocus && inputFocus && notebookCellEditorFocused && !accessibilityModeEnabled && !isCompositeNotebook && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
       },
       {
         "key": "ctrl+down",
@@ -421,12 +421,12 @@
       {
         "key": "ctrl+up",
         "command": "-chat.action.focus",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatCursorAtTop && inChatInput)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatCursorAtTop && inChatInput && !quickChatHasFocus)"
       },
       {
         "key": "ctrl+up",
         "command": "-chat.action.focus",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && isLinux || inChatInput && isWindows)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
       },
       {
         "key": "shift+escape",
@@ -670,23 +670,8 @@
       },
       {
         "key": "escape",
-        "command": "-editor.action.inlineEdits.hide",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditsVisible)"
-      },
-      {
-        "key": "alt+]",
-        "command": "-editor.action.inlineEdits.showNext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "alt+[",
-        "command": "-editor.action.inlineEdits.showPrevious",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "escape",
         "command": "-editor.action.inlineSuggest.hide",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineSuggestionVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditIsVisible || inlineSuggestionVisible)"
       },
       {
         "key": "alt+]",
@@ -789,6 +774,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux"
       },
       {
+        "key": "alt+f10",
+        "command": "-editor.action.nextCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (activeEditorHasCommentingRange)"
+      },
+      {
         "key": "ctrl+k ctrl+alt+down",
         "command": "-editor.action.nextCommentingRange",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments')"
@@ -852,6 +842,11 @@
         "key": "shift+alt+f9",
         "command": "-editor.action.previousCommentThreadAction",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux"
+      },
+      {
+        "key": "shift+alt+f10",
+        "command": "-editor.action.previousCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (activeEditorHasCommentingRange)"
       },
       {
         "key": "ctrl+k ctrl+alt+up",
@@ -1834,6 +1829,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!config.breadcrumbs.enabled)"
       },
       {
+        "key": "ctrl+down",
+        "command": "-chat.action.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && inChatInput && quickChatHasFocus)"
+      },
+      {
         "key": "escape",
         "command": "-closeReplaceInFilesWidget",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (replaceInputBoxFocus && searchViewletVisible)"
@@ -1872,6 +1872,26 @@
         "key": "ctrl+k ctrl+shift+alt+c",
         "command": "-copyRelativeFilePath",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus)"
+      },
+      {
+        "key": "ctrl+left",
+        "command": "-cursorWordAccessibilityLeft",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+left",
+        "command": "-cursorWordAccessibilityLeftSelect",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+right",
+        "command": "-cursorWordAccessibilityRight",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+right",
+        "command": "-cursorWordAccessibilityRightSelect",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
       },
       {
         "key": "alt+enter",
@@ -1981,7 +2001,7 @@
       {
         "key": "tab",
         "command": "-editor.action.inlineSuggest.commit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
       },
       {
         "key": "shift+f9",
@@ -2121,12 +2141,12 @@
       {
         "key": "ctrl+k i",
         "command": "-inlineChat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+i",
         "command": "-inlineChat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+z",
@@ -2139,24 +2159,19 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && inlineChatHasProvider && inlineChatVisible)"
       },
       {
-        "key": "down",
-        "command": "-interactive.history.next",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "key": "ctrl+up",
+        "command": "-interactive.history.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (isCompositeNotebook && isLinux && !notebookEditorFocused || isCompositeNotebook && isWindows && !notebookEditorFocused)"
       },
       {
         "key": "down",
         "command": "-interactive.history.next",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
       },
       {
         "key": "up",
         "command": "-interactive.history.previous",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
-      },
-      {
-        "key": "up",
-        "command": "-interactive.history.previous",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
       },
       {
         "key": "ctrl+end",
@@ -2361,17 +2376,22 @@
       {
         "key": "backspace",
         "command": "-noteMultiCursor.deleteLeft",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '1' || config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '2')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
+      },
+      {
+        "key": "delete",
+        "command": "-noteMultiCursor.deleteRight",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
       },
       {
         "key": "escape",
         "command": "-noteMultiCursor.exit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "ctrl+d",
         "command": "-notebook.addFindMatchToSelection",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiSelect.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.notebook.multiCursor.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "y",
@@ -2474,12 +2494,17 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (notebookCellListFocused && notebookCellOutputIsCollapsed)"
       },
       {
-        "key": "ctrl+down",
+        "key": "ctrl+shift+down",
         "command": "-notebook.cell.focusInOutput",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (notebookCellHasOutputs && notebookEditorFocused)"
       },
       {
-        "key": "ctrl+up",
+        "key": "ctrl+down",
+        "command": "-notebook.cell.focusInOutput",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (isWindows && notebookCellHasOutputs && notebookEditorFocused && !isCompositeNotebook)"
+      },
+      {
+        "key": "ctrl+shift+up",
         "command": "-notebook.cell.focusOutOutput",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (notebookEditorFocused && notebookOutputFocused)"
       },
@@ -3151,7 +3176,12 @@
       {
         "key": "ctrl+down",
         "command": "-workbench.action.chat.focusInput",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !inChatInput)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !inChatInput && !quickChatHasFocus)"
+      },
+      {
+        "key": "ctrl+up",
+        "command": "-workbench.action.chat.focusInput",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && quickChatHasFocus && !inChatInput)"
       },
       {
         "key": "ctrl+i",
@@ -4123,14 +4153,6 @@
         }
       },
       {
-        "key": "ctrl+space",
-        "command": "-workbench.action.terminal.sendSequence",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
-        "args": {
-          "text": "\u001b[24~e"
-        }
-      },
-      {
         "key": "ctrl+alt+r",
         "command": "-workbench.action.terminal.sendSequence",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibilityModeEnabled && terminalFocus)",
@@ -4184,6 +4206,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus)",
         "args": {
           "text": "\u001f"
+        }
+      },
+      {
+        "key": "ctrl+space",
+        "command": "-workbench.action.terminal.sendSequence",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
+        "args": {
+          "text": "\u001b[24~e"
         }
       },
       {
@@ -4422,6 +4452,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (breadcrumbsActive && breadcrumbsVisible)"
       },
       {
+        "key": "tab",
+        "command": "-editor.action.inlineSuggest.jump",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditIsVisible && !cursorAtInlineEdit && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+      },
+      {
         "key": "f3",
         "command": "-list.find.replInputFocus",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (view == 'workbench.panel.repl.view')"
@@ -4562,6 +4597,16 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (breakpointsFocused && !inputFocus)"
       },
       {
+        "key": "ctrl+up",
+        "command": "-interactive.history.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (isCompositeNotebook && !notebookEditorFocused && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "-interactive.input.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (isCompositeNotebook && notebookEditorFocused)"
+      },
+      {
         "key": "escape",
         "command": "-notebook.cell.quitEdit",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (notebookEditorFocused && notebookOutputFocused)"
@@ -4569,17 +4614,17 @@
       {
         "key": "ctrl+v",
         "command": "-filesExplorer.paste",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "shift+delete",
         "command": "-deleteFile",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "delete",
         "command": "-deleteFile",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "ctrl+shift+[IntlBackslash]",
@@ -4634,7 +4679,7 @@
       {
         "key": "ctrl+x",
         "command": "-filesExplorer.cut",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "space",
@@ -4659,7 +4704,7 @@
       {
         "key": "delete",
         "command": "-moveFileToTrash",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "right",
@@ -4955,11 +5000,6 @@
         "key": "escape",
         "command": "-diffEditor.exitCompareMove",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (comparingMovedCode)"
-      },
-      {
-        "key": "ctrl+space",
-        "command": "-editor.action.inlineEdits.accept",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditsVisible)"
       },
       {
         "key": "escape escape",
@@ -5366,7 +5406,7 @@
       {
         "key": "cmd+down",
         "command": "-notebook.cell.focusNextChatWidget",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && inputFocus && notebookEditorFocused && !accessibilityModeEnabled && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && inputFocus && isCompositeNotebook && !accessibilityModeEnabled && !isEmbeddedDiffEditor && !notebookCellEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top' || editorTextFocus && inputFocus && notebookCellEditorFocused && !accessibilityModeEnabled && !isCompositeNotebook && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
       },
       {
         "key": "cmd+down",
@@ -5456,12 +5496,12 @@
       {
         "key": "cmd+up",
         "command": "-chat.action.focus",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatCursorAtTop && inChatInput)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatCursorAtTop && inChatInput && !quickChatHasFocus)"
       },
       {
         "key": "cmd+up",
         "command": "-chat.action.focus",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && isLinux || inChatInput && isWindows)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
       },
       {
         "key": "shift+escape",
@@ -5730,23 +5770,8 @@
       },
       {
         "key": "escape",
-        "command": "-editor.action.inlineEdits.hide",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditsVisible)"
-      },
-      {
-        "key": "alt+]",
-        "command": "-editor.action.inlineEdits.showNext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "alt+[",
-        "command": "-editor.action.inlineEdits.showPrevious",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "escape",
         "command": "-editor.action.inlineSuggest.hide",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineSuggestionVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditIsVisible || inlineSuggestionVisible)"
       },
       {
         "key": "alt+]",
@@ -5844,6 +5869,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac"
       },
       {
+        "key": "alt+f10",
+        "command": "-editor.action.nextCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (activeEditorHasCommentingRange)"
+      },
+      {
         "key": "cmd+k alt+cmd+down",
         "command": "-editor.action.nextCommentingRange",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments')"
@@ -5912,6 +5942,11 @@
         "key": "shift+alt+f9",
         "command": "-editor.action.previousCommentThreadAction",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac"
+      },
+      {
+        "key": "shift+alt+f10",
+        "command": "-editor.action.previousCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (activeEditorHasCommentingRange)"
       },
       {
         "key": "cmd+k alt+cmd+up",
@@ -6934,6 +6969,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!config.breadcrumbs.enabled)"
       },
       {
+        "key": "cmd+down",
+        "command": "-chat.action.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && inChatInput && quickChatHasFocus)"
+      },
+      {
         "key": "escape",
         "command": "-closeReplaceInFilesWidget",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (replaceInputBoxFocus && searchViewletVisible)"
@@ -6972,6 +7012,26 @@
         "key": "cmd+k shift+alt+cmd+c",
         "command": "-copyRelativeFilePath",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus)"
+      },
+      {
+        "key": "cmd+left",
+        "command": "-cursorWordAccessibilityLeft",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "shift+cmd+left",
+        "command": "-cursorWordAccessibilityLeftSelect",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "cmd+right",
+        "command": "-cursorWordAccessibilityRight",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "shift+cmd+right",
+        "command": "-cursorWordAccessibilityRightSelect",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
       },
       {
         "key": "alt+enter",
@@ -7071,7 +7131,7 @@
       {
         "key": "tab",
         "command": "-editor.action.inlineSuggest.commit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
       },
       {
         "key": "shift+f9",
@@ -7211,12 +7271,12 @@
       {
         "key": "cmd+k i",
         "command": "-inlineChat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "cmd+i",
         "command": "-inlineChat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "cmd+z",
@@ -7229,24 +7289,19 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && inlineChatHasProvider && inlineChatVisible)"
       },
       {
-        "key": "down",
-        "command": "-interactive.history.next",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "key": "cmd+up",
+        "command": "-interactive.history.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (isCompositeNotebook && isLinux && !notebookEditorFocused || isCompositeNotebook && isWindows && !notebookEditorFocused)"
       },
       {
         "key": "down",
         "command": "-interactive.history.next",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
       },
       {
         "key": "up",
         "command": "-interactive.history.previous",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
-      },
-      {
-        "key": "up",
-        "command": "-interactive.history.previous",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
       },
       {
         "key": "cmd+down",
@@ -7486,17 +7541,22 @@
       {
         "key": "backspace",
         "command": "-noteMultiCursor.deleteLeft",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '1' || config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '2')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
+      },
+      {
+        "key": "delete",
+        "command": "-noteMultiCursor.deleteRight",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
       },
       {
         "key": "escape",
         "command": "-noteMultiCursor.exit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "cmd+d",
         "command": "-notebook.addFindMatchToSelection",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiSelect.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.notebook.multiCursor.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "y",
@@ -7602,6 +7662,11 @@
         "key": "ctrl+cmd+down",
         "command": "-notebook.cell.focusInOutput",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (notebookCellHasOutputs && notebookEditorFocused)"
+      },
+      {
+        "key": "cmd+down",
+        "command": "-notebook.cell.focusInOutput",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (isWindows && notebookCellHasOutputs && notebookEditorFocused && !isCompositeNotebook)"
       },
       {
         "key": "ctrl+cmd+up",
@@ -8386,7 +8451,12 @@
       {
         "key": "cmd+down",
         "command": "-workbench.action.chat.focusInput",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !inChatInput)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !inChatInput && !quickChatHasFocus)"
+      },
+      {
+        "key": "cmd+up",
+        "command": "-workbench.action.chat.focusInput",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && quickChatHasFocus && !inChatInput)"
       },
       {
         "key": "cmd+i",
@@ -9401,14 +9471,6 @@
         }
       },
       {
-        "key": "ctrl+space",
-        "command": "-workbench.action.terminal.sendSequence",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
-        "args": {
-          "text": "\u001b[24~e"
-        }
-      },
-      {
         "key": "shift+cmd+left",
         "command": "-workbench.action.terminal.sendSequence",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalShellType == 'pwsh')",
@@ -9494,6 +9556,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus)",
         "args": {
           "text": "\u001f"
+        }
+      },
+      {
+        "key": "ctrl+space",
+        "command": "-workbench.action.terminal.sendSequence",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
+        "args": {
+          "text": "\u001b[24~e"
         }
       },
       {
@@ -9747,6 +9817,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (breadcrumbsActive && breadcrumbsVisible)"
       },
       {
+        "key": "tab",
+        "command": "-editor.action.inlineSuggest.jump",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditIsVisible && !cursorAtInlineEdit && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+      },
+      {
         "key": "f3",
         "command": "-list.find.replInputFocus",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (view == 'workbench.panel.repl.view')"
@@ -9897,6 +9972,16 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (breakpointsFocused && !inputFocus)"
       },
       {
+        "key": "cmd+up",
+        "command": "-interactive.history.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (isCompositeNotebook && !notebookEditorFocused && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+      },
+      {
+        "key": "cmd+down",
+        "command": "-interactive.input.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (isCompositeNotebook && notebookEditorFocused)"
+      },
+      {
         "key": "escape",
         "command": "-notebook.cell.quitEdit",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (notebookEditorFocused && notebookOutputFocused)"
@@ -9904,17 +9989,17 @@
       {
         "key": "cmd+v",
         "command": "-filesExplorer.paste",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "alt+cmd+backspace",
         "command": "-deleteFile",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "cmd+backspace",
         "command": "-deleteFile",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "shift+cmd+.",
@@ -9964,7 +10049,7 @@
       {
         "key": "cmd+x",
         "command": "-filesExplorer.cut",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "space",
@@ -9989,12 +10074,12 @@
       {
         "key": "delete",
         "command": "-moveFileToTrash",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "cmd+backspace",
         "command": "-moveFileToTrash",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "right",
@@ -10347,11 +10432,6 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (comparingMovedCode)"
       },
       {
-        "key": "cmd+space",
-        "command": "-editor.action.inlineEdits.accept",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditsVisible)"
-      },
-      {
         "key": "escape escape",
         "command": "-workbench.action.exitZenMode",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inZenMode)"
@@ -10665,7 +10745,7 @@
       {
         "key": "ctrl+down",
         "command": "-notebook.cell.focusNextChatWidget",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && inputFocus && notebookEditorFocused && !accessibilityModeEnabled && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && inputFocus && isCompositeNotebook && !accessibilityModeEnabled && !isEmbeddedDiffEditor && !notebookCellEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top' || editorTextFocus && inputFocus && notebookCellEditorFocused && !accessibilityModeEnabled && !isCompositeNotebook && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
       },
       {
         "key": "ctrl+down",
@@ -10750,12 +10830,12 @@
       {
         "key": "ctrl+up",
         "command": "-chat.action.focus",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatCursorAtTop && inChatInput)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatCursorAtTop && inChatInput && !quickChatHasFocus)"
       },
       {
         "key": "ctrl+up",
         "command": "-chat.action.focus",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && isLinux || inChatInput && isWindows)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
       },
       {
         "key": "shift+escape",
@@ -10994,23 +11074,8 @@
       },
       {
         "key": "escape",
-        "command": "-editor.action.inlineEdits.hide",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditsVisible)"
-      },
-      {
-        "key": "alt+]",
-        "command": "-editor.action.inlineEdits.showNext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "alt+[",
-        "command": "-editor.action.inlineEdits.showPrevious",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "escape",
         "command": "-editor.action.inlineSuggest.hide",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineSuggestionVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditIsVisible || inlineSuggestionVisible)"
       },
       {
         "key": "alt+]",
@@ -11103,6 +11168,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows"
       },
       {
+        "key": "alt+f10",
+        "command": "-editor.action.nextCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (activeEditorHasCommentingRange)"
+      },
+      {
         "key": "ctrl+k ctrl+alt+down",
         "command": "-editor.action.nextCommentingRange",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments')"
@@ -11166,6 +11236,11 @@
         "key": "shift+alt+f9",
         "command": "-editor.action.previousCommentThreadAction",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows"
+      },
+      {
+        "key": "shift+alt+f10",
+        "command": "-editor.action.previousCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (activeEditorHasCommentingRange)"
       },
       {
         "key": "ctrl+k ctrl+alt+up",
@@ -12138,6 +12213,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!config.breadcrumbs.enabled)"
       },
       {
+        "key": "ctrl+down",
+        "command": "-chat.action.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && inChatInput && quickChatHasFocus)"
+      },
+      {
         "key": "escape",
         "command": "-closeReplaceInFilesWidget",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (replaceInputBoxFocus && searchViewletVisible)"
@@ -12176,6 +12256,26 @@
         "key": "ctrl+k ctrl+shift+c",
         "command": "-copyRelativeFilePath",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus)"
+      },
+      {
+        "key": "ctrl+left",
+        "command": "-cursorWordAccessibilityLeft",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+left",
+        "command": "-cursorWordAccessibilityLeftSelect",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+right",
+        "command": "-cursorWordAccessibilityRight",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+right",
+        "command": "-cursorWordAccessibilityRightSelect",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
       },
       {
         "key": "alt+enter",
@@ -12275,7 +12375,7 @@
       {
         "key": "tab",
         "command": "-editor.action.inlineSuggest.commit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
       },
       {
         "key": "shift+f9",
@@ -12415,12 +12515,12 @@
       {
         "key": "ctrl+k i",
         "command": "-inlineChat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+i",
         "command": "-inlineChat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+z",
@@ -12433,24 +12533,19 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && inlineChatHasProvider && inlineChatVisible)"
       },
       {
-        "key": "down",
-        "command": "-interactive.history.next",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "key": "ctrl+up",
+        "command": "-interactive.history.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (isCompositeNotebook && isLinux && !notebookEditorFocused || isCompositeNotebook && isWindows && !notebookEditorFocused)"
       },
       {
         "key": "down",
         "command": "-interactive.history.next",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
       },
       {
         "key": "up",
         "command": "-interactive.history.previous",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
-      },
-      {
-        "key": "up",
-        "command": "-interactive.history.previous",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
       },
       {
         "key": "ctrl+end",
@@ -12655,17 +12750,22 @@
       {
         "key": "backspace",
         "command": "-noteMultiCursor.deleteLeft",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '1' || config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '2')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
+      },
+      {
+        "key": "delete",
+        "command": "-noteMultiCursor.deleteRight",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
       },
       {
         "key": "escape",
         "command": "-noteMultiCursor.exit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "ctrl+d",
         "command": "-notebook.addFindMatchToSelection",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiSelect.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.notebook.multiCursor.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "y",
@@ -12768,12 +12868,17 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (notebookCellListFocused && notebookCellOutputIsCollapsed)"
       },
       {
-        "key": "ctrl+down",
+        "key": "ctrl+shift+down",
         "command": "-notebook.cell.focusInOutput",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (notebookCellHasOutputs && notebookEditorFocused)"
       },
       {
-        "key": "ctrl+up",
+        "key": "ctrl+down",
+        "command": "-notebook.cell.focusInOutput",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (isWindows && notebookCellHasOutputs && notebookEditorFocused && !isCompositeNotebook)"
+      },
+      {
+        "key": "ctrl+shift+up",
         "command": "-notebook.cell.focusOutOutput",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (notebookEditorFocused && notebookOutputFocused)"
       },
@@ -13450,7 +13555,12 @@
       {
         "key": "ctrl+down",
         "command": "-workbench.action.chat.focusInput",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !inChatInput)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !inChatInput && !quickChatHasFocus)"
+      },
+      {
+        "key": "ctrl+up",
+        "command": "-workbench.action.chat.focusInput",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && quickChatHasFocus && !inChatInput)"
       },
       {
         "key": "ctrl+i",
@@ -14445,14 +14555,6 @@
         }
       },
       {
-        "key": "ctrl+space",
-        "command": "-workbench.action.terminal.sendSequence",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
-        "args": {
-          "text": "\u001b[24~e"
-        }
-      },
-      {
         "key": "ctrl+alt+r",
         "command": "-workbench.action.terminal.sendSequence",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibilityModeEnabled && terminalFocus)",
@@ -14514,6 +14616,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus)",
         "args": {
           "text": "\u001f"
+        }
+      },
+      {
+        "key": "ctrl+space",
+        "command": "-workbench.action.terminal.sendSequence",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
+        "args": {
+          "text": "\u001b[24~e"
         }
       },
       {
@@ -14757,6 +14867,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (breadcrumbsActive && breadcrumbsVisible)"
       },
       {
+        "key": "tab",
+        "command": "-editor.action.inlineSuggest.jump",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditIsVisible && !cursorAtInlineEdit && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+      },
+      {
         "key": "f3",
         "command": "-list.find.replInputFocus",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (view == 'workbench.panel.repl.view')"
@@ -14897,6 +15012,16 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (breakpointsFocused && !inputFocus)"
       },
       {
+        "key": "ctrl+up",
+        "command": "-interactive.history.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (isCompositeNotebook && !notebookEditorFocused && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "-interactive.input.focus",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (isCompositeNotebook && notebookEditorFocused)"
+      },
+      {
         "key": "escape",
         "command": "-notebook.cell.quitEdit",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (notebookEditorFocused && notebookOutputFocused)"
@@ -14904,17 +15029,17 @@
       {
         "key": "ctrl+v",
         "command": "-filesExplorer.paste",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "shift+delete",
         "command": "-deleteFile",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "delete",
         "command": "-deleteFile",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "ctrl+shift+.",
@@ -14964,7 +15089,7 @@
       {
         "key": "ctrl+x",
         "command": "-filesExplorer.cut",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "space",
@@ -14989,7 +15114,7 @@
       {
         "key": "delete",
         "command": "-moveFileToTrash",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "right",
@@ -15297,11 +15422,6 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (comparingMovedCode)"
       },
       {
-        "key": "ctrl+space",
-        "command": "-editor.action.inlineEdits.accept",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditsVisible)"
-      },
-      {
         "key": "escape escape",
         "command": "workbench.action.exitZenMode",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (inZenMode)"
@@ -15575,7 +15695,7 @@
       {
         "key": "ctrl+down",
         "command": "notebook.cell.focusNextChatWidget",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && inputFocus && notebookEditorFocused && !accessibilityModeEnabled && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && inputFocus && isCompositeNotebook && !accessibilityModeEnabled && !isEmbeddedDiffEditor && !notebookCellEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top' || editorTextFocus && inputFocus && notebookCellEditorFocused && !accessibilityModeEnabled && !isCompositeNotebook && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
       },
       {
         "key": "ctrl+down",
@@ -15660,12 +15780,12 @@
       {
         "key": "ctrl+up",
         "command": "chat.action.focus",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatCursorAtTop && inChatInput)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatCursorAtTop && inChatInput && !quickChatHasFocus)"
       },
       {
         "key": "ctrl+up",
         "command": "chat.action.focus",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && isLinux || inChatInput && isWindows)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
       },
       {
         "key": "shift+escape",
@@ -15909,23 +16029,8 @@
       },
       {
         "key": "escape",
-        "command": "editor.action.inlineEdits.hide",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditsVisible)"
-      },
-      {
-        "key": "alt+]",
-        "command": "editor.action.inlineEdits.showNext",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "alt+[",
-        "command": "editor.action.inlineEdits.showPrevious",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "escape",
         "command": "editor.action.inlineSuggest.hide",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineSuggestionVisible)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditIsVisible || inlineSuggestionVisible)"
       },
       {
         "key": "alt+]",
@@ -16028,6 +16133,11 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings"
       },
       {
+        "key": "alt+f10",
+        "command": "editor.action.nextCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (activeEditorHasCommentingRange)"
+      },
+      {
         "key": "ctrl+k ctrl+alt+down",
         "command": "editor.action.nextCommentingRange",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments')"
@@ -16091,6 +16201,11 @@
         "key": "shift+alt+f9",
         "command": "editor.action.previousCommentThreadAction",
         "when": "config.vscode-default-keybindings.linuxKeybindings"
+      },
+      {
+        "key": "shift+alt+f10",
+        "command": "editor.action.previousCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (activeEditorHasCommentingRange)"
       },
       {
         "key": "ctrl+k ctrl+alt+up",
@@ -17073,6 +17188,11 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (!config.breadcrumbs.enabled)"
       },
       {
+        "key": "ctrl+down",
+        "command": "chat.action.focus",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && inChatInput && quickChatHasFocus)"
+      },
+      {
         "key": "escape",
         "command": "closeReplaceInFilesWidget",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (replaceInputBoxFocus && searchViewletVisible)"
@@ -17111,6 +17231,26 @@
         "key": "ctrl+k ctrl+shift+alt+c",
         "command": "copyRelativeFilePath",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus)"
+      },
+      {
+        "key": "ctrl+left",
+        "command": "cursorWordAccessibilityLeft",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+left",
+        "command": "cursorWordAccessibilityLeftSelect",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+right",
+        "command": "cursorWordAccessibilityRight",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+right",
+        "command": "cursorWordAccessibilityRightSelect",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
       },
       {
         "key": "alt+enter",
@@ -17220,7 +17360,7 @@
       {
         "key": "tab",
         "command": "editor.action.inlineSuggest.commit",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
       },
       {
         "key": "shift+f9",
@@ -17360,12 +17500,12 @@
       {
         "key": "ctrl+k i",
         "command": "inlineChat.start",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+i",
         "command": "inlineChat.start",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+z",
@@ -17378,24 +17518,19 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && inlineChatHasProvider && inlineChatVisible)"
       },
       {
-        "key": "down",
-        "command": "interactive.history.next",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "key": "ctrl+up",
+        "command": "interactive.history.focus",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (isCompositeNotebook && isLinux && !notebookEditorFocused || isCompositeNotebook && isWindows && !notebookEditorFocused)"
       },
       {
         "key": "down",
         "command": "interactive.history.next",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
       },
       {
         "key": "up",
         "command": "interactive.history.previous",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
-      },
-      {
-        "key": "up",
-        "command": "interactive.history.previous",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
       },
       {
         "key": "ctrl+end",
@@ -17600,17 +17735,22 @@
       {
         "key": "backspace",
         "command": "noteMultiCursor.deleteLeft",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '1' || config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '2')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
+      },
+      {
+        "key": "delete",
+        "command": "noteMultiCursor.deleteRight",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
       },
       {
         "key": "escape",
         "command": "noteMultiCursor.exit",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "ctrl+d",
         "command": "notebook.addFindMatchToSelection",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiSelect.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.notebook.multiCursor.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "y",
@@ -17713,12 +17853,17 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (notebookCellListFocused && notebookCellOutputIsCollapsed)"
       },
       {
-        "key": "ctrl+down",
+        "key": "ctrl+shift+down",
         "command": "notebook.cell.focusInOutput",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (notebookCellHasOutputs && notebookEditorFocused)"
       },
       {
-        "key": "ctrl+up",
+        "key": "ctrl+down",
+        "command": "notebook.cell.focusInOutput",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (isWindows && notebookCellHasOutputs && notebookEditorFocused && !isCompositeNotebook)"
+      },
+      {
+        "key": "ctrl+shift+up",
         "command": "notebook.cell.focusOutOutput",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (notebookEditorFocused && notebookOutputFocused)"
       },
@@ -18390,7 +18535,12 @@
       {
         "key": "ctrl+down",
         "command": "workbench.action.chat.focusInput",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !inChatInput)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !inChatInput && !quickChatHasFocus)"
+      },
+      {
+        "key": "ctrl+up",
+        "command": "workbench.action.chat.focusInput",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && quickChatHasFocus && !inChatInput)"
       },
       {
         "key": "ctrl+i",
@@ -19362,14 +19512,6 @@
         }
       },
       {
-        "key": "ctrl+space",
-        "command": "workbench.action.terminal.sendSequence",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
-        "args": {
-          "text": "\u001b[24~e"
-        }
-      },
-      {
         "key": "ctrl+alt+r",
         "command": "workbench.action.terminal.sendSequence",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibilityModeEnabled && terminalFocus)",
@@ -19423,6 +19565,14 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus)",
         "args": {
           "text": "\u001f"
+        }
+      },
+      {
+        "key": "ctrl+space",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
+        "args": {
+          "text": "\u001b[24~e"
         }
       },
       {
@@ -19661,6 +19811,11 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (breadcrumbsActive && breadcrumbsVisible)"
       },
       {
+        "key": "tab",
+        "command": "editor.action.inlineSuggest.jump",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditIsVisible && !cursorAtInlineEdit && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+      },
+      {
         "key": "f3",
         "command": "list.find.replInputFocus",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (view == 'workbench.panel.repl.view')"
@@ -19801,6 +19956,16 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (breakpointsFocused && !inputFocus)"
       },
       {
+        "key": "ctrl+up",
+        "command": "interactive.history.focus",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (isCompositeNotebook && !notebookEditorFocused && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "interactive.input.focus",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (isCompositeNotebook && notebookEditorFocused)"
+      },
+      {
         "key": "escape",
         "command": "notebook.cell.quitEdit",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (notebookEditorFocused && notebookOutputFocused)"
@@ -19808,17 +19973,17 @@
       {
         "key": "ctrl+v",
         "command": "filesExplorer.paste",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "shift+delete",
         "command": "deleteFile",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "delete",
         "command": "deleteFile",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "ctrl+shift+[IntlBackslash]",
@@ -19873,7 +20038,7 @@
       {
         "key": "ctrl+x",
         "command": "filesExplorer.cut",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "space",
@@ -19898,7 +20063,7 @@
       {
         "key": "delete",
         "command": "moveFileToTrash",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "right",
@@ -20194,11 +20359,6 @@
         "key": "escape",
         "command": "diffEditor.exitCompareMove",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (comparingMovedCode)"
-      },
-      {
-        "key": "ctrl+space",
-        "command": "editor.action.inlineEdits.accept",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditsVisible)"
       },
       {
         "key": "escape escape",
@@ -20605,7 +20765,7 @@
       {
         "key": "cmd+down",
         "command": "notebook.cell.focusNextChatWidget",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && inputFocus && notebookEditorFocused && !accessibilityModeEnabled && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && inputFocus && isCompositeNotebook && !accessibilityModeEnabled && !isEmbeddedDiffEditor && !notebookCellEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top' || editorTextFocus && inputFocus && notebookCellEditorFocused && !accessibilityModeEnabled && !isCompositeNotebook && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
       },
       {
         "key": "cmd+down",
@@ -20695,12 +20855,12 @@
       {
         "key": "cmd+up",
         "command": "chat.action.focus",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatCursorAtTop && inChatInput)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatCursorAtTop && inChatInput && !quickChatHasFocus)"
       },
       {
         "key": "cmd+up",
         "command": "chat.action.focus",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && isLinux || inChatInput && isWindows)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
       },
       {
         "key": "shift+escape",
@@ -20969,23 +21129,8 @@
       },
       {
         "key": "escape",
-        "command": "editor.action.inlineEdits.hide",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditsVisible)"
-      },
-      {
-        "key": "alt+]",
-        "command": "editor.action.inlineEdits.showNext",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "alt+[",
-        "command": "editor.action.inlineEdits.showPrevious",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "escape",
         "command": "editor.action.inlineSuggest.hide",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineSuggestionVisible)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditIsVisible || inlineSuggestionVisible)"
       },
       {
         "key": "alt+]",
@@ -21083,6 +21228,11 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings"
       },
       {
+        "key": "alt+f10",
+        "command": "editor.action.nextCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (activeEditorHasCommentingRange)"
+      },
+      {
         "key": "cmd+k alt+cmd+down",
         "command": "editor.action.nextCommentingRange",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments')"
@@ -21151,6 +21301,11 @@
         "key": "shift+alt+f9",
         "command": "editor.action.previousCommentThreadAction",
         "when": "config.vscode-default-keybindings.macOSKeybindings"
+      },
+      {
+        "key": "shift+alt+f10",
+        "command": "editor.action.previousCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (activeEditorHasCommentingRange)"
       },
       {
         "key": "cmd+k alt+cmd+up",
@@ -22173,6 +22328,11 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (!config.breadcrumbs.enabled)"
       },
       {
+        "key": "cmd+down",
+        "command": "chat.action.focus",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && inChatInput && quickChatHasFocus)"
+      },
+      {
         "key": "escape",
         "command": "closeReplaceInFilesWidget",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (replaceInputBoxFocus && searchViewletVisible)"
@@ -22211,6 +22371,26 @@
         "key": "cmd+k shift+alt+cmd+c",
         "command": "copyRelativeFilePath",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus)"
+      },
+      {
+        "key": "cmd+left",
+        "command": "cursorWordAccessibilityLeft",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "shift+cmd+left",
+        "command": "cursorWordAccessibilityLeftSelect",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "cmd+right",
+        "command": "cursorWordAccessibilityRight",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "shift+cmd+right",
+        "command": "cursorWordAccessibilityRightSelect",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
       },
       {
         "key": "alt+enter",
@@ -22310,7 +22490,7 @@
       {
         "key": "tab",
         "command": "editor.action.inlineSuggest.commit",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
       },
       {
         "key": "shift+f9",
@@ -22450,12 +22630,12 @@
       {
         "key": "cmd+k i",
         "command": "inlineChat.start",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "cmd+i",
         "command": "inlineChat.start",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "cmd+z",
@@ -22468,24 +22648,19 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && inlineChatHasProvider && inlineChatVisible)"
       },
       {
-        "key": "down",
-        "command": "interactive.history.next",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "key": "cmd+up",
+        "command": "interactive.history.focus",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (isCompositeNotebook && isLinux && !notebookEditorFocused || isCompositeNotebook && isWindows && !notebookEditorFocused)"
       },
       {
         "key": "down",
         "command": "interactive.history.next",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
       },
       {
         "key": "up",
         "command": "interactive.history.previous",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
-      },
-      {
-        "key": "up",
-        "command": "interactive.history.previous",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
       },
       {
         "key": "cmd+down",
@@ -22725,17 +22900,22 @@
       {
         "key": "backspace",
         "command": "noteMultiCursor.deleteLeft",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '1' || config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '2')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
+      },
+      {
+        "key": "delete",
+        "command": "noteMultiCursor.deleteRight",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
       },
       {
         "key": "escape",
         "command": "noteMultiCursor.exit",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "cmd+d",
         "command": "notebook.addFindMatchToSelection",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiSelect.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.notebook.multiCursor.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "y",
@@ -22841,6 +23021,11 @@
         "key": "ctrl+cmd+down",
         "command": "notebook.cell.focusInOutput",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (notebookCellHasOutputs && notebookEditorFocused)"
+      },
+      {
+        "key": "cmd+down",
+        "command": "notebook.cell.focusInOutput",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (isWindows && notebookCellHasOutputs && notebookEditorFocused && !isCompositeNotebook)"
       },
       {
         "key": "ctrl+cmd+up",
@@ -23625,7 +23810,12 @@
       {
         "key": "cmd+down",
         "command": "workbench.action.chat.focusInput",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !inChatInput)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !inChatInput && !quickChatHasFocus)"
+      },
+      {
+        "key": "cmd+up",
+        "command": "workbench.action.chat.focusInput",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && quickChatHasFocus && !inChatInput)"
       },
       {
         "key": "cmd+i",
@@ -24640,14 +24830,6 @@
         }
       },
       {
-        "key": "ctrl+space",
-        "command": "workbench.action.terminal.sendSequence",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
-        "args": {
-          "text": "\u001b[24~e"
-        }
-      },
-      {
         "key": "shift+cmd+left",
         "command": "workbench.action.terminal.sendSequence",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalShellType == 'pwsh')",
@@ -24733,6 +24915,14 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus)",
         "args": {
           "text": "\u001f"
+        }
+      },
+      {
+        "key": "ctrl+space",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
+        "args": {
+          "text": "\u001b[24~e"
         }
       },
       {
@@ -24986,6 +25176,11 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (breadcrumbsActive && breadcrumbsVisible)"
       },
       {
+        "key": "tab",
+        "command": "editor.action.inlineSuggest.jump",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditIsVisible && !cursorAtInlineEdit && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+      },
+      {
         "key": "f3",
         "command": "list.find.replInputFocus",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (view == 'workbench.panel.repl.view')"
@@ -25136,6 +25331,16 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (breakpointsFocused && !inputFocus)"
       },
       {
+        "key": "cmd+up",
+        "command": "interactive.history.focus",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (isCompositeNotebook && !notebookEditorFocused && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+      },
+      {
+        "key": "cmd+down",
+        "command": "interactive.input.focus",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (isCompositeNotebook && notebookEditorFocused)"
+      },
+      {
         "key": "escape",
         "command": "notebook.cell.quitEdit",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (notebookEditorFocused && notebookOutputFocused)"
@@ -25143,17 +25348,17 @@
       {
         "key": "cmd+v",
         "command": "filesExplorer.paste",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "alt+cmd+backspace",
         "command": "deleteFile",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "cmd+backspace",
         "command": "deleteFile",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "shift+cmd+.",
@@ -25203,7 +25408,7 @@
       {
         "key": "cmd+x",
         "command": "filesExplorer.cut",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "space",
@@ -25228,12 +25433,12 @@
       {
         "key": "delete",
         "command": "moveFileToTrash",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "cmd+backspace",
         "command": "moveFileToTrash",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "right",
@@ -25586,11 +25791,6 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (comparingMovedCode)"
       },
       {
-        "key": "cmd+space",
-        "command": "editor.action.inlineEdits.accept",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditsVisible)"
-      },
-      {
         "key": "escape escape",
         "command": "workbench.action.exitZenMode",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (inZenMode)"
@@ -25904,7 +26104,7 @@
       {
         "key": "ctrl+down",
         "command": "notebook.cell.focusNextChatWidget",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && inputFocus && notebookEditorFocused && !accessibilityModeEnabled && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && inputFocus && isCompositeNotebook && !accessibilityModeEnabled && !isEmbeddedDiffEditor && !notebookCellEditorFocused && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top' || editorTextFocus && inputFocus && notebookCellEditorFocused && !accessibilityModeEnabled && !isCompositeNotebook && !isEmbeddedDiffEditor && notebookEditorCursorAtBoundary != 'none' && notebookEditorCursorAtBoundary != 'top')"
       },
       {
         "key": "ctrl+down",
@@ -25989,12 +26189,12 @@
       {
         "key": "ctrl+up",
         "command": "chat.action.focus",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatCursorAtTop && inChatInput)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatCursorAtTop && inChatInput && !quickChatHasFocus)"
       },
       {
         "key": "ctrl+up",
         "command": "chat.action.focus",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && isLinux || inChatInput && isWindows)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
       },
       {
         "key": "shift+escape",
@@ -26233,23 +26433,8 @@
       },
       {
         "key": "escape",
-        "command": "editor.action.inlineEdits.hide",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditsVisible)"
-      },
-      {
-        "key": "alt+]",
-        "command": "editor.action.inlineEdits.showNext",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "alt+[",
-        "command": "editor.action.inlineEdits.showPrevious",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditsVisible && !editorReadonly)"
-      },
-      {
-        "key": "escape",
         "command": "editor.action.inlineSuggest.hide",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineSuggestionVisible)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditIsVisible || inlineSuggestionVisible)"
       },
       {
         "key": "alt+]",
@@ -26342,6 +26527,11 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings"
       },
       {
+        "key": "alt+f10",
+        "command": "editor.action.nextCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (activeEditorHasCommentingRange)"
+      },
+      {
         "key": "ctrl+k ctrl+alt+down",
         "command": "editor.action.nextCommentingRange",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments')"
@@ -26405,6 +26595,11 @@
         "key": "shift+alt+f9",
         "command": "editor.action.previousCommentThreadAction",
         "when": "config.vscode-default-keybindings.windowsKeybindings"
+      },
+      {
+        "key": "shift+alt+f10",
+        "command": "editor.action.previousCommentedRangeAction",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (activeEditorHasCommentingRange)"
       },
       {
         "key": "ctrl+k ctrl+alt+up",
@@ -27377,6 +27572,11 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (!config.breadcrumbs.enabled)"
       },
       {
+        "key": "ctrl+down",
+        "command": "chat.action.focus",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && inChatInput && quickChatHasFocus)"
+      },
+      {
         "key": "escape",
         "command": "closeReplaceInFilesWidget",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (replaceInputBoxFocus && searchViewletVisible)"
@@ -27415,6 +27615,26 @@
         "key": "ctrl+k ctrl+shift+c",
         "command": "copyRelativeFilePath",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus)"
+      },
+      {
+        "key": "ctrl+left",
+        "command": "cursorWordAccessibilityLeft",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+left",
+        "command": "cursorWordAccessibilityLeftSelect",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+right",
+        "command": "cursorWordAccessibilityRight",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
+      },
+      {
+        "key": "ctrl+shift+right",
+        "command": "cursorWordAccessibilityRightSelect",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibilityModeEnabled && isWindows && textInputFocus && focusedView == 'workbench.panel.output')"
       },
       {
         "key": "alt+enter",
@@ -27514,7 +27734,7 @@
       {
         "key": "tab",
         "command": "editor.action.inlineSuggest.commit",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || cursorAtInlineEdit && inlineEditIsVisible && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
       },
       {
         "key": "shift+f9",
@@ -27654,12 +27874,12 @@
       {
         "key": "ctrl+k i",
         "command": "inlineChat.start",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+i",
         "command": "inlineChat.start",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus && inlineChatHasProvider && !editorReadonly)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly)"
       },
       {
         "key": "ctrl+z",
@@ -27672,24 +27892,19 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && inlineChatHasProvider && inlineChatVisible)"
       },
       {
-        "key": "down",
-        "command": "interactive.history.next",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "key": "ctrl+up",
+        "command": "interactive.history.focus",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (isCompositeNotebook && isLinux && !notebookEditorFocused || isCompositeNotebook && isWindows && !notebookEditorFocused)"
       },
       {
         "key": "down",
         "command": "interactive.history.next",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'none' && interactiveInputCursorAtBoundary != 'top')"
       },
       {
         "key": "up",
         "command": "interactive.history.previous",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.interactive' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
-      },
-      {
-        "key": "up",
-        "command": "interactive.history.previous",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (!suggestWidgetVisible && activeEditor == 'workbench.editor.repl' && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (isCompositeNotebook && !notebookEditorFocused && !suggestWidgetVisible && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
       },
       {
         "key": "ctrl+end",
@@ -27894,17 +28109,22 @@
       {
         "key": "backspace",
         "command": "noteMultiCursor.deleteLeft",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '1' || config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectState == '2')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
+      },
+      {
+        "key": "delete",
+        "command": "noteMultiCursor.deleteRight",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '1' || config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook' && notebookMultiSelectCursorState == '2')"
       },
       {
         "key": "escape",
         "command": "noteMultiCursor.exit",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiSelect.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiCursor.enabled && isNotebookMultiSelect && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "ctrl+d",
         "command": "notebook.addFindMatchToSelection",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiSelect.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.notebook.multiCursor.enabled && notebookCellEditorFocused && activeEditor == 'workbench.editor.notebook')"
       },
       {
         "key": "y",
@@ -28007,12 +28227,17 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (notebookCellListFocused && notebookCellOutputIsCollapsed)"
       },
       {
-        "key": "ctrl+down",
+        "key": "ctrl+shift+down",
         "command": "notebook.cell.focusInOutput",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (notebookCellHasOutputs && notebookEditorFocused)"
       },
       {
-        "key": "ctrl+up",
+        "key": "ctrl+down",
+        "command": "notebook.cell.focusInOutput",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (isWindows && notebookCellHasOutputs && notebookEditorFocused && !isCompositeNotebook)"
+      },
+      {
+        "key": "ctrl+shift+up",
         "command": "notebook.cell.focusOutOutput",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (notebookEditorFocused && notebookOutputFocused)"
       },
@@ -28689,7 +28914,12 @@
       {
         "key": "ctrl+down",
         "command": "workbench.action.chat.focusInput",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !inChatInput)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !inChatInput && !quickChatHasFocus)"
+      },
+      {
+        "key": "ctrl+up",
+        "command": "workbench.action.chat.focusInput",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && quickChatHasFocus && !inChatInput)"
       },
       {
         "key": "ctrl+i",
@@ -29684,14 +29914,6 @@
         }
       },
       {
-        "key": "ctrl+space",
-        "command": "workbench.action.terminal.sendSequence",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
-        "args": {
-          "text": "\u001b[24~e"
-        }
-      },
-      {
         "key": "ctrl+alt+r",
         "command": "workbench.action.terminal.sendSequence",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibilityModeEnabled && terminalFocus)",
@@ -29753,6 +29975,14 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus)",
         "args": {
           "text": "\u001f"
+        }
+      },
+      {
+        "key": "ctrl+space",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.terminal.integrated.suggest.enabled && terminalFocus && terminalShellIntegrationEnabled && !accessibilityModeEnabled && terminalShellType == 'pwsh')",
+        "args": {
+          "text": "\u001b[24~e"
         }
       },
       {
@@ -29996,6 +30226,11 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (breadcrumbsActive && breadcrumbsVisible)"
       },
       {
+        "key": "tab",
+        "command": "editor.action.inlineSuggest.jump",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditIsVisible && !cursorAtInlineEdit && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+      },
+      {
         "key": "f3",
         "command": "list.find.replInputFocus",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (view == 'workbench.panel.repl.view')"
@@ -30136,6 +30371,16 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (breakpointsFocused && !inputFocus)"
       },
       {
+        "key": "ctrl+up",
+        "command": "interactive.history.focus",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (isCompositeNotebook && !notebookEditorFocused && interactiveInputCursorAtBoundary != 'bottom' && interactiveInputCursorAtBoundary != 'none')"
+      },
+      {
+        "key": "ctrl+down",
+        "command": "interactive.input.focus",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (isCompositeNotebook && notebookEditorFocused)"
+      },
+      {
         "key": "escape",
         "command": "notebook.cell.quitEdit",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (notebookEditorFocused && notebookOutputFocused)"
@@ -30143,17 +30388,17 @@
       {
         "key": "ctrl+v",
         "command": "filesExplorer.paste",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "shift+delete",
         "command": "deleteFile",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "delete",
         "command": "deleteFile",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceMoveableToTrash && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "ctrl+shift+.",
@@ -30203,7 +30448,7 @@
       {
         "key": "ctrl+x",
         "command": "filesExplorer.cut",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "space",
@@ -30228,7 +30473,7 @@
       {
         "key": "delete",
         "command": "moveFileToTrash",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (explorerResourceMoveableToTrash && filesExplorerFocus && foldersViewVisible && !explorerResourceReadonly && !inputFocus && !treeFindOpen)"
       },
       {
         "key": "right",
@@ -30534,11 +30779,6 @@
         "key": "escape",
         "command": "diffEditor.exitCompareMove",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (comparingMovedCode)"
-      },
-      {
-        "key": "ctrl+space",
-        "command": "editor.action.inlineEdits.accept",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditsVisible)"
       }
     ]
   }
