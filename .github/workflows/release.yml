@@ -23,5 +23,5 @@ jobs:
       - name: Publish
         run: |
           npm install -g @vscode/vsce ovsx
-          vsce publish -p ${{ secrets.VSCE_PAT }}
+          # vsce publish -p ${{ secrets.VSCE_PAT }}
           ovsx publish -p ${{ secrets.OVSX_PAT }}
