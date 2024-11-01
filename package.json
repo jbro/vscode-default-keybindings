@@ -16,9 +16,9 @@
   "icon": "icon.png",
   "publisher": "jbro",
   "license": "Unlicense",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "engines": {
-    "vscode": "^1.95.0"
+    "vscode": "^1.95.1"
   },
   "categories": [
     "Keymaps"
@@ -3201,7 +3201,7 @@
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -8496,7 +8496,7 @@
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
       },
       {
         "key": "alt+cmd+pagedown",
@@ -13620,7 +13620,7 @@
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -18620,7 +18620,7 @@
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -23915,7 +23915,7 @@
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
       },
       {
         "key": "alt+cmd+pagedown",
@@ -29039,7 +29039,7 @@
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+alt+pagedown",
