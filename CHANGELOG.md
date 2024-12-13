@@ -60,3 +60,7 @@
 ## Release v0.2.8
 
 - Update keybindings for vscode 1.95.3
+
+## Release v0.2.9
+
+- Update keybindings for vscode 1.96.0
