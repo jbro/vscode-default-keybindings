@@ -80,3 +80,7 @@
 ## Release v0.2.13
 
 - Update keybindings for vscode 1.97.1
+
+## Release v0.2.14
+
+- Update keybindings for vscode 1.97.2
