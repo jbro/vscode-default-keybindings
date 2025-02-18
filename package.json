@@ -16,9 +16,9 @@
   "icon": "icon.png",
   "publisher": "jbro",
   "license": "Unlicense",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "engines": {
-    "vscode": "^1.97.1"
+    "vscode": "^1.97.2"
   },
   "categories": [
     "Keymaps"
