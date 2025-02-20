@@ -16,7 +16,7 @@
   "icon": "icon.png",
   "publisher": "jbro",
   "license": "Unlicense",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "engines": {
     "vscode": "^1.97.2"
   },
@@ -9939,6 +9939,11 @@
         "key": "shift+cmd+m",
         "command": "-workbench.actions.view.problems",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (workbench.panel.markers.view.active)"
+      },
+      {
+        "key": "escape",
+        "command": "-workbench.actions.workbench.panel.output.clearFilterText",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (outputFilterFocus)"
       },
       {
         "key": "escape",
@@ -25734,6 +25739,11 @@
         "key": "shift+cmd+m",
         "command": "workbench.actions.view.problems",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (workbench.panel.markers.view.active)"
+      },
+      {
+        "key": "escape",
+        "command": "workbench.actions.workbench.panel.output.clearFilterText",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (outputFilterFocus)"
       },
       {
         "key": "escape",
