@@ -16,9 +16,9 @@
   "icon": "icon.png",
   "publisher": "jbro",
   "license": "Unlicense",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "engines": {
-    "vscode": "^1.98.2"
+    "vscode": "^1.99.2"
   },
   "categories": [
     "Keymaps"
@@ -1406,12 +1406,17 @@
       {
         "key": "ctrl+/",
         "command": "-workbench.action.chat.attachContext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && chatLocation == 'editor' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'notebook' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'panel' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'terminal' && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session')"
+      },
+      {
+        "key": "ctrl+shift+/",
+        "command": "-workbench.action.chat.attachTools",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && chatMode == 'agent')"
       },
       {
         "key": "ctrl+/",
-        "command": "-workbench.action.chat.editing.attachFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && chatLocation == 'editing-session')"
+        "command": "-workbench.action.chat.editing.attachContext",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && inUnifiedChat || inChatInput && chatLocation == 'editing-session' || inChatInput && inUnifiedChat && chatLocation == 'editing-session')"
       },
       {
         "key": "ctrl+alt+enter",
@@ -1421,22 +1426,22 @@
       {
         "key": "enter",
         "command": "-workbench.action.chat.submit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+enter",
-        "command": "-workbench.action.chat.submitSecondaryAgent",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInputHasText && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInstructionsAttached && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress)"
+        "command": "-workbench.action.chat.submitWithCodebase",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput || chatInputHasText && inChatInput && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "shift+alt+enter",
         "command": "-workbench.action.chat.submitWithoutDispatching",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+.",
         "command": "-workbench.action.chat.toggleAgentMode",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatHasToolsAgent && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatHasToolsAgent && chatIsEnabled && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatHasToolsAgent && chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatIsEnabled && config.chat.unifiedChatView && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatIsEnabled && config.chat.unifiedChatView && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
       },
       {
         "key": "alt+f5",
@@ -1451,7 +1456,7 @@
       {
         "key": "enter",
         "command": "-workbench.action.edits.submit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask')"
       },
       {
         "key": "shift+escape",
@@ -1871,12 +1876,12 @@
       {
         "key": "ctrl+enter",
         "command": "-chatEditing.acceptAllFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
         "command": "-chatEditing.discardAllFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+enter",
@@ -1891,12 +1896,12 @@
       {
         "key": "alt+f5",
         "command": "-chatEditor.action.navigateNext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "shift+alt+f5",
         "command": "-chatEditor.action.navigatePrevious",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
@@ -2249,14 +2254,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineChatHasEditsAgent && !chatEdits.isGlobalEditingSession && chatEdits.requestCount >= 1)"
       },
       {
-        "key": "escape",
-        "command": "-inlineChat2.stop",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineChatHasEditsAgent && inlineChatVisible)"
-      },
-      {
         "key": "ctrl+i",
         "command": "-inlineChat2.stop",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineChatHasEditsAgent && inlineChatVisible && chatEdits.requestCount == '0')"
+      },
+      {
+        "key": "escape",
+        "command": "-inlineChat2.stop",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineChatHasEditsAgent && inlineChatVisible)"
       },
       {
         "key": "ctrl+up",
@@ -3079,6 +3084,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (folderMatchWithResourceFocus && searchViewletVisible)"
       },
       {
+        "key": "ctrl+i",
+        "command": "-search.action.searchWithAI",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (hasAIResultProviderKey && searchViewletFocus)"
+      },
+      {
         "key": "ctrl+down",
         "command": "-search.focus.nextInputBox",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible)"
@@ -3301,17 +3311,17 @@
       {
         "key": "ctrl+i",
         "command": "-workbench.action.chat.holdToVoiceChatInChatView",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused && !searchViewletFocus)"
       },
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat && !config.chat.unifiedChatView && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newEditSession",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && chatIsEnabled && inChat && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -3326,12 +3336,12 @@
       {
         "key": "ctrl+alt+i",
         "command": "-workbench.action.chat.open",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!chatSetupHidden)"
       },
       {
         "key": "ctrl+shift+alt+i",
         "command": "-workbench.action.chat.openEditSession",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && view != 'workbench.panel.chat.view.edits')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && !chatSetupHidden && view != 'workbench.panel.chat.view.edits')"
       },
       {
         "key": "ctrl+alt+pageup",
@@ -3346,12 +3356,12 @@
       {
         "key": "delete",
         "command": "-workbench.action.chat.remove",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !inChatInput && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !config.chat.unifiedChatView && !inChatInput && chatMode == 'ask')"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "-workbench.action.chat.sendToChatEditing",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor')"
       },
       {
         "key": "ctrl+shift+enter",
@@ -3369,9 +3379,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view')"
       },
       {
+        "key": "ctrl+alt+.",
+        "command": "-workbench.action.chat.switchToNextModel",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChatInput)"
+      },
+      {
         "key": "delete",
         "command": "-workbench.action.chat.undoEdits",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !inChatInput && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !textInputFocus)"
       },
       {
         "key": "ctrl+w",
@@ -3991,42 +4006,42 @@
       {
         "key": "escape",
         "command": "-workbench.action.terminal.chat.close",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatFocus && terminalChatVisible || terminalChatVisible && terminalFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatFocus && terminalChatVisible || chatIsEnabled && terminalChatVisible && terminalFocus)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "-workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+enter",
         "command": "-workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "-workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "alt+enter",
         "command": "-workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+r",
         "command": "-workbench.action.terminal.chat.rerunRequest",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+enter",
         "command": "-workbench.action.terminal.chat.runCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+enter",
         "command": "-workbench.action.terminal.chat.runFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "escape",
@@ -4491,7 +4506,7 @@
       {
         "key": "ctrl+alt+/",
         "command": "-workbench.command.prompts.use",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.chat.promptFiles)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && config.chat.promptFiles)"
       },
       {
         "key": "ctrl+shift+y",
@@ -4736,7 +4751,7 @@
       {
         "key": "up",
         "command": "-workbench.action.terminal.selectPrevSuggestion",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory)"
       },
       {
         "key": "tab",
@@ -4757,6 +4772,11 @@
         "key": "alt+up",
         "command": "-workbench.action.terminal.accessibleBufferGoToPreviousCommand",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+      },
+      {
+        "key": "up",
+        "command": "-workbench.action.terminal.hideSuggestWidgetAndNavigateHistory",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated || config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated)"
       },
       {
         "key": "f2",
@@ -5126,7 +5146,7 @@
       {
         "key": "ctrl+i",
         "command": "-workbench.action.terminal.chat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
       },
       {
         "key": "ctrl+enter",
@@ -6723,12 +6743,17 @@
       {
         "key": "cmd+/",
         "command": "-workbench.action.chat.attachContext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && chatLocation == 'editor' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'notebook' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'panel' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'terminal' && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session')"
+      },
+      {
+        "key": "shift+cmd+/",
+        "command": "-workbench.action.chat.attachTools",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && chatMode == 'agent')"
       },
       {
         "key": "cmd+/",
-        "command": "-workbench.action.chat.editing.attachFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && chatLocation == 'editing-session')"
+        "command": "-workbench.action.chat.editing.attachContext",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && inUnifiedChat || inChatInput && chatLocation == 'editing-session' || inChatInput && inUnifiedChat && chatLocation == 'editing-session')"
       },
       {
         "key": "ctrl+alt+enter",
@@ -6738,22 +6763,22 @@
       {
         "key": "enter",
         "command": "-workbench.action.chat.submit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "cmd+enter",
-        "command": "-workbench.action.chat.submitSecondaryAgent",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInputHasText && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInstructionsAttached && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress)"
+        "command": "-workbench.action.chat.submitWithCodebase",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput || chatInputHasText && inChatInput && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "shift+alt+enter",
         "command": "-workbench.action.chat.submitWithoutDispatching",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "cmd+.",
         "command": "-workbench.action.chat.toggleAgentMode",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatHasToolsAgent && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatHasToolsAgent && chatIsEnabled && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatHasToolsAgent && chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatIsEnabled && config.chat.unifiedChatView && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatIsEnabled && config.chat.unifiedChatView && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
       },
       {
         "key": "alt+f5",
@@ -6768,7 +6793,7 @@
       {
         "key": "enter",
         "command": "-workbench.action.edits.submit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask')"
       },
       {
         "key": "shift+escape",
@@ -7203,12 +7228,12 @@
       {
         "key": "cmd+enter",
         "command": "-chatEditing.acceptAllFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "cmd+backspace",
         "command": "-chatEditing.discardAllFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress)"
       },
       {
         "key": "cmd+enter",
@@ -7223,12 +7248,12 @@
       {
         "key": "alt+f5",
         "command": "-chatEditor.action.navigateNext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "shift+alt+f5",
         "command": "-chatEditor.action.navigatePrevious",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "cmd+backspace",
@@ -7571,14 +7596,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineChatHasEditsAgent && !chatEdits.isGlobalEditingSession && chatEdits.requestCount >= 1)"
       },
       {
-        "key": "escape",
-        "command": "-inlineChat2.stop",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineChatHasEditsAgent && inlineChatVisible)"
-      },
-      {
         "key": "cmd+i",
         "command": "-inlineChat2.stop",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineChatHasEditsAgent && inlineChatVisible && chatEdits.requestCount == '0')"
+      },
+      {
+        "key": "escape",
+        "command": "-inlineChat2.stop",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineChatHasEditsAgent && inlineChatVisible)"
       },
       {
         "key": "cmd+up",
@@ -8546,6 +8571,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (folderMatchWithResourceFocus && searchViewletVisible)"
       },
       {
+        "key": "cmd+i",
+        "command": "-search.action.searchWithAI",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (hasAIResultProviderKey && searchViewletFocus)"
+      },
+      {
         "key": "cmd+down",
         "command": "-search.focus.nextInputBox",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible)"
@@ -8768,17 +8798,17 @@
       {
         "key": "cmd+i",
         "command": "-workbench.action.chat.holdToVoiceChatInChatView",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused && !searchViewletFocus)"
       },
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat && !config.chat.unifiedChatView && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newEditSession",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && chatIsEnabled && inChat && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
       },
       {
         "key": "alt+cmd+pagedown",
@@ -8793,12 +8823,12 @@
       {
         "key": "ctrl+cmd+i",
         "command": "-workbench.action.chat.open",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!chatSetupHidden)"
       },
       {
         "key": "shift+cmd+i",
         "command": "-workbench.action.chat.openEditSession",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && view != 'workbench.panel.chat.view.edits')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && !chatSetupHidden && view != 'workbench.panel.chat.view.edits')"
       },
       {
         "key": "alt+cmd+pageup",
@@ -8813,12 +8843,12 @@
       {
         "key": "cmd+backspace",
         "command": "-workbench.action.chat.remove",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !inChatInput && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !config.chat.unifiedChatView && !inChatInput && chatMode == 'ask')"
       },
       {
         "key": "alt+cmd+enter",
         "command": "-workbench.action.chat.sendToChatEditing",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor')"
       },
       {
         "key": "shift+cmd+enter",
@@ -8836,9 +8866,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view')"
       },
       {
+        "key": "alt+cmd+.",
+        "command": "-workbench.action.chat.switchToNextModel",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChatInput)"
+      },
+      {
         "key": "cmd+backspace",
         "command": "-workbench.action.chat.undoEdits",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !inChatInput && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !textInputFocus)"
       },
       {
         "key": "cmd+w",
@@ -9468,42 +9503,42 @@
       {
         "key": "escape",
         "command": "-workbench.action.terminal.chat.close",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatFocus && terminalChatVisible || terminalChatVisible && terminalFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatFocus && terminalChatVisible || chatIsEnabled && terminalChatVisible && terminalFocus)"
       },
       {
         "key": "alt+cmd+enter",
         "command": "-workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+enter",
         "command": "-workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+cmd+enter",
         "command": "-workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "alt+enter",
         "command": "-workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "cmd+r",
         "command": "-workbench.action.terminal.chat.rerunRequest",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "cmd+enter",
         "command": "-workbench.action.terminal.chat.runCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "cmd+enter",
         "command": "-workbench.action.terminal.chat.runFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "escape",
@@ -10038,7 +10073,7 @@
       {
         "key": "alt+cmd+/",
         "command": "-workbench.command.prompts.use",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.chat.promptFiles)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && config.chat.promptFiles)"
       },
       {
         "key": "shift+cmd+y",
@@ -10288,7 +10323,7 @@
       {
         "key": "up",
         "command": "-workbench.action.terminal.selectPrevSuggestion",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory)"
       },
       {
         "key": "cmd+k",
@@ -10314,6 +10349,11 @@
         "key": "alt+up",
         "command": "-workbench.action.terminal.accessibleBufferGoToPreviousCommand",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+      },
+      {
+        "key": "up",
+        "command": "-workbench.action.terminal.hideSuggestWidgetAndNavigateHistory",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated || config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated)"
       },
       {
         "key": "enter",
@@ -10728,7 +10768,7 @@
       {
         "key": "cmd+i",
         "command": "-workbench.action.terminal.chat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
       },
       {
         "key": "ctrl+enter",
@@ -12174,12 +12214,17 @@
       {
         "key": "ctrl+/",
         "command": "-workbench.action.chat.attachContext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && chatLocation == 'editor' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'notebook' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'panel' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'terminal' && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session')"
+      },
+      {
+        "key": "ctrl+shift+/",
+        "command": "-workbench.action.chat.attachTools",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && chatMode == 'agent')"
       },
       {
         "key": "ctrl+/",
-        "command": "-workbench.action.chat.editing.attachFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && chatLocation == 'editing-session')"
+        "command": "-workbench.action.chat.editing.attachContext",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && inUnifiedChat || inChatInput && chatLocation == 'editing-session' || inChatInput && inUnifiedChat && chatLocation == 'editing-session')"
       },
       {
         "key": "ctrl+alt+enter",
@@ -12189,22 +12234,22 @@
       {
         "key": "enter",
         "command": "-workbench.action.chat.submit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+enter",
-        "command": "-workbench.action.chat.submitSecondaryAgent",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInputHasText && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInstructionsAttached && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress)"
+        "command": "-workbench.action.chat.submitWithCodebase",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput || chatInputHasText && inChatInput && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "shift+alt+enter",
         "command": "-workbench.action.chat.submitWithoutDispatching",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+.",
         "command": "-workbench.action.chat.toggleAgentMode",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatHasToolsAgent && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatHasToolsAgent && chatIsEnabled && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatHasToolsAgent && chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatIsEnabled && config.chat.unifiedChatView && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatIsEnabled && config.chat.unifiedChatView && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
       },
       {
         "key": "alt+f5",
@@ -12219,7 +12264,7 @@
       {
         "key": "enter",
         "command": "-workbench.action.edits.submit",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask')"
       },
       {
         "key": "shift+escape",
@@ -12629,12 +12674,12 @@
       {
         "key": "ctrl+enter",
         "command": "-chatEditing.acceptAllFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
         "command": "-chatEditing.discardAllFiles",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+enter",
@@ -12649,12 +12694,12 @@
       {
         "key": "alt+f5",
         "command": "-chatEditor.action.navigateNext",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "shift+alt+f5",
         "command": "-chatEditor.action.navigatePrevious",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
@@ -12997,14 +13042,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineChatHasEditsAgent && !chatEdits.isGlobalEditingSession && chatEdits.requestCount >= 1)"
       },
       {
-        "key": "escape",
-        "command": "-inlineChat2.stop",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineChatHasEditsAgent && inlineChatVisible)"
-      },
-      {
         "key": "ctrl+i",
         "command": "-inlineChat2.stop",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineChatHasEditsAgent && inlineChatVisible && chatEdits.requestCount == '0')"
+      },
+      {
+        "key": "escape",
+        "command": "-inlineChat2.stop",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineChatHasEditsAgent && inlineChatVisible)"
       },
       {
         "key": "ctrl+up",
@@ -13832,6 +13877,11 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (folderMatchWithResourceFocus && searchViewletVisible)"
       },
       {
+        "key": "ctrl+i",
+        "command": "-search.action.searchWithAI",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (hasAIResultProviderKey && searchViewletFocus)"
+      },
+      {
         "key": "ctrl+down",
         "command": "-search.focus.nextInputBox",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible)"
@@ -14054,17 +14104,17 @@
       {
         "key": "ctrl+i",
         "command": "-workbench.action.chat.holdToVoiceChatInChatView",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused && !searchViewletFocus)"
       },
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat && !config.chat.unifiedChatView && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+l",
         "command": "-workbench.action.chat.newEditSession",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && chatIsEnabled && inChat && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -14079,12 +14129,12 @@
       {
         "key": "ctrl+alt+i",
         "command": "-workbench.action.chat.open",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!chatSetupHidden)"
       },
       {
         "key": "ctrl+shift+i",
         "command": "-workbench.action.chat.openEditSession",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && view != 'workbench.panel.chat.view.edits')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && !chatSetupHidden && view != 'workbench.panel.chat.view.edits')"
       },
       {
         "key": "ctrl+alt+pageup",
@@ -14099,12 +14149,12 @@
       {
         "key": "delete",
         "command": "-workbench.action.chat.remove",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !inChatInput && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !config.chat.unifiedChatView && !inChatInput && chatMode == 'ask')"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "-workbench.action.chat.sendToChatEditing",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor')"
       },
       {
         "key": "ctrl+shift+enter",
@@ -14122,9 +14172,14 @@
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view')"
       },
       {
+        "key": "ctrl+alt+.",
+        "command": "-workbench.action.chat.switchToNextModel",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChatInput)"
+      },
+      {
         "key": "delete",
         "command": "-workbench.action.chat.undoEdits",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !inChatInput && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !textInputFocus)"
       },
       {
         "key": "ctrl+w",
@@ -14759,42 +14814,42 @@
       {
         "key": "escape",
         "command": "-workbench.action.terminal.chat.close",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatFocus && terminalChatVisible || terminalChatVisible && terminalFocus)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatFocus && terminalChatVisible || chatIsEnabled && terminalChatVisible && terminalFocus)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "-workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+enter",
         "command": "-workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "-workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "alt+enter",
         "command": "-workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+r",
         "command": "-workbench.action.terminal.chat.rerunRequest",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+enter",
         "command": "-workbench.action.terminal.chat.runCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+enter",
         "command": "-workbench.action.terminal.chat.runFirstCommand",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "escape",
@@ -15270,7 +15325,7 @@
       {
         "key": "ctrl+alt+/",
         "command": "-workbench.command.prompts.use",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.chat.promptFiles)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && config.chat.promptFiles)"
       },
       {
         "key": "ctrl+shift+y",
@@ -15515,7 +15570,7 @@
       {
         "key": "up",
         "command": "-workbench.action.terminal.selectPrevSuggestion",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory)"
       },
       {
         "key": "tab",
@@ -15536,6 +15591,11 @@
         "key": "alt+up",
         "command": "-workbench.action.terminal.accessibleBufferGoToPreviousCommand",
         "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+      },
+      {
+        "key": "up",
+        "command": "-workbench.action.terminal.hideSuggestWidgetAndNavigateHistory",
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated || config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated)"
       },
       {
         "key": "f2",
@@ -15910,7 +15970,7 @@
       {
         "key": "ctrl+i",
         "command": "-workbench.action.terminal.chat.start",
-        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
+        "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
       },
       {
         "key": "ctrl+enter",
@@ -17321,12 +17381,17 @@
       {
         "key": "ctrl+/",
         "command": "workbench.action.chat.attachContext",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && chatLocation == 'editor' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'notebook' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'panel' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'terminal' && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session')"
+      },
+      {
+        "key": "ctrl+shift+/",
+        "command": "workbench.action.chat.attachTools",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && chatMode == 'agent')"
       },
       {
         "key": "ctrl+/",
-        "command": "workbench.action.chat.editing.attachFiles",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && chatLocation == 'editing-session')"
+        "command": "workbench.action.chat.editing.attachContext",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && inUnifiedChat || inChatInput && chatLocation == 'editing-session' || inChatInput && inUnifiedChat && chatLocation == 'editing-session')"
       },
       {
         "key": "ctrl+alt+enter",
@@ -17336,22 +17401,22 @@
       {
         "key": "enter",
         "command": "workbench.action.chat.submit",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+enter",
-        "command": "workbench.action.chat.submitSecondaryAgent",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInputHasText && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInstructionsAttached && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress)"
+        "command": "workbench.action.chat.submitWithCodebase",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput || chatInputHasText && inChatInput && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "shift+alt+enter",
         "command": "workbench.action.chat.submitWithoutDispatching",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+.",
         "command": "workbench.action.chat.toggleAgentMode",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatHasToolsAgent && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatHasToolsAgent && chatIsEnabled && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatHasToolsAgent && chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatIsEnabled && config.chat.unifiedChatView && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatIsEnabled && config.chat.unifiedChatView && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
       },
       {
         "key": "alt+f5",
@@ -17366,7 +17431,7 @@
       {
         "key": "enter",
         "command": "workbench.action.edits.submit",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask')"
       },
       {
         "key": "shift+escape",
@@ -17786,12 +17851,12 @@
       {
         "key": "ctrl+enter",
         "command": "chatEditing.acceptAllFiles",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
         "command": "chatEditing.discardAllFiles",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+enter",
@@ -17806,12 +17871,12 @@
       {
         "key": "alt+f5",
         "command": "chatEditor.action.navigateNext",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "shift+alt+f5",
         "command": "chatEditor.action.navigatePrevious",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
@@ -18164,14 +18229,14 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineChatHasEditsAgent && !chatEdits.isGlobalEditingSession && chatEdits.requestCount >= 1)"
       },
       {
-        "key": "escape",
-        "command": "inlineChat2.stop",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineChatHasEditsAgent && inlineChatVisible)"
-      },
-      {
         "key": "ctrl+i",
         "command": "inlineChat2.stop",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineChatHasEditsAgent && inlineChatVisible && chatEdits.requestCount == '0')"
+      },
+      {
+        "key": "escape",
+        "command": "inlineChat2.stop",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineChatHasEditsAgent && inlineChatVisible)"
       },
       {
         "key": "ctrl+up",
@@ -18994,6 +19059,11 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (folderMatchWithResourceFocus && searchViewletVisible)"
       },
       {
+        "key": "ctrl+i",
+        "command": "search.action.searchWithAI",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (hasAIResultProviderKey && searchViewletFocus)"
+      },
+      {
         "key": "ctrl+down",
         "command": "search.focus.nextInputBox",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible)"
@@ -19216,17 +19286,17 @@
       {
         "key": "ctrl+i",
         "command": "workbench.action.chat.holdToVoiceChatInChatView",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused && !searchViewletFocus)"
       },
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat && !config.chat.unifiedChatView && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newEditSession",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -19241,12 +19311,12 @@
       {
         "key": "ctrl+alt+i",
         "command": "workbench.action.chat.open",
-        "when": "config.vscode-default-keybindings.linuxKeybindings"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (!chatSetupHidden)"
       },
       {
         "key": "ctrl+shift+alt+i",
         "command": "workbench.action.chat.openEditSession",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && view != 'workbench.panel.chat.view.edits')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && !chatSetupHidden && view != 'workbench.panel.chat.view.edits')"
       },
       {
         "key": "ctrl+alt+pageup",
@@ -19261,12 +19331,12 @@
       {
         "key": "delete",
         "command": "workbench.action.chat.remove",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !inChatInput && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !config.chat.unifiedChatView && !inChatInput && chatMode == 'ask')"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "workbench.action.chat.sendToChatEditing",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor')"
       },
       {
         "key": "ctrl+shift+enter",
@@ -19284,9 +19354,14 @@
         "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view')"
       },
       {
+        "key": "ctrl+alt+.",
+        "command": "workbench.action.chat.switchToNextModel",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChatInput)"
+      },
+      {
         "key": "delete",
         "command": "workbench.action.chat.undoEdits",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !inChatInput && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !textInputFocus)"
       },
       {
         "key": "ctrl+w",
@@ -19906,42 +19981,42 @@
       {
         "key": "escape",
         "command": "workbench.action.terminal.chat.close",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatFocus && terminalChatVisible || terminalChatVisible && terminalFocus)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatFocus && terminalChatVisible || chatIsEnabled && terminalChatVisible && terminalFocus)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+enter",
         "command": "workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "alt+enter",
         "command": "workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+r",
         "command": "workbench.action.terminal.chat.rerunRequest",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+enter",
         "command": "workbench.action.terminal.chat.runCommand",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+enter",
         "command": "workbench.action.terminal.chat.runFirstCommand",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "escape",
@@ -20406,7 +20481,7 @@
       {
         "key": "ctrl+alt+/",
         "command": "workbench.command.prompts.use",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.chat.promptFiles)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && config.chat.promptFiles)"
       },
       {
         "key": "ctrl+shift+y",
@@ -20651,7 +20726,7 @@
       {
         "key": "up",
         "command": "workbench.action.terminal.selectPrevSuggestion",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory)"
       },
       {
         "key": "tab",
@@ -20672,6 +20747,11 @@
         "key": "alt+up",
         "command": "workbench.action.terminal.accessibleBufferGoToPreviousCommand",
         "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+      },
+      {
+        "key": "up",
+        "command": "workbench.action.terminal.hideSuggestWidgetAndNavigateHistory",
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated || config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated)"
       },
       {
         "key": "f2",
@@ -21041,7 +21121,7 @@
       {
         "key": "ctrl+i",
         "command": "workbench.action.terminal.chat.start",
-        "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
+        "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
       },
       {
         "key": "ctrl+enter",
@@ -22638,12 +22718,17 @@
       {
         "key": "cmd+/",
         "command": "workbench.action.chat.attachContext",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && chatLocation == 'editor' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'notebook' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'panel' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'terminal' && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session')"
+      },
+      {
+        "key": "shift+cmd+/",
+        "command": "workbench.action.chat.attachTools",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && chatMode == 'agent')"
       },
       {
         "key": "cmd+/",
-        "command": "workbench.action.chat.editing.attachFiles",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && chatLocation == 'editing-session')"
+        "command": "workbench.action.chat.editing.attachContext",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && inUnifiedChat || inChatInput && chatLocation == 'editing-session' || inChatInput && inUnifiedChat && chatLocation == 'editing-session')"
       },
       {
         "key": "ctrl+alt+enter",
@@ -22653,22 +22738,22 @@
       {
         "key": "enter",
         "command": "workbench.action.chat.submit",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "cmd+enter",
-        "command": "workbench.action.chat.submitSecondaryAgent",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInputHasText && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInstructionsAttached && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress)"
+        "command": "workbench.action.chat.submitWithCodebase",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput || chatInputHasText && inChatInput && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "shift+alt+enter",
         "command": "workbench.action.chat.submitWithoutDispatching",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "cmd+.",
         "command": "workbench.action.chat.toggleAgentMode",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatHasToolsAgent && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatHasToolsAgent && chatIsEnabled && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatHasToolsAgent && chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatIsEnabled && config.chat.unifiedChatView && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatIsEnabled && config.chat.unifiedChatView && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
       },
       {
         "key": "alt+f5",
@@ -22683,7 +22768,7 @@
       {
         "key": "enter",
         "command": "workbench.action.edits.submit",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask')"
       },
       {
         "key": "shift+escape",
@@ -23118,12 +23203,12 @@
       {
         "key": "cmd+enter",
         "command": "chatEditing.acceptAllFiles",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "cmd+backspace",
         "command": "chatEditing.discardAllFiles",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress)"
       },
       {
         "key": "cmd+enter",
@@ -23138,12 +23223,12 @@
       {
         "key": "alt+f5",
         "command": "chatEditor.action.navigateNext",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "shift+alt+f5",
         "command": "chatEditor.action.navigatePrevious",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "cmd+backspace",
@@ -23486,14 +23571,14 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineChatHasEditsAgent && !chatEdits.isGlobalEditingSession && chatEdits.requestCount >= 1)"
       },
       {
-        "key": "escape",
-        "command": "inlineChat2.stop",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineChatHasEditsAgent && inlineChatVisible)"
-      },
-      {
         "key": "cmd+i",
         "command": "inlineChat2.stop",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineChatHasEditsAgent && inlineChatVisible && chatEdits.requestCount == '0')"
+      },
+      {
+        "key": "escape",
+        "command": "inlineChat2.stop",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineChatHasEditsAgent && inlineChatVisible)"
       },
       {
         "key": "cmd+up",
@@ -24461,6 +24546,11 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (folderMatchWithResourceFocus && searchViewletVisible)"
       },
       {
+        "key": "cmd+i",
+        "command": "search.action.searchWithAI",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (hasAIResultProviderKey && searchViewletFocus)"
+      },
+      {
         "key": "cmd+down",
         "command": "search.focus.nextInputBox",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible)"
@@ -24683,17 +24773,17 @@
       {
         "key": "cmd+i",
         "command": "workbench.action.chat.holdToVoiceChatInChatView",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused && !searchViewletFocus)"
       },
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat && !config.chat.unifiedChatView && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newEditSession",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
       },
       {
         "key": "alt+cmd+pagedown",
@@ -24708,12 +24798,12 @@
       {
         "key": "ctrl+cmd+i",
         "command": "workbench.action.chat.open",
-        "when": "config.vscode-default-keybindings.macOSKeybindings"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (!chatSetupHidden)"
       },
       {
         "key": "shift+cmd+i",
         "command": "workbench.action.chat.openEditSession",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && view != 'workbench.panel.chat.view.edits')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && !chatSetupHidden && view != 'workbench.panel.chat.view.edits')"
       },
       {
         "key": "alt+cmd+pageup",
@@ -24728,12 +24818,12 @@
       {
         "key": "cmd+backspace",
         "command": "workbench.action.chat.remove",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !inChatInput && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !config.chat.unifiedChatView && !inChatInput && chatMode == 'ask')"
       },
       {
         "key": "alt+cmd+enter",
         "command": "workbench.action.chat.sendToChatEditing",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor')"
       },
       {
         "key": "shift+cmd+enter",
@@ -24751,9 +24841,14 @@
         "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view')"
       },
       {
+        "key": "alt+cmd+.",
+        "command": "workbench.action.chat.switchToNextModel",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChatInput)"
+      },
+      {
         "key": "cmd+backspace",
         "command": "workbench.action.chat.undoEdits",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !inChatInput && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !textInputFocus)"
       },
       {
         "key": "cmd+w",
@@ -25383,42 +25478,42 @@
       {
         "key": "escape",
         "command": "workbench.action.terminal.chat.close",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatFocus && terminalChatVisible || terminalChatVisible && terminalFocus)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatFocus && terminalChatVisible || chatIsEnabled && terminalChatVisible && terminalFocus)"
       },
       {
         "key": "alt+cmd+enter",
         "command": "workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+enter",
         "command": "workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+cmd+enter",
         "command": "workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "alt+enter",
         "command": "workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "cmd+r",
         "command": "workbench.action.terminal.chat.rerunRequest",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "cmd+enter",
         "command": "workbench.action.terminal.chat.runCommand",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "cmd+enter",
         "command": "workbench.action.terminal.chat.runFirstCommand",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "escape",
@@ -25953,7 +26048,7 @@
       {
         "key": "alt+cmd+/",
         "command": "workbench.command.prompts.use",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.chat.promptFiles)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && config.chat.promptFiles)"
       },
       {
         "key": "shift+cmd+y",
@@ -26203,7 +26298,7 @@
       {
         "key": "up",
         "command": "workbench.action.terminal.selectPrevSuggestion",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory)"
       },
       {
         "key": "cmd+k",
@@ -26229,6 +26324,11 @@
         "key": "alt+up",
         "command": "workbench.action.terminal.accessibleBufferGoToPreviousCommand",
         "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+      },
+      {
+        "key": "up",
+        "command": "workbench.action.terminal.hideSuggestWidgetAndNavigateHistory",
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated || config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated)"
       },
       {
         "key": "enter",
@@ -26643,7 +26743,7 @@
       {
         "key": "cmd+i",
         "command": "workbench.action.terminal.chat.start",
-        "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
+        "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
       },
       {
         "key": "ctrl+enter",
@@ -28089,12 +28189,17 @@
       {
         "key": "ctrl+/",
         "command": "workbench.action.chat.attachContext",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && chatLocation == 'editor' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'notebook' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'panel' && chatLocation != 'editing-session' || inChatInput && chatLocation == 'terminal' && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session')"
+      },
+      {
+        "key": "ctrl+shift+/",
+        "command": "workbench.action.chat.attachTools",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && chatMode == 'agent')"
       },
       {
         "key": "ctrl+/",
-        "command": "workbench.action.chat.editing.attachFiles",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && chatLocation == 'editing-session')"
+        "command": "workbench.action.chat.editing.attachContext",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && inUnifiedChat || inChatInput && chatLocation == 'editing-session' || inChatInput && inUnifiedChat && chatLocation == 'editing-session')"
       },
       {
         "key": "ctrl+alt+enter",
@@ -28104,22 +28209,22 @@
       {
         "key": "enter",
         "command": "workbench.action.chat.submit",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation != 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+enter",
-        "command": "workbench.action.chat.submitSecondaryAgent",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInputHasText && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput && !chatInputHasAgent || chatInstructionsAttached && inChatInput && !chatInputHasAgent && !chatSessionRequestInProgress)"
+        "command": "workbench.action.chat.submitWithCodebase",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput || chatInputHasText && inChatInput && !chatSessionRequestInProgress || chatInstructionsAttached && chatRequestIsPaused && inChatInput || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "shift+alt+enter",
         "command": "workbench.action.chat.submitWithoutDispatching",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editor' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'panel' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editor' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
       },
       {
         "key": "ctrl+.",
         "command": "workbench.action.chat.toggleAgentMode",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatHasToolsAgent && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatHasToolsAgent && chatIsEnabled && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatHasToolsAgent && chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatIsEnabled && config.chat.unifiedChatView && inChatInput && inUnifiedChat && !chatSessionRequestInProgress || chatIsEnabled && config.chat.unifiedChatView && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
       },
       {
         "key": "alt+f5",
@@ -28134,7 +28239,7 @@
       {
         "key": "enter",
         "command": "workbench.action.edits.submit",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatLocation == 'editing-session' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask' || chatInstructionsAttached && chatRequestIsPaused && inChatInput && chatMode != 'ask' || chatInstructionsAttached && inChatInput && !chatSessionRequestInProgress && chatMode != 'ask')"
       },
       {
         "key": "shift+escape",
@@ -28544,12 +28649,12 @@
       {
         "key": "ctrl+enter",
         "command": "chatEditing.acceptAllFiles",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
         "command": "chatEditing.discardAllFiles",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (hasUndecidedChatEditingResource && inChatInput && !chatInputHasText && !chatSessionRequestInProgress)"
       },
       {
         "key": "ctrl+enter",
@@ -28564,12 +28669,12 @@
       {
         "key": "alt+f5",
         "command": "chatEditor.action.navigateNext",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "shift+alt+f5",
         "command": "chatEditor.action.navigatePrevious",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chat.hasNotebookEditorModifications && editorFocus && !chatEdits.isRequestInProgress || chatEdits.hasEditorModifications && editorFocus && !chatEdits.isRequestInProgress)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEdits.hasEditorModifications && chatIsEnabled && editorFocus && !chatEdits.isRequestInProgress)"
       },
       {
         "key": "ctrl+backspace",
@@ -28912,14 +29017,14 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineChatHasEditsAgent && !chatEdits.isGlobalEditingSession && chatEdits.requestCount >= 1)"
       },
       {
-        "key": "escape",
-        "command": "inlineChat2.stop",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineChatHasEditsAgent && inlineChatVisible)"
-      },
-      {
         "key": "ctrl+i",
         "command": "inlineChat2.stop",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineChatHasEditsAgent && inlineChatVisible && chatEdits.requestCount == '0')"
+      },
+      {
+        "key": "escape",
+        "command": "inlineChat2.stop",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineChatHasEditsAgent && inlineChatVisible)"
       },
       {
         "key": "ctrl+up",
@@ -29747,6 +29852,11 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (folderMatchWithResourceFocus && searchViewletVisible)"
       },
       {
+        "key": "ctrl+i",
+        "command": "search.action.searchWithAI",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (hasAIResultProviderKey && searchViewletFocus)"
+      },
+      {
         "key": "ctrl+down",
         "command": "search.focus.nextInputBox",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (inSearchEditor && inputBoxFocus || inputBoxFocus && searchViewletVisible)"
@@ -29969,17 +30079,17 @@
       {
         "key": "ctrl+i",
         "command": "workbench.action.chat.holdToVoiceChatInChatView",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused && !searchViewletFocus)"
       },
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newChat",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat && !config.chat.unifiedChatView && chatLocation != 'editing-session')"
       },
       {
         "key": "ctrl+l",
         "command": "workbench.action.chat.newEditSession",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
       },
       {
         "key": "ctrl+alt+pagedown",
@@ -29994,12 +30104,12 @@
       {
         "key": "ctrl+alt+i",
         "command": "workbench.action.chat.open",
-        "when": "config.vscode-default-keybindings.windowsKeybindings"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (!chatSetupHidden)"
       },
       {
         "key": "ctrl+shift+i",
         "command": "workbench.action.chat.openEditSession",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && view != 'workbench.panel.chat.view.edits')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && !chatSetupHidden && view != 'workbench.panel.chat.view.edits')"
       },
       {
         "key": "ctrl+alt+pageup",
@@ -30014,12 +30124,12 @@
       {
         "key": "delete",
         "command": "workbench.action.chat.remove",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !inChatInput && chatLocation != 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !config.chat.unifiedChatView && !inChatInput && chatMode == 'ask')"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "workbench.action.chat.sendToChatEditing",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && chatLocation != 'editing-session' && chatLocation != 'editor')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInputHasText && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && chatRequestIsPaused && !chatInputHasAgent && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor' || chatEditingParticipantRegistered && chatInstructionsAttached && chatIsEnabled && !chatInputHasAgent && !chatSessionRequestInProgress && !inUnifiedChat && chatLocation == 'panel' && chatLocation != 'editing-session' && chatLocation != 'editor')"
       },
       {
         "key": "ctrl+shift+enter",
@@ -30037,9 +30147,14 @@
         "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view')"
       },
       {
+        "key": "ctrl+alt+.",
+        "command": "workbench.action.chat.switchToNextModel",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChatInput)"
+      },
+      {
         "key": "delete",
         "command": "workbench.action.chat.undoEdits",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !inChatInput && chatLocation == 'editing-session')"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !textInputFocus)"
       },
       {
         "key": "ctrl+w",
@@ -30674,42 +30789,42 @@
       {
         "key": "escape",
         "command": "workbench.action.terminal.chat.close",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatFocus && terminalChatVisible || terminalChatVisible && terminalFocus)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatFocus && terminalChatVisible || chatIsEnabled && terminalChatVisible && terminalFocus)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "alt+enter",
         "command": "workbench.action.terminal.chat.insertCommand",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+alt+enter",
         "command": "workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "alt+enter",
         "command": "workbench.action.terminal.chat.insertFirstCommand",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+r",
         "command": "workbench.action.terminal.chat.rerunRequest",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatFocus && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatFocus && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "ctrl+enter",
         "command": "workbench.action.terminal.chat.runCommand",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalHasBeenCreated && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks || chatIsEnabled && terminalChatResponseContainsCodeBlock && terminalProcessSupported && !terminalChatActiveRequest && !terminalChatResponseContainsMultipleCodeBlocks)"
       },
       {
         "key": "ctrl+enter",
         "command": "workbench.action.terminal.chat.runFirstCommand",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalHasBeenCreated && !terminalChatActiveRequest || chatIsEnabled && terminalChatResponseContainsMultipleCodeBlocks && terminalProcessSupported && !terminalChatActiveRequest)"
       },
       {
         "key": "escape",
@@ -31185,7 +31300,7 @@
       {
         "key": "ctrl+alt+/",
         "command": "workbench.command.prompts.use",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.chat.promptFiles)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && config.chat.promptFiles)"
       },
       {
         "key": "ctrl+shift+y",
@@ -31430,7 +31545,7 @@
       {
         "key": "up",
         "command": "workbench.action.terminal.selectPrevSuggestion",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !config.terminal.integrated.suggest.upArrowNavigatesHistory)"
       },
       {
         "key": "tab",
@@ -31451,6 +31566,11 @@
         "key": "alt+up",
         "command": "workbench.action.terminal.accessibleBufferGoToPreviousCommand",
         "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+      },
+      {
+        "key": "up",
+        "command": "workbench.action.terminal.hideSuggestWidgetAndNavigateHistory",
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated || config.terminal.integrated.suggest.upArrowNavigatesHistory && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetHasNavigated)"
       },
       {
         "key": "f2",
@@ -31825,7 +31945,7 @@
       {
         "key": "ctrl+i",
         "command": "workbench.action.terminal.chat.start",
-        "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
+        "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || chatIsEnabled && terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported)"
       },
       {
         "key": "ctrl+enter",
