@@ -96,3 +96,7 @@
 ## Release v0.2.17
 
 - Update keybindings for vscode 1.99.2
+
+## Release v0.2.18
+
+- Update keybindings for vscode 1.99.3
