@@ -104,3 +104,7 @@
 ## Release v0.2.19
 
 - Update keybindings for vscode 1.99.3
+
+## Release v0.2.20
+
+- Update keybindings for vscode 1.99.3
