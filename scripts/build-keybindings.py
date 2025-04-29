@@ -44,11 +44,11 @@ for expr, path in defaultKeybindings.items():
       keybindings.append(k)
 
 # Update package.json
-with open('package.json', 'r+') as f:
+with open('package.json', 'r+', encoding='utf-8') as f:
   package = json.load(f)
-  
+
   package['engines']['vscode'] = f'^{version}'
   package['contributes']['keybindings'] = keybindings
-  
+
   f.seek(0)
-  json.dump(package, f, indent=2)
+  json.dump(package, f, ensure_ascii=False, indent=4)
