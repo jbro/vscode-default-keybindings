@@ -5,12 +5,12 @@ import re
 import requests
 
 defaultKeybindings = {
-  'config.vscode-default-keybindings.removeOSKeybindings && isLinux': 'vs-code-default-keybindings/linux.negative.keybindings.json',
-  'config.vscode-default-keybindings.removeOSKeybindings && isMac': 'vs-code-default-keybindings/macos.negative.keybindings.json',
-  'config.vscode-default-keybindings.removeOSKeybindings && isWindows': 'vs-code-default-keybindings/windows.negative.keybindings.json',
+  # 'config.vscode-default-keybindings.removeOSKeybindings && isLinux': 'vs-code-default-keybindings/linux.negative.keybindings.json',
+  # 'config.vscode-default-keybindings.removeOSKeybindings && isMac': 'vs-code-default-keybindings/macos.negative.keybindings.json',
+  # 'config.vscode-default-keybindings.removeOSKeybindings && isWindows': 'vs-code-default-keybindings/windows.negative.keybindings.json',
   'config.vscode-default-keybindings.linuxKeybindings': 'vs-code-default-keybindings/linux.keybindings.json',
-  'config.vscode-default-keybindings.macOSKeybindings': 'vs-code-default-keybindings/macos.keybindings.json',
-  'config.vscode-default-keybindings.windowsKeybindings': 'vs-code-default-keybindings/windows.keybindings.json',
+  # 'config.vscode-default-keybindings.macOSKeybindings': 'vs-code-default-keybindings/macos.keybindings.json',
+  # 'config.vscode-default-keybindings.windowsKeybindings': 'vs-code-default-keybindings/windows.keybindings.json',
 }
 
 keybindings = []
@@ -52,3 +52,4 @@ with open('package.json', 'r+', encoding='utf-8') as f:
 
   f.seek(0)
   json.dump(package, f, ensure_ascii=False, indent=4)
+  f.truncate()
