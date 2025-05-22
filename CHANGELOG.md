@@ -132,3 +132,7 @@
 ## Release v0.2.26
 
 - Update keybindings for vscode 1.100.2
+
+## Release v0.2.27
+
+- Update keybindings for vscode 1.100.2
