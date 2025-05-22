@@ -16,7 +16,7 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.24",
+    "version": "0.2.25",
     "engines": {
         "vscode": "^1.100.2"
     },
