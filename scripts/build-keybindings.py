@@ -52,4 +52,5 @@ with open('package.json', 'r+', encoding='utf-8') as f:
 
   f.seek(0)
   json.dump(package, f, ensure_ascii=False, indent=4)
+  f.write('\n')
   f.truncate()
