@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.100.2 for Windows
+// Default Keybindings of Visual Studio Code 1.100.3 for Windows
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -795,7 +795,7 @@
 { "key": "ctrl+alt+pageup",       "command": "editor.action.accessibleViewPreviousCodeBlock",
                                      "when": "accessibleViewContainsCodeBlocks && accessibleViewCurrentProviderId == 'inlineChat' || accessibleViewContainsCodeBlocks && accessibleViewCurrentProviderId == 'panelChat' || accessibleViewContainsCodeBlocks && accessibleViewCurrentProviderId == 'quickChat'" },
 { "key": "ctrl+k ctrl+k",         "command": "editor.action.defineKeybinding",
-                                     "when": "resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json'" },
+                                     "when": "resource == 'vscode-userdata:/c%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json'" },
 { "key": "tab",                   "command": "editor.action.inlineSuggest.commit",
                                      "when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible" },
 { "key": "insert",                "command": "editor.action.toggleOvertypeInsertMode" },
