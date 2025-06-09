@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.30",
+    "version": "0.2.31",
     "engines": {
-        "vscode": "^1.100.2"
+        "vscode": "^1.100.3"
     },
     "categories": [
         "Keymaps"
@@ -12889,7 +12889,7 @@
             {
                 "key": "ctrl+k ctrl+k",
                 "command": "-editor.action.defineKeybinding",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (resource == 'vscode-userdata:/c%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
             },
             {
                 "key": "tab",
@@ -28899,7 +28899,7 @@
             {
                 "key": "ctrl+k ctrl+k",
                 "command": "editor.action.defineKeybinding",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (resource == 'vscode-userdata:/c%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
             },
             {
                 "key": "tab",
