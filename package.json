@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.34",
+    "version": "0.2.35",
     "engines": {
-        "vscode": "^1.101.0"
+        "vscode": "^1.101.1"
     },
     "categories": [
         "Keymaps"
@@ -4467,6 +4467,11 @@
                 "key": "ctrl+shift+m",
                 "command": "-workbench.actions.view.problems",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.markers.view.active)"
+            },
+            {
+                "key": "escape",
+                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (outputFilterFocus)"
             },
             {
                 "key": "escape",
@@ -10047,11 +10052,6 @@
             },
             {
                 "key": "escape",
-                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (outputFilterFocus)"
-            },
-            {
-                "key": "escape",
                 "command": "-workbench.banner.focusBanner",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (bannerFocused)"
             },
@@ -12879,7 +12879,7 @@
             {
                 "key": "ctrl+k ctrl+k",
                 "command": "-editor.action.defineKeybinding",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (resource == 'vscode-userdata:/c%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
             },
             {
                 "key": "tab",
@@ -20480,6 +20480,11 @@
             },
             {
                 "key": "escape",
+                "command": "workbench.actions.workbench.panel.output.clearFilterText",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (outputFilterFocus)"
+            },
+            {
+                "key": "escape",
                 "command": "workbench.banner.focusBanner",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (bannerFocused)"
             },
@@ -26057,11 +26062,6 @@
             },
             {
                 "key": "escape",
-                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (outputFilterFocus)"
-            },
-            {
-                "key": "escape",
                 "command": "workbench.banner.focusBanner",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (bannerFocused)"
             },
@@ -28889,7 +28889,7 @@
             {
                 "key": "ctrl+k ctrl+k",
                 "command": "editor.action.defineKeybinding",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (resource == 'vscode-userdata:/c%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (resource == 'vscode-userdata:/d%3A/a/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json')"
             },
             {
                 "key": "tab",
