@@ -54,6 +54,13 @@ jobs:
           cp raw-default-keybindings-ubuntu-latest/linux.keybindings.raw.json vs-code-default-keybindings/scripts/
           cp raw-default-keybindings-macos-latest/macos.keybindings.raw.json vs-code-default-keybindings/scripts/
           cp raw-default-keybindings-windows-latest/windows.keybindings.raw.json vs-code-default-keybindings/scripts/
+
+      - name: Get vscode version
+        id: vscode_version
+        run: |
+          version=$(jq -r .engines.vscode package.json)
+          echo "vscode_version=${version}" >> $GITHUB_OUTPUT
+
       - name: Update keybindings files
         run: python3 process_json.py
         working-directory: vs-code-default-keybindings/scripts
@@ -65,7 +72,8 @@ jobs:
       - name: Diff
         id: diff
         run: |
-          if git diff --exit-code; then
+          version=$(jq -r .engines.vscode package.json)
+          if [ "${version}" == "${{ steps.vscode_version.outputs.vscode_version }}" ]; then
             echo "has-diff=false" >> $GITHUB_OUTPUT
           else
             echo "has-diff=true" >> $GITHUB_OUTPUT
