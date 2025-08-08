@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.40",
+    "version": "0.2.41",
     "engines": {
-        "vscode": "^1.102.2"
+        "vscode": "^1.103.0"
     },
     "categories": [
         "Keymaps"
@@ -1424,6 +1424,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && chatLocation == 'panel')"
             },
             {
+                "key": "ctrl+.",
+                "command": "-workbench.action.chat.openModePicker",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChatInput && chatLocation == 'panel')"
+            },
+            {
                 "key": "ctrl+alt+enter",
                 "command": "-workbench.action.chat.runInTerminal",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat)"
@@ -1431,7 +1436,7 @@
             {
                 "key": "enter",
                 "command": "-workbench.action.chat.submit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && chatMode == 'ask')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput)"
             },
             {
                 "key": "ctrl+enter",
@@ -1444,11 +1449,6 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatPromptFileAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatPromptFileAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
             },
             {
-                "key": "ctrl+.",
-                "command": "-workbench.action.chat.toggleAgentMode",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
-            },
-            {
                 "key": "alt+f5",
                 "command": "-workbench.action.editor.nextChange",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
@@ -1457,11 +1457,6 @@
                 "key": "shift+alt+f5",
                 "command": "-workbench.action.editor.previousChange",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
-            },
-            {
-                "key": "enter",
-                "command": "-workbench.action.edits.submit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && chatMode != 'ask')"
             },
             {
                 "key": "shift+escape",
@@ -1476,7 +1471,7 @@
             {
                 "key": "ctrl+right",
                 "command": "-editor.action.inlineSuggest.acceptNextWord",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
             },
             {
                 "key": "escape",
@@ -2081,7 +2076,7 @@
             {
                 "key": "tab",
                 "command": "-editor.action.inlineSuggest.commit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
             },
             {
                 "key": "insert",
@@ -2836,107 +2831,107 @@
             {
                 "key": "ctrl+alt+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+down",
                 "command": "-quickInput.next",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "down",
                 "command": "-quickInput.next",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+down",
                 "command": "-quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+down",
                 "command": "-quickInput.nextSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+up",
                 "command": "-quickInput.previous",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "up",
                 "command": "-quickInput.previous",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+up",
                 "command": "-quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+up",
                 "command": "-quickInput.previousSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+space",
                 "command": "-quickInput.toggleHover",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "space",
@@ -3342,6 +3337,11 @@
                 "key": "ctrl+shift+f9",
                 "command": "-workbench.action.chat.previousFileTree",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat)"
+            },
+            {
+                "key": "delete",
+                "command": "-workbench.action.chat.restoreCheckpoint",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+meta+/",
@@ -4104,29 +4104,9 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
             },
             {
-                "key": "alt+down",
-                "command": "-workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+right",
-                "command": "-workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
                 "key": "ctrl+pageup",
                 "command": "-workbench.action.terminal.focusPrevious",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
-            },
-            {
-                "key": "alt+up",
-                "command": "-workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+left",
-                "command": "-workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
             },
             {
                 "key": "ctrl+shift+\\",
@@ -4718,12 +4698,12 @@
             {
                 "key": "ctrl+l",
                 "command": "-workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+n",
                 "command": "-workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+pagedown",
@@ -4743,12 +4723,32 @@
             {
                 "key": "enter",
                 "command": "-workbench.action.terminal.acceptSelectedSuggestion",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
             },
             {
                 "key": "enter",
                 "command": "-workbench.action.terminal.acceptSelectedSuggestionEnter",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never')"
+            },
+            {
+                "key": "alt+down",
+                "command": "-workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+right",
+                "command": "-workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+up",
+                "command": "-workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+left",
+                "command": "-workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
             },
             {
                 "key": "escape",
@@ -6838,6 +6838,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && chatLocation == 'panel')"
             },
             {
+                "key": "cmd+.",
+                "command": "-workbench.action.chat.openModePicker",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChatInput && chatLocation == 'panel')"
+            },
+            {
                 "key": "ctrl+alt+enter",
                 "command": "-workbench.action.chat.runInTerminal",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat)"
@@ -6845,7 +6850,7 @@
             {
                 "key": "enter",
                 "command": "-workbench.action.chat.submit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && chatMode == 'ask')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput)"
             },
             {
                 "key": "cmd+enter",
@@ -6858,11 +6863,6 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatPromptFileAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatPromptFileAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
             },
             {
-                "key": "cmd+.",
-                "command": "-workbench.action.chat.toggleAgentMode",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
-            },
-            {
                 "key": "alt+f5",
                 "command": "-workbench.action.editor.nextChange",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
@@ -6871,11 +6871,6 @@
                 "key": "shift+alt+f5",
                 "command": "-workbench.action.editor.previousChange",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
-            },
-            {
-                "key": "enter",
-                "command": "-workbench.action.edits.submit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && chatMode != 'ask')"
             },
             {
                 "key": "shift+escape",
@@ -6890,7 +6885,7 @@
             {
                 "key": "cmd+right",
                 "command": "-editor.action.inlineSuggest.acceptNextWord",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
             },
             {
                 "key": "escape",
@@ -7500,7 +7495,7 @@
             {
                 "key": "tab",
                 "command": "-editor.action.inlineSuggest.commit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
             },
             {
                 "key": "alt+cmd+o",
@@ -8305,187 +8300,187 @@
             {
                 "key": "ctrl+alt+cmd+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+down",
                 "command": "-quickInput.next",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "down",
                 "command": "-quickInput.next",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+down",
                 "command": "-quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+down",
                 "command": "-quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+down",
                 "command": "-quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+down",
                 "command": "-quickInput.nextSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+up",
                 "command": "-quickInput.previous",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "up",
                 "command": "-quickInput.previous",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+up",
                 "command": "-quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+up",
                 "command": "-quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+up",
                 "command": "-quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+up",
                 "command": "-quickInput.previousSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+space",
                 "command": "-quickInput.toggleHover",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "space",
@@ -8906,6 +8901,11 @@
                 "key": "shift+cmd+f9",
                 "command": "-workbench.action.chat.previousFileTree",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat)"
+            },
+            {
+                "key": "cmd+backspace",
+                "command": "-workbench.action.chat.restoreCheckpoint",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+cmd+/",
@@ -9683,29 +9683,9 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
             },
             {
-                "key": "alt+cmd+down",
-                "command": "-workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+cmd+right",
-                "command": "-workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
                 "key": "shift+cmd+[",
                 "command": "-workbench.action.terminal.focusPrevious",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
-            },
-            {
-                "key": "alt+cmd+up",
-                "command": "-workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+cmd+left",
-                "command": "-workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
             },
             {
                 "key": "shift+cmd+\\",
@@ -10146,11 +10126,6 @@
             },
             {
                 "key": "escape",
-                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (outputFilterFocus)"
-            },
-            {
-                "key": "escape",
                 "command": "-workbench.banner.focusBanner",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (bannerFocused)"
             },
@@ -10367,12 +10342,12 @@
             {
                 "key": "ctrl+l",
                 "command": "-workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat)"
             },
             {
                 "key": "cmd+n",
                 "command": "-workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && inChat)"
             },
             {
                 "key": "shift+cmd+]",
@@ -10392,7 +10367,7 @@
             {
                 "key": "enter",
                 "command": "-workbench.action.terminal.acceptSelectedSuggestion",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
             },
             {
                 "key": "enter",
@@ -10403,6 +10378,26 @@
                 "key": "cmd+k",
                 "command": "-workbench.action.terminal.clear",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && !accessibilityModeEnabled || terminalFocus && terminalProcessSupported && !accessibilityModeEnabled || accessibilityModeEnabled && accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibilityModeEnabled && accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+            },
+            {
+                "key": "alt+cmd+down",
+                "command": "-workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+cmd+right",
+                "command": "-workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+cmd+up",
+                "command": "-workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+cmd+left",
+                "command": "-workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
             },
             {
                 "key": "escape",
@@ -12391,6 +12386,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && chatLocation == 'panel')"
             },
             {
+                "key": "ctrl+.",
+                "command": "-workbench.action.chat.openModePicker",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChatInput && chatLocation == 'panel')"
+            },
+            {
                 "key": "ctrl+alt+enter",
                 "command": "-workbench.action.chat.runInTerminal",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat)"
@@ -12398,7 +12398,7 @@
             {
                 "key": "enter",
                 "command": "-workbench.action.chat.submit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && chatMode == 'ask')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput)"
             },
             {
                 "key": "ctrl+enter",
@@ -12411,11 +12411,6 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatPromptFileAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatPromptFileAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
             },
             {
-                "key": "ctrl+.",
-                "command": "-workbench.action.chat.toggleAgentMode",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
-            },
-            {
                 "key": "alt+f5",
                 "command": "-workbench.action.editor.nextChange",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
@@ -12424,11 +12419,6 @@
                 "key": "shift+alt+f5",
                 "command": "-workbench.action.editor.previousChange",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
-            },
-            {
-                "key": "enter",
-                "command": "-workbench.action.edits.submit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && chatMode != 'ask')"
             },
             {
                 "key": "shift+escape",
@@ -12443,7 +12433,7 @@
             {
                 "key": "ctrl+right",
                 "command": "-editor.action.inlineSuggest.acceptNextWord",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
             },
             {
                 "key": "escape",
@@ -13028,7 +13018,7 @@
             {
                 "key": "tab",
                 "command": "-editor.action.inlineSuggest.commit",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
             },
             {
                 "key": "insert",
@@ -13783,107 +13773,107 @@
             {
                 "key": "ctrl+alt+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+home",
                 "command": "-quickInput.first",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+end",
                 "command": "-quickInput.last",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+down",
                 "command": "-quickInput.next",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "down",
                 "command": "-quickInput.next",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+down",
                 "command": "-quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+down",
                 "command": "-quickInput.nextSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pagedown",
                 "command": "-quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pageup",
                 "command": "-quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+up",
                 "command": "-quickInput.previous",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "up",
                 "command": "-quickInput.previous",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+up",
                 "command": "-quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+up",
                 "command": "-quickInput.previousSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+space",
                 "command": "-quickInput.toggleHover",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "space",
@@ -14294,6 +14284,11 @@
                 "key": "ctrl+shift+f9",
                 "command": "-workbench.action.chat.previousFileTree",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat)"
+            },
+            {
+                "key": "delete",
+                "command": "-workbench.action.chat.restoreCheckpoint",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+win+/",
@@ -15071,29 +15066,9 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
             },
             {
-                "key": "alt+down",
-                "command": "-workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+right",
-                "command": "-workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
                 "key": "ctrl+pageup",
                 "command": "-workbench.action.terminal.focusPrevious",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
-            },
-            {
-                "key": "alt+up",
-                "command": "-workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+left",
-                "command": "-workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
             },
             {
                 "key": "ctrl+shift+\\",
@@ -15696,12 +15671,12 @@
             {
                 "key": "ctrl+l",
                 "command": "-workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+n",
                 "command": "-workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+pagedown",
@@ -15721,12 +15696,32 @@
             {
                 "key": "enter",
                 "command": "-workbench.action.terminal.acceptSelectedSuggestion",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
             },
             {
                 "key": "enter",
                 "command": "-workbench.action.terminal.acceptSelectedSuggestionEnter",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never')"
+            },
+            {
+                "key": "alt+down",
+                "command": "-workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+right",
+                "command": "-workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+up",
+                "command": "-workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+left",
+                "command": "-workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
             },
             {
                 "key": "escape",
@@ -17635,6 +17630,11 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && chatLocation == 'panel')"
             },
             {
+                "key": "ctrl+.",
+                "command": "workbench.action.chat.openModePicker",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChatInput && chatLocation == 'panel')"
+            },
+            {
                 "key": "ctrl+alt+enter",
                 "command": "workbench.action.chat.runInTerminal",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat)"
@@ -17642,7 +17642,7 @@
             {
                 "key": "enter",
                 "command": "workbench.action.chat.submit",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && chatMode == 'ask')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput)"
             },
             {
                 "key": "ctrl+enter",
@@ -17655,11 +17655,6 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatPromptFileAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatPromptFileAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
             },
             {
-                "key": "ctrl+.",
-                "command": "workbench.action.chat.toggleAgentMode",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
-            },
-            {
                 "key": "alt+f5",
                 "command": "workbench.action.editor.nextChange",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
@@ -17668,11 +17663,6 @@
                 "key": "shift+alt+f5",
                 "command": "workbench.action.editor.previousChange",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
-            },
-            {
-                "key": "enter",
-                "command": "workbench.action.edits.submit",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && chatMode != 'ask')"
             },
             {
                 "key": "shift+escape",
@@ -17687,7 +17677,7 @@
             {
                 "key": "ctrl+right",
                 "command": "editor.action.inlineSuggest.acceptNextWord",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
             },
             {
                 "key": "escape",
@@ -18292,7 +18282,7 @@
             {
                 "key": "tab",
                 "command": "editor.action.inlineSuggest.commit",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
             },
             {
                 "key": "insert",
@@ -19047,107 +19037,107 @@
             {
                 "key": "ctrl+alt+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+down",
                 "command": "quickInput.next",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "down",
                 "command": "quickInput.next",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+down",
                 "command": "quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+down",
                 "command": "quickInput.nextSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+up",
                 "command": "quickInput.previous",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "up",
                 "command": "quickInput.previous",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+up",
                 "command": "quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+up",
                 "command": "quickInput.previousSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+space",
                 "command": "quickInput.toggleHover",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "space",
@@ -19553,6 +19543,11 @@
                 "key": "ctrl+shift+f9",
                 "command": "workbench.action.chat.previousFileTree",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat)"
+            },
+            {
+                "key": "delete",
+                "command": "workbench.action.chat.restoreCheckpoint",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+meta+/",
@@ -20315,29 +20310,9 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
             },
             {
-                "key": "alt+down",
-                "command": "workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+right",
-                "command": "workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
                 "key": "ctrl+pageup",
                 "command": "workbench.action.terminal.focusPrevious",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
-            },
-            {
-                "key": "alt+up",
-                "command": "workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+left",
-                "command": "workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
             },
             {
                 "key": "ctrl+shift+\\",
@@ -20929,12 +20904,12 @@
             {
                 "key": "ctrl+l",
                 "command": "workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+n",
                 "command": "workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+pagedown",
@@ -20954,12 +20929,32 @@
             {
                 "key": "enter",
                 "command": "workbench.action.terminal.acceptSelectedSuggestion",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
             },
             {
                 "key": "enter",
                 "command": "workbench.action.terminal.acceptSelectedSuggestionEnter",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never')"
+            },
+            {
+                "key": "alt+down",
+                "command": "workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+right",
+                "command": "workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+up",
+                "command": "workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+left",
+                "command": "workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
             },
             {
                 "key": "escape",
@@ -23049,6 +23044,11 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && chatLocation == 'panel')"
             },
             {
+                "key": "cmd+.",
+                "command": "workbench.action.chat.openModePicker",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChatInput && chatLocation == 'panel')"
+            },
+            {
                 "key": "ctrl+alt+enter",
                 "command": "workbench.action.chat.runInTerminal",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat)"
@@ -23056,7 +23056,7 @@
             {
                 "key": "enter",
                 "command": "workbench.action.chat.submit",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && chatMode == 'ask')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput)"
             },
             {
                 "key": "cmd+enter",
@@ -23069,11 +23069,6 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatPromptFileAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatPromptFileAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
             },
             {
-                "key": "cmd+.",
-                "command": "workbench.action.chat.toggleAgentMode",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
-            },
-            {
                 "key": "alt+f5",
                 "command": "workbench.action.editor.nextChange",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
@@ -23082,11 +23077,6 @@
                 "key": "shift+alt+f5",
                 "command": "workbench.action.editor.previousChange",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
-            },
-            {
-                "key": "enter",
-                "command": "workbench.action.edits.submit",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && chatMode != 'ask')"
             },
             {
                 "key": "shift+escape",
@@ -23101,7 +23091,7 @@
             {
                 "key": "cmd+right",
                 "command": "editor.action.inlineSuggest.acceptNextWord",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
             },
             {
                 "key": "escape",
@@ -23711,7 +23701,7 @@
             {
                 "key": "tab",
                 "command": "editor.action.inlineSuggest.commit",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
             },
             {
                 "key": "alt+cmd+o",
@@ -24516,187 +24506,187 @@
             {
                 "key": "ctrl+alt+cmd+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+down",
                 "command": "quickInput.next",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "down",
                 "command": "quickInput.next",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+down",
                 "command": "quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+down",
                 "command": "quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+down",
                 "command": "quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+down",
                 "command": "quickInput.nextSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+up",
                 "command": "quickInput.previous",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "up",
                 "command": "quickInput.previous",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+cmd+up",
                 "command": "quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+cmd+up",
                 "command": "quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+cmd+up",
                 "command": "quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "cmd+up",
                 "command": "quickInput.previousSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+space",
                 "command": "quickInput.toggleHover",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "space",
@@ -25117,6 +25107,11 @@
                 "key": "shift+cmd+f9",
                 "command": "workbench.action.chat.previousFileTree",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat)"
+            },
+            {
+                "key": "cmd+backspace",
+                "command": "workbench.action.chat.restoreCheckpoint",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+cmd+/",
@@ -25894,29 +25889,9 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
             },
             {
-                "key": "alt+cmd+down",
-                "command": "workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+cmd+right",
-                "command": "workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
                 "key": "shift+cmd+[",
                 "command": "workbench.action.terminal.focusPrevious",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
-            },
-            {
-                "key": "alt+cmd+up",
-                "command": "workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+cmd+left",
-                "command": "workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
             },
             {
                 "key": "shift+cmd+\\",
@@ -26357,11 +26332,6 @@
             },
             {
                 "key": "escape",
-                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (outputFilterFocus)"
-            },
-            {
-                "key": "escape",
                 "command": "workbench.banner.focusBanner",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (bannerFocused)"
             },
@@ -26578,12 +26548,12 @@
             {
                 "key": "ctrl+l",
                 "command": "workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat)"
             },
             {
                 "key": "cmd+n",
                 "command": "workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && inChat)"
             },
             {
                 "key": "shift+cmd+]",
@@ -26603,7 +26573,7 @@
             {
                 "key": "enter",
                 "command": "workbench.action.terminal.acceptSelectedSuggestion",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
             },
             {
                 "key": "enter",
@@ -26614,6 +26584,26 @@
                 "key": "cmd+k",
                 "command": "workbench.action.terminal.clear",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && !accessibilityModeEnabled || terminalFocus && terminalProcessSupported && !accessibilityModeEnabled || accessibilityModeEnabled && accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibilityModeEnabled && accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal')"
+            },
+            {
+                "key": "alt+cmd+down",
+                "command": "workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+cmd+right",
+                "command": "workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+cmd+up",
+                "command": "workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+cmd+left",
+                "command": "workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
             },
             {
                 "key": "escape",
@@ -28602,6 +28592,11 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && chatLocation == 'panel')"
             },
             {
+                "key": "ctrl+.",
+                "command": "workbench.action.chat.openModePicker",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChatInput && chatLocation == 'panel')"
+            },
+            {
                 "key": "ctrl+alt+enter",
                 "command": "workbench.action.chat.runInTerminal",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat)"
@@ -28609,7 +28604,7 @@
             {
                 "key": "enter",
                 "command": "workbench.action.chat.submit",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && chatMode == 'ask')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput)"
             },
             {
                 "key": "ctrl+enter",
@@ -28622,11 +28617,6 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatInputHasText && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask' || chatPromptFileAttached && chatRequestIsPaused && inChatInput && chatMode == 'ask' || chatPromptFileAttached && inChatInput && !chatSessionRequestInProgress && chatMode == 'ask')"
             },
             {
-                "key": "ctrl+.",
-                "command": "workbench.action.chat.toggleAgentMode",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel')"
-            },
-            {
                 "key": "alt+f5",
                 "command": "workbench.action.editor.nextChange",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
@@ -28635,11 +28625,6 @@
                 "key": "shift+alt+f5",
                 "command": "workbench.action.editor.previousChange",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0')"
-            },
-            {
-                "key": "enter",
-                "command": "workbench.action.edits.submit",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && chatMode != 'ask')"
             },
             {
                 "key": "shift+escape",
@@ -28654,7 +28639,7 @@
             {
                 "key": "ctrl+right",
                 "command": "editor.action.inlineSuggest.acceptNextWord",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly)"
             },
             {
                 "key": "escape",
@@ -29239,7 +29224,7 @@
             {
                 "key": "tab",
                 "command": "editor.action.inlineSuggest.commit",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible)"
             },
             {
                 "key": "insert",
@@ -29994,107 +29979,107 @@
             {
                 "key": "ctrl+alt+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+home",
                 "command": "quickInput.first",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+end",
                 "command": "quickInput.last",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+down",
                 "command": "quickInput.next",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "down",
                 "command": "quickInput.next",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+down",
                 "command": "quickInput.nextSeparator",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+down",
                 "command": "quickInput.nextSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pagedown",
                 "command": "quickInput.pageNext",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "pageup",
                 "command": "quickInput.pagePrevious",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+up",
                 "command": "quickInput.previous",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "up",
                 "command": "quickInput.previous",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+alt+up",
                 "command": "quickInput.previousSeparator",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "alt+up",
                 "command": "quickInput.previousSeparatorWithQuickAccessFallback",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "ctrl+space",
                 "command": "quickInput.toggleHover",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inQuickInput && quickInputType == 'quickPick' || inQuickInput && quickInputType == 'quickTree')"
             },
             {
                 "key": "space",
@@ -30505,6 +30490,11 @@
                 "key": "ctrl+shift+f9",
                 "command": "workbench.action.chat.previousFileTree",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat)"
+            },
+            {
+                "key": "delete",
+                "command": "workbench.action.chat.restoreCheckpoint",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+win+/",
@@ -31282,29 +31272,9 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
             },
             {
-                "key": "alt+down",
-                "command": "workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+right",
-                "command": "workbench.action.terminal.focusNextPane",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
                 "key": "ctrl+pageup",
                 "command": "workbench.action.terminal.focusPrevious",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus)"
-            },
-            {
-                "key": "alt+up",
-                "command": "workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
-            },
-            {
-                "key": "alt+left",
-                "command": "workbench.action.terminal.focusPreviousPane",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported)"
             },
             {
                 "key": "ctrl+shift+\\",
@@ -31907,12 +31877,12 @@
             {
                 "key": "ctrl+l",
                 "command": "workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+n",
                 "command": "workbench.action.chat.newChat",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatEditingParticipantRegistered && chatIsEnabled && inChat)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && inChat)"
             },
             {
                 "key": "ctrl+pagedown",
@@ -31932,12 +31902,32 @@
             {
                 "key": "enter",
                 "command": "workbench.action.terminal.acceptSelectedSuggestion",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && simpleSuggestWidgetHasNavigated && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial' || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && !simpleSuggestWidgetFirstSuggestionFocused || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.selectionMode != 'partial')"
             },
             {
                 "key": "enter",
                 "command": "workbench.action.terminal.acceptSelectedSuggestionEnter",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never' || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible && config.terminal.integrated.suggest.runOnEnter != 'never')"
+            },
+            {
+                "key": "alt+down",
+                "command": "workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+right",
+                "command": "workbench.action.terminal.focusNextPane",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+up",
+                "command": "workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
+            },
+            {
+                "key": "alt+left",
+                "command": "workbench.action.terminal.focusPreviousPane",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive)"
             },
             {
                 "key": "escape",
