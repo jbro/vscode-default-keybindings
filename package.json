@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.55",
+    "version": "0.2.56",
     "engines": {
-        "vscode": "^1.109.0"
+        "vscode": "^1.109.2"
     },
     "categories": [
         "Keymaps"
@@ -15768,11 +15768,6 @@
                 "key": "ctrl+shift+m",
                 "command": "-workbench.actions.view.problems",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (workbench.panel.markers.view.active)"
-            },
-            {
-                "key": "escape",
-                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (outputFilterFocus)"
             },
             {
                 "key": "escape",
@@ -32395,11 +32390,6 @@
                 "key": "ctrl+shift+m",
                 "command": "workbench.actions.view.problems",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (workbench.panel.markers.view.active)"
-            },
-            {
-                "key": "escape",
-                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (outputFilterFocus)"
             },
             {
                 "key": "escape",
