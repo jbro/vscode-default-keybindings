@@ -6,9 +6,6 @@ on:
   workflow_dispatch:
     inputs: {}
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   get-default-keybindings:
     strategy:
@@ -25,10 +22,10 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         submodules: 'recursive'
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v5
       with:
         node-version: lts/*
     - name: Prepare short extraction path (macOS)
@@ -62,7 +59,7 @@ jobs:
       shell: bash
       run: cp /tmp/vdk/scripts/*.keybindings.raw.json vs-code-default-keybindings/scripts/
     - name: Upload the output file
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: raw-default-keybindings-${{ matrix.artifact-os }}
         path: vs-code-default-keybindings/scripts/*.keybindings.raw.json
@@ -72,12 +69,12 @@ jobs:
     needs: get-default-keybindings
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: 'recursive'
 
       - name: Download three JSON files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
       - name: Copy JSON files
         shell: bash
         run: |
@@ -129,7 +126,7 @@ jobs:
 
       - name: Create Pull Request
         if: steps.diff.outputs.has-diff == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           token: ${{ secrets.TOKEN }}
           commit-message: Auto update keybindings from vscode v${{steps.changelog.outputs.engine_version}}
