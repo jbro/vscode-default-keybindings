@@ -6,11 +6,21 @@ on:
   workflow_dispatch:
     inputs: {}
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   get-default-keybindings:
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            artifact-os: ubuntu-latest
+          - os: macos-latest
+            artifact-os: macos-latest
+          - os: windows-2025-vs2026
+            artifact-os: windows-latest
 
     runs-on: ${{ matrix.os }}
 
@@ -21,8 +31,20 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-    - run: npm ci
+    - name: Prepare short extraction path (macOS)
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        rm -rf /tmp/vdk
+        cp -R vs-code-default-keybindings /tmp/vdk
+    - name: Install dependencies (Linux, Windows)
+      run: npm ci
       working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
+      if: runner.os != 'macOS'
+    - name: Install dependencies (macOS)
+      run: npm ci
+      working-directory: /tmp/vdk/scripts/get_default_keybindings
+      if: runner.os == 'macOS'
     - name: Run get-default-keybindings (Linux)
       run: xvfb-run -a npm start
       working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
@@ -30,11 +52,19 @@ jobs:
     - name: Run get-default-keybindings (macOS, Windows)
       run: npm start
       working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
-      if: runner.os != 'Linux'
+      if: runner.os == 'Windows'
+    - name: Run get-default-keybindings (macOS)
+      run: npm start
+      working-directory: /tmp/vdk/scripts/get_default_keybindings
+      if: runner.os == 'macOS'
+    - name: Copy macOS output file
+      if: runner.os == 'macOS'
+      shell: bash
+      run: cp /tmp/vdk/scripts/*.keybindings.raw.json vs-code-default-keybindings/scripts/
     - name: Upload the output file
       uses: actions/upload-artifact@v4
       with:
-        name: raw-default-keybindings-${{ matrix.os }}
+        name: raw-default-keybindings-${{ matrix.artifact-os }}
         path: vs-code-default-keybindings/scripts/*.keybindings.raw.json
 
   update_keybindings:
