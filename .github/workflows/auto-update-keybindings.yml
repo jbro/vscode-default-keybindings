@@ -9,20 +9,39 @@ on:
 jobs:
   get-default-keybindings:
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            artifact-os: ubuntu-latest
+          - os: macos-latest
+            artifact-os: macos-latest
+          - os: windows-2025-vs2026
+            artifact-os: windows-latest
 
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         submodules: 'recursive'
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v5
       with:
         node-version: lts/*
-    - run: npm ci
+    - name: Prepare short extraction path (macOS)
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        rm -rf /tmp/vdk
+        cp -R vs-code-default-keybindings /tmp/vdk
+    - name: Install dependencies (Linux, Windows)
+      run: npm ci
       working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
+      if: runner.os != 'macOS'
+    - name: Install dependencies (macOS)
+      run: npm ci
+      working-directory: /tmp/vdk/scripts/get_default_keybindings
+      if: runner.os == 'macOS'
     - name: Run get-default-keybindings (Linux)
       run: xvfb-run -a npm start
       working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
@@ -30,11 +49,19 @@ jobs:
     - name: Run get-default-keybindings (macOS, Windows)
       run: npm start
       working-directory: vs-code-default-keybindings/scripts/get_default_keybindings
-      if: runner.os != 'Linux'
+      if: runner.os == 'Windows'
+    - name: Run get-default-keybindings (macOS)
+      run: npm start
+      working-directory: /tmp/vdk/scripts/get_default_keybindings
+      if: runner.os == 'macOS'
+    - name: Copy macOS output file
+      if: runner.os == 'macOS'
+      shell: bash
+      run: cp /tmp/vdk/scripts/*.keybindings.raw.json vs-code-default-keybindings/scripts/
     - name: Upload the output file
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
-        name: raw-default-keybindings-${{ matrix.os }}
+        name: raw-default-keybindings-${{ matrix.artifact-os }}
         path: vs-code-default-keybindings/scripts/*.keybindings.raw.json
 
   update_keybindings:
@@ -42,12 +69,12 @@ jobs:
     needs: get-default-keybindings
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: 'recursive'
 
       - name: Download three JSON files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
       - name: Copy JSON files
         shell: bash
         run: |
@@ -99,7 +126,7 @@ jobs:
 
       - name: Create Pull Request
         if: steps.diff.outputs.has-diff == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           token: ${{ secrets.TOKEN }}
           commit-message: Auto update keybindings from vscode v${{steps.changelog.outputs.engine_version}}
