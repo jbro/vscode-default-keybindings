@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.121.0 for macOS
+// Default Keybindings of Visual Studio Code 1.123.1 for macOS
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -611,7 +611,7 @@
 { "key": "ctrl+alt+enter",        "command": "workbench.action.chat.runInTerminal",
                                      "when": "accessibleViewInCodeBlock && chatIsEnabled || chatIsEnabled && inChat" },
 { "key": "enter",                 "command": "workbench.action.chat.submit",
-                                     "when": "chatInputHasText && chatSessionOptionsValid && inChatInput && !chatSessionRequestInProgress && !withinEditSessionDiff || chatInputHasText && chatSessionOptionsValid && inChatInput && !withinEditSessionDiff && chatEditingSentRequest == 's'" },
+                                     "when": "chatInputHasSendableContent && chatSessionOptionsValid && inChatInput && !chatSessionRequestInProgress && !withinEditSessionDiff || chatInputHasSendableContent && chatSessionOptionsValid && inChatInput && !withinEditSessionDiff && chatEditingSentRequest == 's'" },
 { "key": "cmd+enter",             "command": "workbench.action.chat.submitWithCodebase",
                                      "when": "chatInputHasText && inChatInput && !chatSessionRequestInProgress" },
 { "key": "shift+alt+enter",       "command": "workbench.action.chat.submitWithoutDispatching",
@@ -882,7 +882,7 @@
 { "key": "alt+cmd+pageup",        "command": "editor.action.accessibleViewPreviousCodeBlock",
                                      "when": "accessibleViewContainsCodeBlocks && accessibleViewCurrentProviderId == 'inlineChat' || accessibleViewContainsCodeBlocks && accessibleViewCurrentProviderId == 'panelChat' || accessibleViewContainsCodeBlocks && accessibleViewCurrentProviderId == 'quickChat'" },
 { "key": "cmd+k cmd+k",           "command": "editor.action.defineKeybinding",
-                                     "when": "resource == 'vscode-userdata:/Users/runner/work/vscode-default-keybindings/vscode-default-keybindings/vs-code-default-keybindings/scripts/get_default_keybindings/empty2/User/keybindings.json'" },
+                                     "when": "resource == 'vscode-userdata:/private/tmp/vdk/scripts/get_default_keybindings/empty2/User/keybindings.json'" },
 { "key": "tab",                   "command": "editor.action.inlineSuggest.commit",
                                      "when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editor.hasSelection && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible" },
 { "key": "alt+cmd+o",             "command": "editor.action.toggleOvertypeInsertMode" },
@@ -1422,11 +1422,17 @@
                                      "when": "inputFocus && navigableContainerFocused || navigableContainerFocused && treestickyScrollFocused || navigableContainerFocused && !listFocus || navigableContainerFocused && listScrollAtBoundary == 'both' || navigableContainerFocused && listScrollAtBoundary == 'top'" },
 { "key": "escape",                "command": "workbench.action.browser.addElementToChat",
                                      "when": "browserElementSelectionActive && browserHasUrl && chatIsEnabled && !browserHasError && activeEditor == 'workbench.editor.browser'" },
+{ "key": "cmd+d",                 "command": "workbench.action.browser.addFavorite",
+                                     "when": "browserHasUrl && !browserUrlIsFavorited && activeEditor == 'workbench.editor.browser'" },
 { "key": "cmd+l",                 "command": "workbench.action.browser.focusUrlInput",
                                      "when": "activeEditor == 'workbench.editor.browser'" },
+{ "key": "escape",                "command": "workbench.action.browser.hideEmulationToolbar",
+                                     "when": "browserEmulationToolbarVisible && activeEditor == 'workbench.editor.browser'" },
 { "key": "alt+cmd+/",             "command": "workbench.action.browser.openOrList" },
 { "key": "shift+cmd+a",           "command": "workbench.action.browser.quickOpen",
                                      "when": "activeEditor == 'workbench.editor.browser'" },
+{ "key": "cmd+d",                 "command": "workbench.action.browser.removeFavorite",
+                                     "when": "browserUrlIsFavorited && activeEditor == 'workbench.editor.browser'" },
 { "key": "f12",                   "command": "workbench.action.browser.toggleDevTools",
                                      "when": "browserHasUrl && !browserHasError && activeEditor == 'workbench.editor.browser'" },
 { "key": "cmd+escape",            "command": "workbench.action.chat.cancel",
@@ -1576,6 +1582,10 @@
                                      "when": "interactivePlaygroundFocus && !editorTextFocus" },
 { "key": "pageup",                "command": "workbench.action.interactivePlayground.pageUp",
                                      "when": "interactivePlaygroundFocus && !editorTextFocus" },
+{ "key": "shift+cmd+s",           "command": "workbench.action.issueReporter.captureScreenshot",
+                                     "when": "issueReporterOpen" },
+{ "key": "shift+cmd+r",           "command": "workbench.action.issueReporter.toggleRecording",
+                                     "when": "issueReporterOpen" },
 { "key": "cmd+k shift+cmd+\\",    "command": "workbench.action.joinEditorInGroup",
                                      "when": "sideBySideEditorActive" },
 { "key": "cmd+k enter",           "command": "workbench.action.keepEditor" },
@@ -3237,6 +3247,7 @@
 // - timeline.removeView
 // - timeline.resetViewLocation
 // - timeline.toggleVisibility
+// - toggle.chat.titleBar.openInAgentsWindow.enabled
 // - toggle.chat.titleBar.signIn.enabled
 // - toggle.chat.unifiedAgentsBar.enabled
 // - toggle.diff.ignoreTrimWhitespace
@@ -3302,7 +3313,10 @@
 // - workbench.action.askVScode
 // - workbench.action.blur
 // - workbench.action.browseColorThemesInMarketplace
+// - workbench.action.browser.addAreaScreenshotToChat
 // - workbench.action.browser.addConsoleLogsToChat
+// - workbench.action.browser.addFullPageScreenshotToChat
+// - workbench.action.browser.addScreenshotToChat
 // - workbench.action.browser.clearEphemeralStorage
 // - workbench.action.browser.clearGlobalStorage
 // - workbench.action.browser.clearWorkspaceStorage
@@ -3312,9 +3326,15 @@
 // - workbench.action.browser.openExternal
 // - workbench.action.browser.openFile
 // - workbench.action.browser.openSettings
+// - workbench.action.browser.pickDevicePreset
+// - workbench.action.browser.resetEmulation
+// - workbench.action.browser.setUserAgent
+// - workbench.action.browser.showEmulationToolbar
+// - workbench.action.browser.toggleMobileEmulation
 // - workbench.action.chat.addDynamicVariable
 // - workbench.action.chat.addToChatAction
 // - workbench.action.chat.agentHost.otel.exportAgentTracesDB
+// - workbench.action.chat.agentsHandoffTip.open
 // - workbench.action.chat.applyCompareEdits
 // - workbench.action.chat.archiveAllAgentSessions
 // - workbench.action.chat.assignSelectedAgent
@@ -3408,12 +3428,12 @@
 // - workbench.action.chat.openInEditor
 // - workbench.action.chat.openInNewWindow
 // - workbench.action.chat.openInSidebar
-// - workbench.action.chat.openNewChatSessionInPlace.agent-host-copilot
 // - workbench.action.chat.openNewChatSessionInPlace.local
-// - workbench.action.chat.openNewSessionEditor.agent-host-copilot
-// - workbench.action.chat.openNewSessionSidebar.agent-host-copilot
+// - workbench.action.chat.openNewSessionEditor.agent-host-copilotcli
+// - workbench.action.chat.openNewSessionSidebar.agent-host-copilotcli
 // - workbench.action.chat.openPermissionPicker
 // - workbench.action.chat.openQuotaExceededDialog
+// - workbench.action.chat.openSessionInAgentsWindow
 // - workbench.action.chat.openSessionInNewWindow
 // - workbench.action.chat.openSessionTargetPicker
 // - workbench.action.chat.openStorageFolder
@@ -4012,6 +4032,7 @@
 // - workbench.debug.viewlet.action.addDataBreakpointOnAddress
 // - workbench.debug.viewlet.action.addFunctionBreakpointAction
 // - workbench.debug.viewlet.action.addWatchExpression
+// - workbench.debug.viewlet.action.copyAllWatchExpressions
 // - workbench.debug.viewlet.action.copyWorkspaceVariableValue
 // - workbench.debug.viewlet.action.disableAllBreakpoints
 // - workbench.debug.viewlet.action.editDataBreakpointOnAddress
@@ -4151,6 +4172,7 @@
 // - workbench.mcp.restartServer
 // - workbench.mcp.serverOptions
 // - workbench.mcp.serverOptionsInConfirmation
+// - workbench.mcp.setOAuthClientSecret
 // - workbench.mcp.showConfiguration
 // - workbench.mcp.showInstalledServers
 // - workbench.mcp.showOutput
