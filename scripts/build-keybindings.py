@@ -3,39 +3,53 @@
 import json
 import re
 
-defaultKeybindings = {
-  'config.vscode-default-keybindings.removeOSKeybindings && isLinux': 'vs-code-default-keybindings/linux.negative.keybindings.json',
-  'config.vscode-default-keybindings.removeOSKeybindings && isMac': 'vs-code-default-keybindings/macos.negative.keybindings.json',
-  'config.vscode-default-keybindings.removeOSKeybindings && isWindows': 'vs-code-default-keybindings/windows.negative.keybindings.json',
-  'config.vscode-default-keybindings.linuxKeybindings': 'vs-code-default-keybindings/linux.keybindings.json',
-  'config.vscode-default-keybindings.macOSKeybindings': 'vs-code-default-keybindings/macos.keybindings.json',
-  'config.vscode-default-keybindings.windowsKeybindings': 'vs-code-default-keybindings/windows.keybindings.json',
-}
+defaultKeybindings = [
+  {
+    'expr': 'config.vscode-default-keybindings.removeOSKeybindings && isLinux',
+    'path': 'vs-code-default-keybindings/linux.negative.keybindings.json',
+    'platform': 'linux',
+    'mode': 'negative',
+  },
+  {
+    'expr': 'config.vscode-default-keybindings.removeOSKeybindings && isMac',
+    'path': 'vs-code-default-keybindings/macos.negative.keybindings.json',
+    'platform': 'macos',
+    'mode': 'negative',
+  },
+  {
+    'expr': 'config.vscode-default-keybindings.removeOSKeybindings && isWindows',
+    'path': 'vs-code-default-keybindings/windows.negative.keybindings.json',
+    'platform': 'windows',
+    'mode': 'negative',
+  },
+  {
+    'expr': 'config.vscode-default-keybindings.linuxKeybindings',
+    'path': 'vs-code-default-keybindings/linux.keybindings.json',
+    'platform': 'linux',
+    'mode': 'positive',
+  },
+  {
+    'expr': 'config.vscode-default-keybindings.macOSKeybindings',
+    'path': 'vs-code-default-keybindings/macos.keybindings.json',
+    'platform': 'macos',
+    'mode': 'positive',
+  },
+  {
+    'expr': 'config.vscode-default-keybindings.windowsKeybindings',
+    'path': 'vs-code-default-keybindings/windows.keybindings.json',
+    'platform': 'windows',
+    'mode': 'positive',
+  },
+]
 
 keybindings = []
-keybinding_counts = {}
 version = ''
+platforms = {'linux', 'macos', 'windows'}
 
-def get_fingerprint(binding):
-    return json.dumps(binding, sort_keys=True)
+def getFingerprint(binding):
+  return json.dumps(binding, sort_keys=True)
 
-for expr, path in defaultKeybindings.items():
-    with open(path, 'r') as f:
-        r = f.read()
-        # Remove comments
-        r = re.sub(r'//.*\n', '', r)
-        # Parse keybindings
-        keymap = json.loads(r)
-        # Generate fingerprints and count
-        for binding in keymap:
-            fingerprint = get_fingerprint(binding)
-            if fingerprint not in keybinding_counts:
-                keybinding_counts[fingerprint] = 0
-            keybinding_counts[fingerprint] += 1
-
-for expr, path in defaultKeybindings.items():
-
-  # Open keybindings file
+def loadKeymap(path):
   with open(path, 'r') as f:
 
     # Read file
@@ -43,27 +57,47 @@ for expr, path in defaultKeybindings.items():
 
     # Extract version from comments
     comments = '\n'.join([ line for line in r.split('\n') if line.startswith('//') ])
-    version = re.search(r'\d+\.\d+\.\d+', comments).group(0)
+    match = re.search(r'\d+\.\d+\.\d+', comments)
 
     # Remove comments
     r = re.sub(r'//.*\n', '', r)
 
     # Parse keybindings
-    keymap = json.loads(r)
+    return json.loads(r), match.group(0) if match else ''
 
-    # Update keybindings
-    for k in keymap:
-      fingerprint = get_fingerprint(k)
-      # Skip if fingerprint appears in all three platforms
-      if keybinding_counts.get(fingerprint, 0) == 3:
-        continue
-          
-      if 'when' in k:
-        k['when'] = f'{expr} && ({k["when"]})'
-      else:
-        k['when'] = expr
+fingerprints = {}
 
-      keybindings.append(k)
+for entry in defaultKeybindings:
+  keymap, _ = loadKeymap(entry['path'])
+  modeFingerprints = fingerprints.setdefault(entry['mode'], {})
+
+  for binding in keymap:
+    bindingPlatforms = modeFingerprints.setdefault(getFingerprint(binding), set())
+    bindingPlatforms.add(entry['platform'])
+
+commonFingerprints = {
+  mode: { fingerprint for fingerprint, bindingPlatforms in modeFingerprints.items() if bindingPlatforms == platforms }
+  for mode, modeFingerprints in fingerprints.items()
+}
+
+for entry in defaultKeybindings:
+
+  # Open keybindings file
+  keymap, keymapVersion = loadKeymap(entry['path'])
+  if keymapVersion:
+    version = keymapVersion
+
+  # Update keybindings
+  for k in keymap:
+    if getFingerprint(k) in commonFingerprints[entry['mode']]:
+      continue
+
+    if 'when' in k:
+      k['when'] = f'{entry["expr"]} && ({k["when"]})'
+    else:
+      k['when'] = entry['expr']
+
+    keybindings.append(k)
 
 # Update package.json
 with open('package.json', 'r+', encoding='utf-8') as f:
