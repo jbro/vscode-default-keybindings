@@ -280,3 +280,7 @@
 ## Release v0.2.63
 
 - Update keybindings for vscode 1.124.0
+
+## Release v0.2.64
+
+- Update keybindings for vscode 1.124.1
