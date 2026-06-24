@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.67",
+    "version": "0.2.68",
     "engines": {
-        "vscode": "^1.125.1"
+        "vscode": "^1.126.0"
     },
     "categories": [
         "Keymaps"
@@ -166,11 +166,6 @@
                 "key": "ctrl+up",
                 "command": "-chat.action.focus",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "-chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
@@ -846,6 +841,21 @@
                 "key": "ctrl+shift+l",
                 "command": "-addCursorsAtSearchResults",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (fileMatchOrMatchFocus && searchViewletVisible)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "-agentsVoice.pttStopInChat",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentsVoiceActive && config.agents.voice.enabled && inChatInput)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "-agentsVoice.pushToTalk",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentsVoiceWidgetFocused && config.agents.voice.enabled && !inputFocus)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "-agentsVoice.startVoiceInChat",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.agents.voice.enabled && inChatInput)"
             },
             {
                 "key": "ctrl+shift+;",
@@ -4001,6 +4011,21 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (fileMatchOrMatchFocus && searchViewletVisible)"
             },
             {
+                "key": "shift+cmd+space",
+                "command": "-agentsVoice.pttStopInChat",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentsVoiceActive && config.agents.voice.enabled && inChatInput)"
+            },
+            {
+                "key": "shift+cmd+space",
+                "command": "-agentsVoice.pushToTalk",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentsVoiceWidgetFocused && config.agents.voice.enabled && !inputFocus)"
+            },
+            {
+                "key": "shift+cmd+space",
+                "command": "-agentsVoice.startVoiceInChat",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (config.agents.voice.enabled && inChatInput)"
+            },
+            {
                 "key": "shift+cmd+;",
                 "command": "-breadcrumbs.focus",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (breadcrumbsPossible && breadcrumbsVisible)"
@@ -6643,11 +6668,6 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
             },
             {
-                "key": "escape",
-                "command": "-chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inModelsEditor && inModelsSearch)"
-            },
-            {
                 "key": "ctrl+u",
                 "command": "-cursorUndo",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (textInputFocus)"
@@ -7306,6 +7326,21 @@
                 "key": "ctrl+shift+l",
                 "command": "-addCursorsAtSearchResults",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (fileMatchOrMatchFocus && searchViewletVisible)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "-agentsVoice.pttStopInChat",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentsVoiceActive && config.agents.voice.enabled && inChatInput)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "-agentsVoice.pushToTalk",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentsVoiceWidgetFocused && config.agents.voice.enabled && !inputFocus)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "-agentsVoice.startVoiceInChat",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (config.agents.voice.enabled && inChatInput)"
             },
             {
                 "key": "ctrl+shift+;",
@@ -9613,11 +9648,6 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
             },
             {
-                "key": "escape",
-                "command": "chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inModelsEditor && inModelsSearch)"
-            },
-            {
                 "key": "ctrl+u",
                 "command": "cursorUndo",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (textInputFocus)"
@@ -10291,6 +10321,21 @@
                 "key": "ctrl+shift+l",
                 "command": "addCursorsAtSearchResults",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (fileMatchOrMatchFocus && searchViewletVisible)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "agentsVoice.pttStopInChat",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentsVoiceActive && config.agents.voice.enabled && inChatInput)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "agentsVoice.pushToTalk",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentsVoiceWidgetFocused && config.agents.voice.enabled && !inputFocus)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "agentsVoice.startVoiceInChat",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (config.agents.voice.enabled && inChatInput)"
             },
             {
                 "key": "ctrl+shift+;",
@@ -13446,6 +13491,21 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (fileMatchOrMatchFocus && searchViewletVisible)"
             },
             {
+                "key": "shift+cmd+space",
+                "command": "agentsVoice.pttStopInChat",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentsVoiceActive && config.agents.voice.enabled && inChatInput)"
+            },
+            {
+                "key": "shift+cmd+space",
+                "command": "agentsVoice.pushToTalk",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentsVoiceWidgetFocused && config.agents.voice.enabled && !inputFocus)"
+            },
+            {
+                "key": "shift+cmd+space",
+                "command": "agentsVoice.startVoiceInChat",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (config.agents.voice.enabled && inChatInput)"
+            },
+            {
                 "key": "shift+cmd+;",
                 "command": "breadcrumbs.focus",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (breadcrumbsPossible && breadcrumbsVisible)"
@@ -16088,11 +16148,6 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
             },
             {
-                "key": "escape",
-                "command": "chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inModelsEditor && inModelsSearch)"
-            },
-            {
                 "key": "ctrl+u",
                 "command": "cursorUndo",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (textInputFocus)"
@@ -16751,6 +16806,21 @@
                 "key": "ctrl+shift+l",
                 "command": "addCursorsAtSearchResults",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (fileMatchOrMatchFocus && searchViewletVisible)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "agentsVoice.pttStopInChat",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentsVoiceActive && config.agents.voice.enabled && inChatInput)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "agentsVoice.pushToTalk",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentsVoiceWidgetFocused && config.agents.voice.enabled && !inputFocus)"
+            },
+            {
+                "key": "ctrl+shift+space",
+                "command": "agentsVoice.startVoiceInChat",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (config.agents.voice.enabled && inChatInput)"
             },
             {
                 "key": "ctrl+shift+;",
