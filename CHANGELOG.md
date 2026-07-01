@@ -300,3 +300,7 @@
 ## Release v0.2.68
 
 - Update keybindings for vscode 1.126.0
+
+## Release v0.2.69
+
+- Update keybindings for vscode 1.127.0
