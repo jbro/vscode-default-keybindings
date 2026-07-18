@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.72",
+    "version": "0.2.73",
     "engines": {
-        "vscode": "^1.129.0"
+        "vscode": "^1.129.1"
     },
     "categories": [
         "Keymaps"
@@ -166,11 +166,6 @@
                 "key": "ctrl+up",
                 "command": "-chat.action.focus",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "-chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
@@ -3266,6 +3261,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
             },
             {
+                "key": "escape",
+                "command": "-chat.models.action.clearSearchResults",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inModelsEditor && inModelsSearch)"
+            },
+            {
                 "key": "cmd+u",
                 "command": "-cursorUndo",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (textInputFocus)"
@@ -5968,6 +5968,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (workbench.panel.markers.view.active)"
             },
             {
+                "key": "escape",
+                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (outputFilterFocus)"
+            },
+            {
                 "key": "shift+cmd+y",
                 "command": "-workbench.debug.action.toggleRepl",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (workbench.panel.repl.view.active)"
@@ -6671,11 +6676,6 @@
                 "key": "ctrl+up",
                 "command": "-chat.action.focus",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "-chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
@@ -9656,11 +9656,6 @@
                 "key": "ctrl+up",
                 "command": "chat.action.focus",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
@@ -12756,6 +12751,11 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
             },
             {
+                "key": "escape",
+                "command": "chat.models.action.clearSearchResults",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inModelsEditor && inModelsSearch)"
+            },
+            {
                 "key": "cmd+u",
                 "command": "cursorUndo",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (textInputFocus)"
@@ -15458,6 +15458,11 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (workbench.panel.markers.view.active)"
             },
             {
+                "key": "escape",
+                "command": "workbench.actions.workbench.panel.output.clearFilterText",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (outputFilterFocus)"
+            },
+            {
                 "key": "shift+cmd+y",
                 "command": "workbench.debug.action.toggleRepl",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (workbench.panel.repl.view.active)"
@@ -16161,11 +16166,6 @@
                 "key": "ctrl+up",
                 "command": "chat.action.focus",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
