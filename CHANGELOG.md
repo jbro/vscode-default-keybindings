@@ -320,3 +320,7 @@
 ## Release v0.2.73
 
 - Update keybindings for vscode 1.129.1
+
+## Release v0.2.74
+
+- Update keybindings for vscode 1.130.0
