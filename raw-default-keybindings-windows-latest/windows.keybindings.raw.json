@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.135.0 for Windows
+// Default Keybindings of Visual Studio Code 1.136.0 for Windows
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -152,8 +152,6 @@
                                      "when": "chatCursorAtTop && inChatInput && !quickChatHasFocus" },
 { "key": "ctrl+up",               "command": "chat.action.focus",
                                      "when": "inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus" },
-{ "key": "escape",                "command": "chat.models.action.clearSearchResults",
-                                     "when": "inModelsEditor && inModelsSearch" },
 { "key": "shift+escape",          "command": "closeBreakpointWidget",
                                      "when": "breakpointWidgetVisible && textInputFocus" },
 { "key": "escape",                "command": "closeBreakpointWidget",
@@ -1306,11 +1304,11 @@
 { "key": "ctrl+f",                "command": "workbench.action.chat.find",
                                      "when": "chatFindSupported && chatIsEnabled && inChat && !editorFocus" },
 { "key": "f3",                    "command": "workbench.action.chat.findNext",
-                                     "when": "chatFindWidgetVisible && inChat" },
+                                     "when": "chatFindSupported && inChat && !editorFocus" },
 { "key": "enter",                 "command": "workbench.action.chat.findNext",
                                      "when": "chatFindInputFocused" },
 { "key": "shift+f3",              "command": "workbench.action.chat.findPrevious",
-                                     "when": "chatFindWidgetVisible && inChat" },
+                                     "when": "chatFindSupported && inChat && !editorFocus" },
 { "key": "shift+enter",           "command": "workbench.action.chat.findPrevious",
                                      "when": "chatFindInputFocused" },
 { "key": "ctrl+shift+a",          "command": "workbench.action.chat.focusConfirmation",
@@ -1750,8 +1748,6 @@
 { "key": "ctrl+numpad0",          "command": "workbench.action.zoomReset" },
 { "key": "ctrl+shift+m",          "command": "workbench.actions.view.problems",
                                      "when": "workbench.panel.markers.view.active" },
-{ "key": "escape",                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                                     "when": "outputFilterFocus" },
 { "key": "escape",                "command": "workbench.banner.focusBanner",
                                      "when": "bannerFocused" },
 { "key": "down",                  "command": "workbench.banner.focusNextAction",
@@ -1801,6 +1797,8 @@
                                      "when": "agentSessionsViewerFocused && !agentSessionIsArchived" },
 { "key": "f2",                    "command": "agentSession.rename",
                                      "when": "agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/" },
+{ "key": "f2",                    "command": "agentSession.rename",
+                                     "when": "chatSessionSupportsRename && inChat && !isSessionsWindow && !quickChatHasFocus" },
 { "key": "shift+delete",          "command": "agentSession.unarchive",
                                      "when": "agentSessionIsArchived && agentSessionsViewerFocused" },
 { "key": "ctrl+right",            "command": "breadcrumbs.focusNextWithPicker",
@@ -1864,9 +1862,9 @@
 { "key": "ctrl+shift+t",          "command": "workbench.action.chat.focusTodosView",
                                      "when": "inChatInput && chatAgentKind == 'agent' || inChatTodoList && chatAgentKind == 'agent'" },
 { "key": "ctrl+l",                "command": "workbench.action.chat.newChat",
-                                     "when": "chatIsEnabled && inChat && chatLocation == 'panel'" },
+                                     "when": "chatIsEnabled && inChat && !inChatEditor && chatLocation == 'panel'" },
 { "key": "ctrl+n",                "command": "workbench.action.chat.newChat",
-                                     "when": "chatIsEnabled && inChat && chatLocation == 'panel'" },
+                                     "when": "chatIsEnabled && inChat && !inChatEditor && chatLocation == 'panel'" },
 { "key": "ctrl+enter",            "command": "workbench.action.chat.openSessionInEditorGroup",
                                      "when": "agentSessionsViewerFocused && !isSessionsWindow" },
 { "key": "ctrl+alt+enter",        "command": "workbench.action.chat.openSessionInNewEditorGroup",
@@ -2340,6 +2338,7 @@
 // - agentsVoice.showOnboarding
 // - agentsVoice.showTranscripts
 // - agentsVoice.simulateConnection
+// - aiCustomization.dismissMigrationHint
 // - aiCustomization.generateDebugReport
 // - aiCustomization.openManagementEditor
 // - aiCustomization.openMarketplace
@@ -2371,9 +2370,11 @@
 // - chat.internal.explain
 // - chat.internal.fix
 // - chat.internal.review
+// - chat.models.action.clearSearchResults
 // - chat.openFileSnapshot
 // - chat.openFileUpdatedBySnapshot
 // - chat.pet.developer.resetAchievements
+// - chat.pet.developer.resetSize
 // - chat.pet.developer.unlockAllAchievements
 // - chat.pet.openAchievements
 // - chat.toolOutput.save
@@ -2991,6 +2992,7 @@
 // - multiDiffEditor.collapseAll
 // - multiDiffEditor.expandAll
 // - multiDiffEditor.goToFile
+// - multiDiffEditor.openLayoutDebug
 // - noop
 // - notebook.action.changeTabDisplaySize
 // - notebook.action.convertIndentationToSpaces
@@ -3493,8 +3495,6 @@
 // - workbench.action.chat.openask
 // - workbench.action.chat.openedit
 // - workbench.action.chat.pickAgentSession
-// - workbench.action.chat.picker.customagents
-// - workbench.action.chat.picker.customagents.disabled
 // - workbench.action.chat.previousTip
 // - workbench.action.chat.profileAgentHost
 // - workbench.action.chat.quickVoiceChat
@@ -3881,6 +3881,8 @@
 // - workbench.action.selectIconTheme
 // - workbench.action.selectProductIconTheme
 // - workbench.action.setDefaultLogLevel
+// - workbench.action.setLayoutDensity.compact
+// - workbench.action.setLayoutDensity.default
 // - workbench.action.setLogLevel
 // - workbench.action.setNotificationsPosition.bottomLeft
 // - workbench.action.setNotificationsPosition.bottomRight
@@ -4083,6 +4085,7 @@
 // - workbench.actions.workbench.panel.markers.view.toggleExcludedFiles
 // - workbench.actions.workbench.panel.markers.view.toggleInfos
 // - workbench.actions.workbench.panel.markers.view.toggleWarnings
+// - workbench.actions.workbench.panel.output.clearFilterText
 // - workbench.actions.workbench.panel.output.toggle.debug
 // - workbench.actions.workbench.panel.output.toggle.error
 // - workbench.actions.workbench.panel.output.toggle.info
