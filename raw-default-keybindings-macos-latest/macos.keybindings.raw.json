@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.136.2 for macOS
+// Default Keybindings of Visual Studio Code 1.137.0 for macOS
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -187,6 +187,8 @@
                                      "when": "chatCursorAtTop && inChatInput && !quickChatHasFocus" },
 { "key": "cmd+up",                "command": "chat.action.focus",
                                      "when": "inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus" },
+{ "key": "escape",                "command": "chat.models.action.clearSearchResults",
+                                     "when": "inModelsEditor && inModelsSearch" },
 { "key": "shift+escape",          "command": "closeBreakpointWidget",
                                      "when": "breakpointWidgetVisible && textInputFocus" },
 { "key": "escape",                "command": "closeBreakpointWidget",
@@ -1434,7 +1436,7 @@
 { "key": "shift+cmd+a",           "command": "workbench.action.browser.quickOpen",
                                      "when": "activeEditor == 'workbench.editor.browser'" },
 { "key": "cmd+y",                 "command": "workbench.action.browser.showHistory",
-                                     "when": "activeEditor == 'workbench.editor.browser' && browserStorageScope != 'ephemeral'" },
+                                     "when": "activeEditor == 'workbench.editor.browser' && browserStorageScope != 'agent' && browserStorageScope != 'ephemeral'" },
 { "key": "escape",                "command": "workbench.action.browser.stopElementSelection",
                                      "when": "browserElementSelectionMode && activeEditor == 'workbench.editor.browser'" },
 { "key": "f12",                   "command": "workbench.action.browser.toggleDevTools",
@@ -2563,7 +2565,6 @@
 // - chat.internal.explain
 // - chat.internal.fix
 // - chat.internal.review
-// - chat.models.action.clearSearchResults
 // - chat.openFileSnapshot
 // - chat.openFileUpdatedBySnapshot
 // - chat.pet.developer.resetAchievements
@@ -2647,11 +2648,15 @@
 // - developer.showCurrentFileAsReleaseNotes
 // - diffEditor.collapseAllUnchangedRegions
 // - diffEditor.revert
+// - diffEditor.setViewMode.automatic
+// - diffEditor.setViewMode.inline
+// - diffEditor.setViewMode.sideBySide
 // - diffEditor.showAllUnchangedRegions
 // - diffEditor.switchSide
 // - diffEditor.toggleCollapseUnchangedRegions
 // - diffEditor.toggleShowMovedCodeBlocks
 // - diffEditor.toggleUseInlineViewWhenSpaceIsLimited
+// - diffEditor.viewMode.inlineTemporary
 // - editor.action.addCursorsToBottom
 // - editor.action.addCursorsToTop
 // - editor.action.addSelectionToPreviousFindMatch
@@ -3377,8 +3382,6 @@
 // - selectFirstSuggestion
 // - selectForCompare
 // - selectLastSuggestion
-// - sessions.tunnelHost.renameTunnel
-// - sessions.tunnelHost.showOutput
 // - sessions.tunnelHost.toggleSharing
 // - setRootFolder
 // - setSelection
@@ -3526,6 +3529,7 @@
 // - workbench.action.browser.addConsoleLogsToChat
 // - workbench.action.browser.addFullPageScreenshotToChat
 // - workbench.action.browser.addScreenshotToChat
+// - workbench.action.browser.clearAgentStorage
 // - workbench.action.browser.clearEphemeralStorage
 // - workbench.action.browser.clearGlobalStorage
 // - workbench.action.browser.clearWorkspaceStorage
@@ -4010,7 +4014,6 @@
 // - workbench.action.output.show.tasks
 // - workbench.action.output.show.terminal
 // - workbench.action.output.show.textModelChanges
-// - workbench.action.output.show.tunnelHostService
 // - workbench.action.output.show.userDataSync
 // - workbench.action.output.show.vscode.git.Git.log
 // - workbench.action.output.show.vscode.github-authentication.GitHub Authentication.log
@@ -4492,6 +4495,7 @@
 // - workbench.remoteTunnel.actions.copyToClipboard
 // - workbench.remoteTunnel.actions.learnMore
 // - workbench.remoteTunnel.actions.manage
+// - workbench.remoteTunnel.actions.rename
 // - workbench.remoteTunnel.actions.showLog
 // - workbench.remoteTunnel.actions.turnOff
 // - workbench.remoteTunnel.actions.turnOn

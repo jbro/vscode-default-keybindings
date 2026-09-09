@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.136.2 for Linux
+// Default Keybindings of Visual Studio Code 1.137.0 for Linux
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -1288,7 +1288,7 @@
 { "key": "ctrl+shift+a",          "command": "workbench.action.browser.quickOpen",
                                      "when": "activeEditor == 'workbench.editor.browser'" },
 { "key": "ctrl+h",                "command": "workbench.action.browser.showHistory",
-                                     "when": "activeEditor == 'workbench.editor.browser' && browserStorageScope != 'ephemeral'" },
+                                     "when": "activeEditor == 'workbench.editor.browser' && browserStorageScope != 'agent' && browserStorageScope != 'ephemeral'" },
 { "key": "escape",                "command": "workbench.action.browser.stopElementSelection",
                                      "when": "browserElementSelectionMode && activeEditor == 'workbench.editor.browser'" },
 { "key": "f12",                   "command": "workbench.action.browser.toggleDevTools",
@@ -1733,8 +1733,6 @@
 { "key": "ctrl+numpad0",          "command": "workbench.action.zoomReset" },
 { "key": "ctrl+shift+m",          "command": "workbench.actions.view.problems",
                                      "when": "workbench.panel.markers.view.active" },
-{ "key": "escape",                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                                     "when": "outputFilterFocus" },
 { "key": "escape",                "command": "workbench.banner.focusBanner",
                                      "when": "bannerFocused" },
 { "key": "down",                  "command": "workbench.banner.focusNextAction",
@@ -2448,11 +2446,15 @@
 // - developer.showCurrentFileAsReleaseNotes
 // - diffEditor.collapseAllUnchangedRegions
 // - diffEditor.revert
+// - diffEditor.setViewMode.automatic
+// - diffEditor.setViewMode.inline
+// - diffEditor.setViewMode.sideBySide
 // - diffEditor.showAllUnchangedRegions
 // - diffEditor.switchSide
 // - diffEditor.toggleCollapseUnchangedRegions
 // - diffEditor.toggleShowMovedCodeBlocks
 // - diffEditor.toggleUseInlineViewWhenSpaceIsLimited
+// - diffEditor.viewMode.inlineTemporary
 // - editor.action.addCursorsToBottom
 // - editor.action.addCursorsToTop
 // - editor.action.addSelectionToPreviousFindMatch
@@ -3183,8 +3185,6 @@
 // - selectFirstSuggestion
 // - selectForCompare
 // - selectLastSuggestion
-// - sessions.tunnelHost.renameTunnel
-// - sessions.tunnelHost.showOutput
 // - sessions.tunnelHost.toggleSharing
 // - setRootFolder
 // - setSelection
@@ -3332,6 +3332,7 @@
 // - workbench.action.browser.addConsoleLogsToChat
 // - workbench.action.browser.addFullPageScreenshotToChat
 // - workbench.action.browser.addScreenshotToChat
+// - workbench.action.browser.clearAgentStorage
 // - workbench.action.browser.clearEphemeralStorage
 // - workbench.action.browser.clearGlobalStorage
 // - workbench.action.browser.clearWorkspaceStorage
@@ -3812,7 +3813,6 @@
 // - workbench.action.output.show.tasks
 // - workbench.action.output.show.terminal
 // - workbench.action.output.show.textModelChanges
-// - workbench.action.output.show.tunnelHostService
 // - workbench.action.output.show.userDataSync
 // - workbench.action.output.show.vscode.git.Git.log
 // - workbench.action.output.show.vscode.github-authentication.GitHub Authentication.log
@@ -4071,6 +4071,7 @@
 // - workbench.actions.workbench.panel.markers.view.toggleExcludedFiles
 // - workbench.actions.workbench.panel.markers.view.toggleInfos
 // - workbench.actions.workbench.panel.markers.view.toggleWarnings
+// - workbench.actions.workbench.panel.output.clearFilterText
 // - workbench.actions.workbench.panel.output.toggle.debug
 // - workbench.actions.workbench.panel.output.toggle.error
 // - workbench.actions.workbench.panel.output.toggle.info
@@ -4301,6 +4302,7 @@
 // - workbench.remoteTunnel.actions.copyToClipboard
 // - workbench.remoteTunnel.actions.learnMore
 // - workbench.remoteTunnel.actions.manage
+// - workbench.remoteTunnel.actions.rename
 // - workbench.remoteTunnel.actions.showLog
 // - workbench.remoteTunnel.actions.turnOff
 // - workbench.remoteTunnel.actions.turnOn
