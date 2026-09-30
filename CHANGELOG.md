@@ -356,3 +356,7 @@
 ## Release v0.2.82
 
 - Update keybindings for vscode 1.139.1
+
+## Release v0.2.83
+
+- Update keybindings for vscode 1.140.0
