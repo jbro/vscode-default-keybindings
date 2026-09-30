@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.82",
+    "version": "0.2.83",
     "engines": {
-        "vscode": "^1.139.1"
+        "vscode": "^1.140.0"
     },
     "categories": [
         "Keymaps"
@@ -1703,6 +1703,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasText && inChatInput)"
             },
             {
+                "key": "ctrl+alt+i",
+                "command": "-workbench.action.chat.showUpdateRequired",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.chat.updateRequired.active)"
+            },
+            {
                 "key": "ctrl+i",
                 "command": "-workbench.action.chat.startVoiceChat",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && hasSpeechProvider && inChatInput && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress)"
@@ -2070,7 +2075,7 @@
             {
                 "key": "ctrl+shift+a",
                 "command": "-workbench.action.openAgentsWindow",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.chat.agent.enabled && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow)",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (config.chat.agent.enabled && editorReadonly && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow || config.chat.agent.enabled && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !editorAreaFocus && !isAuxiliaryWindow && !isSessionsWindow)",
                 "args": {
                     "source": "keyboardShortcut"
                 }
@@ -2576,11 +2581,6 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.markers.view.active)"
             },
             {
-                "key": "escape",
-                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (outputFilterFocus)"
-            },
-            {
                 "key": "ctrl+shift+y",
                 "command": "-workbench.debug.action.toggleRepl",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.repl.view.active)"
@@ -2633,17 +2633,17 @@
             {
                 "key": "delete",
                 "command": "-agentSession.archive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionsViewerFocused && !agentSessionIsArchived)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
                 "command": "-agentSession.rename",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^remote-/)"
             },
             {
                 "key": "shift+delete",
                 "command": "-agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionIsArchived && agentSessionsViewerFocused)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -3281,6 +3281,11 @@
             {
                 "key": "ctrl+j",
                 "command": "-markdown.editor.joinLines",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (false)"
+            },
+            {
+                "key": "meta+e",
+                "command": "-markdown.editor.toggleLocked",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (false)"
             },
             {
@@ -5365,6 +5370,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasText && inChatInput)"
             },
             {
+                "key": "ctrl+cmd+i",
+                "command": "-workbench.action.chat.showUpdateRequired",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (workbench.panel.chat.updateRequired.active)"
+            },
+            {
                 "key": "cmd+i",
                 "command": "-workbench.action.chat.startVoiceChat",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && hasSpeechProvider && inChatInput && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress)"
@@ -6380,17 +6390,17 @@
             {
                 "key": "cmd+backspace",
                 "command": "-agentSession.archive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionsViewerFocused && !agentSessionIsArchived)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "enter",
                 "command": "-agentSession.rename",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^remote-/)"
             },
             {
                 "key": "shift+cmd+backspace",
                 "command": "-agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionIsArchived && agentSessionsViewerFocused)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "shift+cmd+m",
@@ -7108,6 +7118,11 @@
             {
                 "key": "ctrl+j",
                 "command": "-markdown.editor.joinLines",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (markdownEditorFocus && activeCustomEditorId == 'vscode.markdown.editor')"
+            },
+            {
+                "key": "cmd+e",
+                "command": "-markdown.editor.toggleLocked",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (markdownEditorFocus && activeCustomEditorId == 'vscode.markdown.editor')"
             },
             {
@@ -8836,6 +8851,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasText && inChatInput)"
             },
             {
+                "key": "ctrl+alt+i",
+                "command": "-workbench.action.chat.showUpdateRequired",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (workbench.panel.chat.updateRequired.active)"
+            },
+            {
                 "key": "ctrl+i",
                 "command": "-workbench.action.chat.startVoiceChat",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && hasSpeechProvider && inChatInput && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress)"
@@ -9799,17 +9819,17 @@
             {
                 "key": "delete",
                 "command": "-agentSession.archive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionsViewerFocused && !agentSessionIsArchived)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
                 "command": "-agentSession.rename",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^remote-/)"
             },
             {
                 "key": "shift+delete",
                 "command": "-agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionIsArchived && agentSessionsViewerFocused)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -10467,6 +10487,11 @@
             {
                 "key": "ctrl+j",
                 "command": "-markdown.editor.joinLines",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (false)"
+            },
+            {
+                "key": "win+e",
+                "command": "-markdown.editor.toggleLocked",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (false)"
             },
             {
@@ -12170,6 +12195,11 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasText && inChatInput)"
             },
             {
+                "key": "ctrl+alt+i",
+                "command": "workbench.action.chat.showUpdateRequired",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (workbench.panel.chat.updateRequired.active)"
+            },
+            {
                 "key": "ctrl+i",
                 "command": "workbench.action.chat.startVoiceChat",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && hasSpeechProvider && inChatInput && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress)"
@@ -12537,7 +12567,7 @@
             {
                 "key": "ctrl+shift+a",
                 "command": "workbench.action.openAgentsWindow",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (config.chat.agent.enabled && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow)",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (config.chat.agent.enabled && editorReadonly && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow || config.chat.agent.enabled && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !editorAreaFocus && !isAuxiliaryWindow && !isSessionsWindow)",
                 "args": {
                     "source": "keyboardShortcut"
                 }
@@ -13043,11 +13073,6 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (workbench.panel.markers.view.active)"
             },
             {
-                "key": "escape",
-                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (outputFilterFocus)"
-            },
-            {
                 "key": "ctrl+shift+y",
                 "command": "workbench.debug.action.toggleRepl",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (workbench.panel.repl.view.active)"
@@ -13100,17 +13125,17 @@
             {
                 "key": "delete",
                 "command": "agentSession.archive",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
                 "command": "agentSession.rename",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^remote-/)"
             },
             {
                 "key": "shift+delete",
                 "command": "agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -13748,6 +13773,11 @@
             {
                 "key": "ctrl+j",
                 "command": "markdown.editor.joinLines",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (false)"
+            },
+            {
+                "key": "meta+e",
+                "command": "markdown.editor.toggleLocked",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (false)"
             },
             {
@@ -15832,6 +15862,11 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasText && inChatInput)"
             },
             {
+                "key": "ctrl+cmd+i",
+                "command": "workbench.action.chat.showUpdateRequired",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (workbench.panel.chat.updateRequired.active)"
+            },
+            {
                 "key": "cmd+i",
                 "command": "workbench.action.chat.startVoiceChat",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && hasSpeechProvider && inChatInput && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress)"
@@ -16847,17 +16882,17 @@
             {
                 "key": "cmd+backspace",
                 "command": "agentSession.archive",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "enter",
                 "command": "agentSession.rename",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^remote-/)"
             },
             {
                 "key": "shift+cmd+backspace",
                 "command": "agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "shift+cmd+m",
@@ -17575,6 +17610,11 @@
             {
                 "key": "ctrl+j",
                 "command": "markdown.editor.joinLines",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (markdownEditorFocus && activeCustomEditorId == 'vscode.markdown.editor')"
+            },
+            {
+                "key": "cmd+e",
+                "command": "markdown.editor.toggleLocked",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (markdownEditorFocus && activeCustomEditorId == 'vscode.markdown.editor')"
             },
             {
@@ -19303,6 +19343,11 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasText && inChatInput)"
             },
             {
+                "key": "ctrl+alt+i",
+                "command": "workbench.action.chat.showUpdateRequired",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (workbench.panel.chat.updateRequired.active)"
+            },
+            {
                 "key": "ctrl+i",
                 "command": "workbench.action.chat.startVoiceChat",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && hasSpeechProvider && inChatInput && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !chatSpeechToTextConfigured && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress)"
@@ -20266,17 +20311,17 @@
             {
                 "key": "delete",
                 "command": "agentSession.archive",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
                 "command": "agentSession.rename",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && chatSessionType =~ /^remote-/)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType == 'local' || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^agent-host-/ || agentSessionsViewerFocused && !agentSessionHasMultipleSelected && !agentSessionIsChild && chatSessionType =~ /^remote-/)"
             },
             {
                 "key": "shift+delete",
                 "command": "agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -20934,6 +20979,11 @@
             {
                 "key": "ctrl+j",
                 "command": "markdown.editor.joinLines",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (false)"
+            },
+            {
+                "key": "win+e",
+                "command": "markdown.editor.toggleLocked",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (false)"
             },
             {
