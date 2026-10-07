@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.140.0 for macOS
+// Default Keybindings of Visual Studio Code 1.141.0 for macOS
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -187,6 +187,8 @@
                                      "when": "chatCursorAtTop && inChatInput && !quickChatHasFocus" },
 { "key": "cmd+up",                "command": "chat.action.focus",
                                      "when": "inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus" },
+{ "key": "escape",                "command": "chat.models.action.clearSearchResults",
+                                     "when": "inModelsEditor && inModelsSearch" },
 { "key": "shift+escape",          "command": "closeBreakpointWidget",
                                      "when": "breakpointWidgetVisible && textInputFocus" },
 { "key": "escape",                "command": "closeBreakpointWidget",
@@ -1648,10 +1650,10 @@
 { "key": "alt+cmd+right",         "command": "workbench.action.nextEditor" },
 { "key": "cmd+k alt+cmd+right",   "command": "workbench.action.nextEditorInGroup" },
 { "key": "shift+cmd+a",           "command": "workbench.action.openAgentsWindow",
-                                     "when": "config.chat.agent.enabled && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow",
+                                     "when": "chatHasCreatedSessionInAgentsWindow && config.chat.agent.enabled && !accessibilityModeEnabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow",
                                      "args": {"source":"keyboardShortcut"} },
 { "key": "shift+alt+cmd+a",       "command": "workbench.action.openAgentsWindow",
-                                     "when": "accessibilityModeEnabled && config.chat.agent.enabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow",
+                                     "when": "accessibilityModeEnabled && chatHasCreatedSessionInAgentsWindow && config.chat.agent.enabled && !chatSetupDisabledInWorkspace && !chatSetupHidden && !isAuxiliaryWindow && !isSessionsWindow",
                                      "args": {"source":"keyboardShortcut"} },
 { "key": "cmd+n",                 "command": "workbench.action.openChat",
                                      "when": "chatIsEnabled && inChat && inChatEditor" },
@@ -2591,9 +2593,10 @@
 // - chat.internal.explain
 // - chat.internal.fix
 // - chat.internal.review
-// - chat.models.action.clearSearchResults
 // - chat.openFileSnapshot
 // - chat.openFileUpdatedBySnapshot
+// - chat.pet.blobby
+// - chat.pet.changeColor
 // - chat.pet.developer.resetAchievements
 // - chat.pet.developer.resetSize
 // - chat.pet.developer.unlockAllAchievements
