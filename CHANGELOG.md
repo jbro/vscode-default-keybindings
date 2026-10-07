@@ -360,3 +360,7 @@
 ## Release v0.2.83
 
 - Update keybindings for vscode 1.140.0
+
+## Release v0.2.84
+
+- Update keybindings for vscode 1.141.0
