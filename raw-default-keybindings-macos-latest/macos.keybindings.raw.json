@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.141.1 for macOS
+// Default Keybindings of Visual Studio Code 1.141.2 for macOS
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -3584,6 +3584,12 @@
 // - workbench.action.chat.agentHost.signInToAgent
 // - workbench.action.chat.agentHost.signInToGitHubForAgent
 // - workbench.action.chat.agentHostNetworkDiagnostics
+// - workbench.action.chat.agentsHandoffTip.mute
+// - workbench.action.chat.agentsHandoffTip.open
+// - workbench.action.chat.agentsParallelWork.feedback
+// - workbench.action.chat.agentsParallelWork.ignore
+// - workbench.action.chat.agentsParallelWork.learnMore
+// - workbench.action.chat.agentsParallelWork.open
 // - workbench.action.chat.applyCompareEdits
 // - workbench.action.chat.archiveAllAgentSessions
 // - workbench.action.chat.askInSideChat
@@ -3775,6 +3781,7 @@
 // - workbench.action.clearCommandHistory
 // - workbench.action.clearEditorHistory
 // - workbench.action.clearEditorHistoryWithoutConfirm
+// - workbench.action.clearLocalePreference
 // - workbench.action.clearRecentFiles
 // - workbench.action.closeActivePinnedEditor
 // - workbench.action.closeAuxiliaryBar
@@ -3794,6 +3801,7 @@
 // - workbench.action.configureEditor
 // - workbench.action.configureEditorTabs
 // - workbench.action.configureLanguageBasedSettings
+// - workbench.action.configureLocale
 // - workbench.action.configureMeteredConnection
 // - workbench.action.configureRuntimeArguments
 // - workbench.action.continueOn.extensions
@@ -3852,6 +3860,7 @@
 // - workbench.action.expandAllComments
 // - workbench.action.expandUnresolvedComments
 // - workbench.action.exportLogs
+// - workbench.action.extensionHostProfiler.stop
 // - workbench.action.files.newFile
 // - workbench.action.files.openFileFolderInNewWindow
 // - workbench.action.files.openFileInNewWindow
@@ -3891,6 +3900,7 @@
 // - workbench.action.gotoOffset
 // - workbench.action.hideEditorActions
 // - workbench.action.hideEditorTabs
+// - workbench.action.holdLockedScrolling
 // - workbench.action.importLog
 // - workbench.action.increaseViewHeight
 // - workbench.action.increaseViewSize
@@ -4237,6 +4247,7 @@
 // - workbench.action.toggleKeepEditors
 // - workbench.action.toggleKeybindingsLog
 // - workbench.action.toggleLightDarkThemes
+// - workbench.action.toggleLockedScrolling
 // - workbench.action.toggleMaximizedAuxiliaryBar
 // - workbench.action.toggleMaximizedPanel
 // - workbench.action.toggleModalEditorMaximized
@@ -4433,6 +4444,7 @@
 // - workbench.extensions.action.updateAllExtensions
 // - workbench.extensions.actions.gallery.signIn
 // - workbench.extensions.command.installFromVSIX
+// - workbench.extensions.installMissingDependencies
 // - workbench.files.action.acceptLocalChanges
 // - workbench.files.action.collapseExplorerFolders
 // - workbench.files.action.compareFileWith
