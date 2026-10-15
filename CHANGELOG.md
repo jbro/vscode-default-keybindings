@@ -372,3 +372,7 @@
 ## Release v0.2.86
 
 - Update keybindings for vscode 1.141.2
+
+## Release v0.2.87
+
+- Update keybindings for vscode 1.142.0

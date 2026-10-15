@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.86",
+    "version": "0.2.87",
     "engines": {
-        "vscode": "^1.141.2"
+        "vscode": "^1.142.0"
     },
     "categories": [
         "Keymaps"
@@ -1680,7 +1680,7 @@
             {
                 "key": "delete",
                 "command": "-workbench.action.chat.restoreCheckpoint",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+meta+/",
@@ -1735,7 +1735,7 @@
             {
                 "key": "delete",
                 "command": "-workbench.action.chat.undoEdits",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+shift+space",
@@ -3034,24 +3034,24 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
             },
             {
-                "key": "ctrl+k v",
-                "command": "-markdown.showPreviewToSide",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+n",
                 "command": "-git.unstageSelectedRanges",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git')"
             },
             {
-                "key": "ctrl+shift+v",
-                "command": "-markdown.togglePreview",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+r",
                 "command": "-git.revertSelectedRanges",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
+            },
+            {
+                "key": "ctrl+k v",
+                "command": "-markdown.showPreviewToSide",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
+            },
+            {
+                "key": "ctrl+shift+v",
+                "command": "-markdown.togglePreview",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
             },
             {
                 "key": "ctrl+b",
@@ -5347,7 +5347,7 @@
             {
                 "key": "cmd+backspace",
                 "command": "-workbench.action.chat.restoreCheckpoint",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+cmd+/",
@@ -5402,7 +5402,7 @@
             {
                 "key": "cmd+backspace",
                 "command": "-workbench.action.chat.undoEdits",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "shift+cmd+space",
@@ -6861,24 +6861,24 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
             },
             {
-                "key": "cmd+k v",
-                "command": "-markdown.showPreviewToSide",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "cmd+k cmd+n",
                 "command": "-git.unstageSelectedRanges",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git')"
             },
             {
-                "key": "shift+cmd+v",
-                "command": "-markdown.togglePreview",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "cmd+k cmd+r",
                 "command": "-git.revertSelectedRanges",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
+            },
+            {
+                "key": "cmd+k v",
+                "command": "-markdown.showPreviewToSide",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
+            },
+            {
+                "key": "shift+cmd+v",
+                "command": "-markdown.togglePreview",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
             },
             {
                 "key": "ctrl+b",
@@ -8828,7 +8828,7 @@
             {
                 "key": "delete",
                 "command": "-workbench.action.chat.restoreCheckpoint",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+win+/",
@@ -8883,7 +8883,7 @@
             {
                 "key": "delete",
                 "command": "-workbench.action.chat.undoEdits",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+shift+space",
@@ -10230,24 +10230,24 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
             },
             {
-                "key": "ctrl+k v",
-                "command": "-markdown.showPreviewToSide",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+n",
                 "command": "-git.unstageSelectedRanges",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git')"
             },
             {
-                "key": "ctrl+shift+v",
-                "command": "-markdown.togglePreview",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+r",
                 "command": "-git.revertSelectedRanges",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
+            },
+            {
+                "key": "ctrl+k v",
+                "command": "-markdown.showPreviewToSide",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
+            },
+            {
+                "key": "ctrl+shift+v",
+                "command": "-markdown.togglePreview",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
             },
             {
                 "key": "ctrl+b",
@@ -12172,7 +12172,7 @@
             {
                 "key": "delete",
                 "command": "workbench.action.chat.restoreCheckpoint",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+meta+/",
@@ -12227,7 +12227,7 @@
             {
                 "key": "delete",
                 "command": "workbench.action.chat.undoEdits",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+shift+space",
@@ -13526,24 +13526,24 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
             },
             {
-                "key": "ctrl+k v",
-                "command": "markdown.showPreviewToSide",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+n",
                 "command": "git.unstageSelectedRanges",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git')"
             },
             {
-                "key": "ctrl+shift+v",
-                "command": "markdown.togglePreview",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+r",
                 "command": "git.revertSelectedRanges",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
+            },
+            {
+                "key": "ctrl+k v",
+                "command": "markdown.showPreviewToSide",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
+            },
+            {
+                "key": "ctrl+shift+v",
+                "command": "markdown.togglePreview",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
             },
             {
                 "key": "ctrl+b",
@@ -15839,7 +15839,7 @@
             {
                 "key": "cmd+backspace",
                 "command": "workbench.action.chat.restoreCheckpoint",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+cmd+/",
@@ -15894,7 +15894,7 @@
             {
                 "key": "cmd+backspace",
                 "command": "workbench.action.chat.undoEdits",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "shift+cmd+space",
@@ -17353,24 +17353,24 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
             },
             {
-                "key": "cmd+k v",
-                "command": "markdown.showPreviewToSide",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "cmd+k cmd+n",
                 "command": "git.unstageSelectedRanges",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git')"
             },
             {
-                "key": "shift+cmd+v",
-                "command": "markdown.togglePreview",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "cmd+k cmd+r",
                 "command": "git.revertSelectedRanges",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
+            },
+            {
+                "key": "cmd+k v",
+                "command": "markdown.showPreviewToSide",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
+            },
+            {
+                "key": "shift+cmd+v",
+                "command": "markdown.togglePreview",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
             },
             {
                 "key": "ctrl+b",
@@ -19320,7 +19320,7 @@
             {
                 "key": "delete",
                 "command": "workbench.action.chat.restoreCheckpoint",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+alt+win+/",
@@ -19375,7 +19375,7 @@
             {
                 "key": "delete",
                 "command": "workbench.action.chat.undoEdits",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !textInputFocus)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat && !chatIsReadonly && !inChatQuestionCarousel && !inputFocus && !textInputFocus)"
             },
             {
                 "key": "ctrl+shift+space",
@@ -20722,24 +20722,24 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
             },
             {
-                "key": "ctrl+k v",
-                "command": "markdown.showPreviewToSide",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+n",
                 "command": "git.unstageSelectedRanges",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git')"
             },
             {
-                "key": "ctrl+shift+v",
-                "command": "markdown.togglePreview",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
-            },
-            {
                 "key": "ctrl+k ctrl+r",
                 "command": "git.revertSelectedRanges",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (editorTextFocus && !operationInProgress && resourceScheme == 'file')"
+            },
+            {
+                "key": "ctrl+k v",
+                "command": "markdown.showPreviewToSide",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (editorFocus && !notebookEditorFocused && editorLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
+            },
+            {
+                "key": "ctrl+shift+v",
+                "command": "markdown.togglePreview",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (!terminalFocus && activeCustomEditorId == 'vscode.markdown.preview.editor' || editorFocus && !notebookEditorFocused && !terminalFocus && resourceLangId =~ /^(markdown|prompt|instructions|chatagent|skill)$/)"
             },
             {
                 "key": "ctrl+b",
