@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.88",
+    "version": "0.2.89",
     "engines": {
-        "vscode": "^1.143.0"
+        "vscode": "^1.143.1"
     },
     "categories": [
         "Keymaps"
@@ -2581,6 +2581,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.markers.view.active)"
             },
             {
+                "key": "escape",
+                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (outputFilterFocus)"
+            },
+            {
                 "key": "ctrl+shift+y",
                 "command": "-workbench.debug.action.toggleRepl",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.repl.view.active)"
@@ -3588,11 +3593,6 @@
                 "key": "cmd+up",
                 "command": "-chat.action.focus",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "-chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "cmd+u",
@@ -13073,6 +13073,11 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (workbench.panel.markers.view.active)"
             },
             {
+                "key": "escape",
+                "command": "workbench.actions.workbench.panel.output.clearFilterText",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (outputFilterFocus)"
+            },
+            {
                 "key": "ctrl+shift+y",
                 "command": "workbench.debug.action.toggleRepl",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (workbench.panel.repl.view.active)"
@@ -14080,11 +14085,6 @@
                 "key": "cmd+up",
                 "command": "chat.action.focus",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "cmd+u",
