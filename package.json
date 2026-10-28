@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.89",
+    "version": "0.2.90",
     "engines": {
-        "vscode": "^1.143.1"
+        "vscode": "^1.144.0"
     },
     "categories": [
         "Keymaps"
@@ -1625,7 +1625,7 @@
             {
                 "key": "ctrl+shift+/",
                 "command": "-workbench.action.chat.focusTip",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat || inChatComposer || inChat && inChatComposer || inChat && inChatTip || inChatComposer && inChatTip)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChat || inChat && inChatTip)"
             },
             {
                 "key": "ctrl+i",
@@ -2579,11 +2579,6 @@
                 "key": "ctrl+shift+m",
                 "command": "-workbench.actions.view.problems",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (workbench.panel.markers.view.active)"
-            },
-            {
-                "key": "escape",
-                "command": "-workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (outputFilterFocus)"
             },
             {
                 "key": "ctrl+shift+y",
@@ -5297,7 +5292,7 @@
             {
                 "key": "shift+cmd+/",
                 "command": "-workbench.action.chat.focusTip",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat || inChatComposer || inChat && inChatComposer || inChat && inChatTip || inChatComposer && inChatTip)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChat || inChat && inChatTip)"
             },
             {
                 "key": "cmd+i",
@@ -8773,7 +8768,7 @@
             {
                 "key": "ctrl+shift+/",
                 "command": "-workbench.action.chat.focusTip",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat || inChatComposer || inChat && inChatComposer || inChat && inChatTip || inChatComposer && inChatTip)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChat || inChat && inChatTip)"
             },
             {
                 "key": "ctrl+i",
@@ -12117,7 +12112,7 @@
             {
                 "key": "ctrl+shift+/",
                 "command": "workbench.action.chat.focusTip",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat || inChatComposer || inChat && inChatComposer || inChat && inChatTip || inChatComposer && inChatTip)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChat || inChat && inChatTip)"
             },
             {
                 "key": "ctrl+i",
@@ -13071,11 +13066,6 @@
                 "key": "ctrl+shift+m",
                 "command": "workbench.actions.view.problems",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (workbench.panel.markers.view.active)"
-            },
-            {
-                "key": "escape",
-                "command": "workbench.actions.workbench.panel.output.clearFilterText",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (outputFilterFocus)"
             },
             {
                 "key": "ctrl+shift+y",
@@ -15789,7 +15779,7 @@
             {
                 "key": "shift+cmd+/",
                 "command": "workbench.action.chat.focusTip",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat || inChatComposer || inChat && inChatComposer || inChat && inChatTip || inChatComposer && inChatTip)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChat || inChat && inChatTip)"
             },
             {
                 "key": "cmd+i",
@@ -19265,7 +19255,7 @@
             {
                 "key": "ctrl+shift+/",
                 "command": "workbench.action.chat.focusTip",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat || inChatComposer || inChat && inChatComposer || inChat && inChatTip || inChatComposer && inChatTip)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChat || inChat && inChatTip)"
             },
             {
                 "key": "ctrl+i",
