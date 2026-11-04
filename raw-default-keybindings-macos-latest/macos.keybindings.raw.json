@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.144.1 for macOS
+// Default Keybindings of Visual Studio Code 1.145.0 for macOS
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -674,6 +674,8 @@
                                      "when": "editorFocus" },
 { "key": "escape",                "command": "workbench.action.browser.hideFind",
                                      "when": "browserFindWidgetVisible && activeEditor == 'workbench.editor.browser'" },
+{ "key": "enter",                 "command": "workbench.action.chat.openInlineAttachment",
+                                     "when": "chatInputInlineAttachmentActive && chatIsEnabled && inChatInput" },
 { "key": "tab",                   "command": "jumpToNextSnippetPlaceholder",
                                      "when": "hasNextTabstop && inSnippetMode && textInputFocus" },
 { "key": "shift+tab",             "command": "jumpToPrevSnippetPlaceholder",
@@ -1952,7 +1954,7 @@
 { "key": "shift+cmd+f",           "command": "workbench.view.search",
                                      "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/" },
 { "key": "cmd+backspace",         "command": "agentSession.archive",
-                                     "when": "agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild" },
+                                     "when": "agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild" },
 { "key": "shift+i",               "command": "agentSession.markRead",
                                      "when": "agentSessionsViewerFocused && listFocus && !inputFocus && !isSessionsWindow && !treestickyScrollFocused" },
 { "key": "shift+u",               "command": "agentSession.markUnread",
@@ -1962,7 +1964,7 @@
 { "key": "f2",                    "command": "agentSession.rename",
                                      "when": "chatSessionSupportsRename && inChat && !isSessionsWindow && !quickChatHasFocus" },
 { "key": "shift+cmd+backspace",   "command": "agentSession.unarchive",
-                                     "when": "agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild" },
+                                     "when": "agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild" },
 { "key": "shift+cmd+m",           "command": "agentsVoice.toggleMute",
                                      "when": "agentsVoiceConnected && agentsVoiceEntitled && agentsVoiceInitiatedHere && chatInputHasFocus && chatIsEnabled && config.agents.voice.enabled || agentsVoiceConnected && agentsVoiceEntitled && chatInputHasFocus && chatIsEnabled && config.agents.voice.enabled && !isSessionsWindow || agentsVoiceConnected && agentsVoiceInitiatedHere && chatInputHasFocus && chatIsEnabled && config.agents.voice.enabled && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceConnected && chatInputHasFocus && chatIsEnabled && config.agents.voice.enabled && !isSessionsWindow && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceConnected && agentsVoiceEntitled && agentsVoiceInitiatedHere && chatInputHasFocus && chatIsEnabled && config.agents.voice.enabled && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceConnected && agentsVoiceEntitled && chatInputHasFocus && chatIsEnabled && config.agents.voice.enabled && !isSessionsWindow && config.agents.voice.useBYOKVoiceModel =~ /\\S/" },
 { "key": "alt+right",             "command": "breadcrumbs.focusNextWithPicker",
@@ -2560,6 +2562,7 @@
 // - aiCustomization.openManagementEditor
 // - aiCustomization.openMarketplace
 // - aiCustomizationManagement.copyPath
+// - aiCustomizationManagement.createCanvas
 // - aiCustomizationManagement.delete
 // - aiCustomizationManagement.disableItem
 // - aiCustomizationManagement.enableItem
@@ -2859,6 +2862,34 @@
 // - extension.node-debug.toggleAutoAttach
 // - extension.open
 // - extension.pwa-node-debug.attachNodeProcess
+// - extensions.actions.searchByCategory.AI
+// - extensions.actions.searchByCategory.Azure
+// - extensions.actions.searchByCategory.Chat
+// - extensions.actions.searchByCategory.Data Science
+// - extensions.actions.searchByCategory.Debuggers
+// - extensions.actions.searchByCategory.Education
+// - extensions.actions.searchByCategory.Extension Packs
+// - extensions.actions.searchByCategory.Formatters
+// - extensions.actions.searchByCategory.Keymaps
+// - extensions.actions.searchByCategory.Language Packs
+// - extensions.actions.searchByCategory.Linters
+// - extensions.actions.searchByCategory.Machine Learning
+// - extensions.actions.searchByCategory.Notebooks
+// - extensions.actions.searchByCategory.Other
+// - extensions.actions.searchByCategory.Programming Languages
+// - extensions.actions.searchByCategory.SCM Providers
+// - extensions.actions.searchByCategory.Snippets
+// - extensions.actions.searchByCategory.Testing
+// - extensions.actions.searchByCategory.Themes
+// - extensions.actions.searchByCategory.Visualization
+// - extensions.filter.featured
+// - extensions.recommendedList.focus
+// - extensions.recommendedList.resetViewLocation
+// - extensions.sort.installs
+// - extensions.sort.name
+// - extensions.sort.publishedDate
+// - extensions.sort.rating
+// - extensions.sort.updateDate
 // - files.openTimeline
 // - files.participants.resetChoice
 // - filesExplorer.findInWorkspace
@@ -3506,7 +3537,6 @@
 // - watch.collapse
 // - welcome.markStepComplete
 // - welcome.markStepIncomplete
-// - welcome.newWorkspaceChat
 // - welcome.showAllWalkthroughs
 // - workbench.action.acceptSelectedQuickOpenItem
 // - workbench.action.activityBarLocation.bottom
@@ -3597,6 +3627,7 @@
 // - workbench.action.chat.createPlugin
 // - workbench.action.chat.debugAgentHostInDevTools
 // - workbench.action.chat.disablePromptCacheExpirationNotification
+// - workbench.action.chat.disableRemoteByokNotification
 // - workbench.action.chat.disableTips
 // - workbench.action.chat.discardCompareEdits
 // - workbench.action.chat.dismissTip
@@ -3752,6 +3783,9 @@
 // - workbench.action.chat.triggerSetupSupportAnonymousAction
 // - workbench.action.chat.undoEdit
 // - workbench.action.chat.upgradePlan
+// - workbench.action.chat.viewMode.compact
+// - workbench.action.chat.viewMode.conversation
+// - workbench.action.chat.viewMode.verbose
 // - workbench.action.chat.voiceChatInChatView
 // - workbench.action.chat.voiceInputMode
 // - workbench.action.chat.voiceInputMode.simulate.clear
@@ -4239,8 +4273,10 @@
 // - workbench.actions.workbench.panel.markers.view.toggleExcludedFiles
 // - workbench.actions.workbench.panel.markers.view.toggleInfos
 // - workbench.actions.workbench.panel.markers.view.toggleWarnings
+// - workbench.agentPlugins.browse
 // - workbench.agentPlugins.checkForUpdates
 // - workbench.agentPlugins.forceUpdate
+// - workbench.agentPlugins.refreshMarketplaces
 // - workbench.command.new.agent
 // - workbench.command.new.instructions
 // - workbench.command.new.prompt
@@ -4287,16 +4323,80 @@
 // - workbench.explorer.openEditorsView.removeView
 // - workbench.explorer.openEditorsView.resetViewLocation
 // - workbench.explorer.openEditorsView.toggleVisibility
+// - workbench.extensions.action.addExtensionToWorkspaceRecommendations
+// - workbench.extensions.action.addToWorkspaceFolderIgnoredRecommendations
+// - workbench.extensions.action.addToWorkspaceFolderRecommendations
+// - workbench.extensions.action.addToWorkspaceIgnoredRecommendations
+// - workbench.extensions.action.addToWorkspaceRecommendations
+// - workbench.extensions.action.checkForUpdates
+// - workbench.extensions.action.clearExtensionsSearchResults
+// - workbench.extensions.action.clearLanguage
+// - workbench.extensions.action.configure
+// - workbench.extensions.action.configureKeybindings
+// - workbench.extensions.action.configureWorkspaceFolderRecommendedExtensions
+// - workbench.extensions.action.configureWorkspaceRecommendedExtensions
+// - workbench.extensions.action.copyExtension
+// - workbench.extensions.action.copyExtensionId
+// - workbench.extensions.action.copyLink
 // - workbench.extensions.action.debugExtensionHost
 // - workbench.extensions.action.devtoolsExtensionHost
+// - workbench.extensions.action.disableAll
+// - workbench.extensions.action.disableAllWorkspace
+// - workbench.extensions.action.disableAutoUpdate
+// - workbench.extensions.action.download
+// - workbench.extensions.action.downloadPreRelease
+// - workbench.extensions.action.downloadSpecificVersion
+// - workbench.extensions.action.enableAll
+// - workbench.extensions.action.enableAllWorkspace
+// - workbench.extensions.action.enableAutoUpdate
 // - workbench.extensions.action.extensionHostProfile
+// - workbench.extensions.action.extensionUpdates
+// - workbench.extensions.action.focusExtensionsView
+// - workbench.extensions.action.ignoreRecommendation
+// - workbench.extensions.action.install.anotherVersion
+// - workbench.extensions.action.install.specificVersion
+// - workbench.extensions.action.installAndDonotSync
+// - workbench.extensions.action.installExtensionFromLocation
+// - workbench.extensions.action.installExtensions
+// - workbench.extensions.action.installPrereleaseAndDonotSync
+// - workbench.extensions.action.installUnsigned
+// - workbench.extensions.action.installVSIX
+// - workbench.extensions.action.installWorkspaceRecommendedExtensions
+// - workbench.extensions.action.installedExtensions
+// - workbench.extensions.action.listBuiltInExtensions
+// - workbench.extensions.action.listWorkspaceUnsupportedExtensions
+// - workbench.extensions.action.manageAccountPreferences
 // - workbench.extensions.action.manageAuthorizedExtensionURIs
+// - workbench.extensions.action.manageTrustedPublishers
 // - workbench.extensions.action.openExtensionHostProfile
+// - workbench.extensions.action.recentlyPublishedExtensions
+// - workbench.extensions.action.refreshExtension
+// - workbench.extensions.action.removeExtensionFromWorkspaceRecommendations
 // - workbench.extensions.action.saveExtensionHostProfile
+// - workbench.extensions.action.setColorTheme
+// - workbench.extensions.action.setFileIconTheme
+// - workbench.extensions.action.setProductIconTheme
+// - workbench.extensions.action.showDisabledExtensions
+// - workbench.extensions.action.showEnabledExtensions
 // - workbench.extensions.action.showExtensionsForLanguage
 // - workbench.extensions.action.showExtensionsWithIds
+// - workbench.extensions.action.showLanguageExtensions
+// - workbench.extensions.action.showPopularExtensions
+// - workbench.extensions.action.showPreReleaseVersion
+// - workbench.extensions.action.showRecommendedExtensions
+// - workbench.extensions.action.showRecommendedKeymapExtensions
+// - workbench.extensions.action.showReleasedVersion
 // - workbench.extensions.action.stopExtensionHostProfile
+// - workbench.extensions.action.switchToPreRlease
+// - workbench.extensions.action.switchToRelease
+// - workbench.extensions.action.toggleApplyToAllProfiles
+// - workbench.extensions.action.toggleAutoUpdateForExtension
+// - workbench.extensions.action.toggleAutoUpdatesForPublisher
+// - workbench.extensions.action.toggleIgnoreExtension
+// - workbench.extensions.action.undoIgnoredRecommendation
+// - workbench.extensions.action.updateAllExtensions
 // - workbench.extensions.actions.gallery.signIn
+// - workbench.extensions.command.installFromVSIX
 // - workbench.files.action.acceptLocalChanges
 // - workbench.files.action.collapseExplorerFolders
 // - workbench.files.action.compareFileWith
@@ -4444,3 +4544,55 @@
 // - workbench.view.voiceTranscripts.resetViewLocation
 // - workbench.view.voiceTranscriptsContainer
 // - workbench.view.voiceTranscriptsContainer.resetViewContainerLocation
+// - workbench.views.agentPlugins.installed.focus
+// - workbench.views.agentPlugins.installed.resetViewLocation
+// - workbench.views.agentPlugins.marketplace.focus
+// - workbench.views.agentPlugins.marketplace.resetViewLocation
+// - workbench.views.extensions.builtinFeatureExtensions.focus
+// - workbench.views.extensions.builtinFeatureExtensions.resetViewLocation
+// - workbench.views.extensions.builtinProgrammingLanguageExtensions.focus
+// - workbench.views.extensions.builtinProgrammingLanguageExtensions.resetViewLocation
+// - workbench.views.extensions.builtinThemeExtensions.focus
+// - workbench.views.extensions.builtinThemeExtensions.resetViewLocation
+// - workbench.views.extensions.deprecatedExtensions.focus
+// - workbench.views.extensions.deprecatedExtensions.resetViewLocation
+// - workbench.views.extensions.disabled.focus
+// - workbench.views.extensions.disabled.resetViewLocation
+// - workbench.views.extensions.enabled.focus
+// - workbench.views.extensions.enabled.resetViewLocation
+// - workbench.views.extensions.installed.focus
+// - workbench.views.extensions.installed.resetViewLocation
+// - workbench.views.extensions.marketplace.focus
+// - workbench.views.extensions.marketplace.resetViewLocation
+// - workbench.views.extensions.marketplaceAccess.focus
+// - workbench.views.extensions.marketplaceAccess.resetViewLocation
+// - workbench.views.extensions.otherRecommendations.focus
+// - workbench.views.extensions.otherRecommendations.resetViewLocation
+// - workbench.views.extensions.popular.focus
+// - workbench.views.extensions.popular.resetViewLocation
+// - workbench.views.extensions.restartRequired.focus
+// - workbench.views.extensions.restartRequired.resetViewLocation
+// - workbench.views.extensions.searchBuiltin.focus
+// - workbench.views.extensions.searchBuiltin.resetViewLocation
+// - workbench.views.extensions.searchDisabled.focus
+// - workbench.views.extensions.searchDisabled.resetViewLocation
+// - workbench.views.extensions.searchEnabled.focus
+// - workbench.views.extensions.searchEnabled.resetViewLocation
+// - workbench.views.extensions.searchInstalled.focus
+// - workbench.views.extensions.searchInstalled.resetViewLocation
+// - workbench.views.extensions.searchOutdated.focus
+// - workbench.views.extensions.searchOutdated.resetViewLocation
+// - workbench.views.extensions.searchRecentlyUpdated.focus
+// - workbench.views.extensions.searchRecentlyUpdated.resetViewLocation
+// - workbench.views.extensions.searchWorkspaceUnsupported.focus
+// - workbench.views.extensions.searchWorkspaceUnsupported.resetViewLocation
+// - workbench.views.extensions.untrustedPartiallySupportedExtensions.focus
+// - workbench.views.extensions.untrustedPartiallySupportedExtensions.resetViewLocation
+// - workbench.views.extensions.untrustedUnsupportedExtensions.focus
+// - workbench.views.extensions.untrustedUnsupportedExtensions.resetViewLocation
+// - workbench.views.extensions.virtualPartiallySupportedExtensions.focus
+// - workbench.views.extensions.virtualPartiallySupportedExtensions.resetViewLocation
+// - workbench.views.extensions.virtualUnsupportedExtensions.focus
+// - workbench.views.extensions.virtualUnsupportedExtensions.resetViewLocation
+// - workbench.views.extensions.workspaceRecommendations.focus
+// - workbench.views.extensions.workspaceRecommendations.resetViewLocation
