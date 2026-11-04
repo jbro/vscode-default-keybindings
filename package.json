@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.91",
+    "version": "0.2.92",
     "engines": {
-        "vscode": "^1.144.1"
+        "vscode": "^1.145.0"
     },
     "categories": [
         "Keymaps"
@@ -2633,7 +2633,7 @@
             {
                 "key": "delete",
                 "command": "-agentSession.archive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
@@ -2643,7 +2643,7 @@
             {
                 "key": "shift+delete",
                 "command": "-agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -6390,7 +6390,7 @@
             {
                 "key": "cmd+backspace",
                 "command": "-agentSession.archive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "enter",
@@ -6400,7 +6400,7 @@
             {
                 "key": "shift+cmd+backspace",
                 "command": "-agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "shift+cmd+m",
@@ -9814,7 +9814,7 @@
             {
                 "key": "delete",
                 "command": "-agentSession.archive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
@@ -9824,7 +9824,7 @@
             {
                 "key": "shift+delete",
                 "command": "-agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -13120,7 +13120,7 @@
             {
                 "key": "delete",
                 "command": "agentSession.archive",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
@@ -13130,7 +13130,7 @@
             {
                 "key": "shift+delete",
                 "command": "agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
@@ -16877,7 +16877,7 @@
             {
                 "key": "cmd+backspace",
                 "command": "agentSession.archive",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "enter",
@@ -16887,7 +16887,7 @@
             {
                 "key": "shift+cmd+backspace",
                 "command": "agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "shift+cmd+m",
@@ -20301,7 +20301,7 @@
             {
                 "key": "delete",
                 "command": "agentSession.archive",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionChildCanArchive && agentSessionsViewerFocused && !agentSessionIsArchived || agentSessionsViewerFocused && !agentSessionIsArchived && !agentSessionIsChild)"
             },
             {
                 "key": "f2",
@@ -20311,7 +20311,7 @@
             {
                 "key": "shift+delete",
                 "command": "agentSession.unarchive",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (agentSessionChildCanArchive && agentSessionIsArchived && agentSessionsViewerFocused || agentSessionIsArchived && agentSessionsViewerFocused && !agentSessionIsChild)"
             },
             {
                 "key": "ctrl+shift+m",
