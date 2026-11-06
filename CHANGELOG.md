@@ -400,3 +400,7 @@
 ## Release v0.2.93
 
 - Update keybindings for vscode 1.145.1
+
+## Release v0.2.94
+
+- Update keybindings for vscode 1.145.2
