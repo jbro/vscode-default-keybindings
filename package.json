@@ -16,9 +16,9 @@
     "icon": "icon.png",
     "publisher": "jbro",
     "license": "Unlicense",
-    "version": "0.2.96",
+    "version": "0.2.97",
     "engines": {
-        "vscode": "^1.146.0"
+        "vscode": "^1.147.0"
     },
     "categories": [
         "Keymaps"
@@ -166,11 +166,6 @@
                 "key": "ctrl+up",
                 "command": "-chat.action.focus",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "-chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
@@ -1028,6 +1023,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatInputHasFocus)"
             },
             {
+                "key": "ctrl+k ctrl+i",
+                "command": "-editor.action.showHover",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (inChatInput && textInputFocus)"
+            },
+            {
                 "key": "insert",
                 "command": "-editor.action.toggleOvertypeInsertMode",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux"
@@ -1591,6 +1591,11 @@
                 "key": "ctrl+d",
                 "command": "-workbench.action.browser.toggleFavorite",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (browserHasUrl && activeEditor == 'workbench.editor.browser')"
+            },
+            {
+                "key": "ctrl+shift+alt+s",
+                "command": "-workbench.action.chat.attachAppWindowScreenshot",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (chatIsEnabled && config.chat.appWindowScreenshots.enabled)"
             },
             {
                 "key": "ctrl+escape",
@@ -2533,7 +2538,7 @@
             {
                 "key": "ctrl+b",
                 "command": "-workbench.action.toggleSidebarVisibility",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (!layoutMode)"
             },
             {
                 "key": "ctrl+k z",
@@ -2613,17 +2618,17 @@
             {
                 "key": "ctrl+shift+d",
                 "command": "-workbench.view.debug",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (viewContainer.workbench.view.debug.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (viewContainer.workbench.view.debug.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+e",
                 "command": "-workbench.view.explorer",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (viewContainer.workbench.view.explorer.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (viewContainer.workbench.view.explorer.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+x",
                 "command": "-workbench.view.extensions",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (viewContainer.workbench.view.extensions.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isLinux && (viewContainer.workbench.view.extensions.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+f",
@@ -4500,6 +4505,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatInputHasFocus)"
             },
             {
+                "key": "cmd+k cmd+i",
+                "command": "-editor.action.showHover",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (inChatInput && textInputFocus)"
+            },
+            {
                 "key": "alt+cmd+o",
                 "command": "-editor.action.toggleOvertypeInsertMode",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac"
@@ -5248,6 +5258,11 @@
                 "key": "cmd+d",
                 "command": "-workbench.action.browser.toggleFavorite",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (browserHasUrl && activeEditor == 'workbench.editor.browser')"
+            },
+            {
+                "key": "ctrl+cmd+s",
+                "command": "-workbench.action.chat.attachAppWindowScreenshot",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (chatIsEnabled && config.chat.appWindowScreenshots.enabled)"
             },
             {
                 "key": "ctrl+escape",
@@ -6285,7 +6300,7 @@
             {
                 "key": "cmd+b",
                 "command": "-workbench.action.toggleSidebarVisibility",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (!layoutMode)"
             },
             {
                 "key": "cmd+k z",
@@ -6370,17 +6385,17 @@
             {
                 "key": "shift+cmd+d",
                 "command": "-workbench.view.debug",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (viewContainer.workbench.view.debug.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (viewContainer.workbench.view.debug.enabled && !layoutMode)"
             },
             {
                 "key": "shift+cmd+e",
                 "command": "-workbench.view.explorer",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (viewContainer.workbench.view.explorer.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (viewContainer.workbench.view.explorer.enabled && !layoutMode)"
             },
             {
                 "key": "shift+cmd+x",
                 "command": "-workbench.view.extensions",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (viewContainer.workbench.view.extensions.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isMac && (viewContainer.workbench.view.extensions.enabled && !layoutMode)"
             },
             {
                 "key": "shift+cmd+f",
@@ -8161,6 +8176,11 @@
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatInputHasFocus)"
             },
             {
+                "key": "ctrl+k ctrl+i",
+                "command": "-editor.action.showHover",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (inChatInput && textInputFocus)"
+            },
+            {
                 "key": "insert",
                 "command": "-editor.action.toggleOvertypeInsertMode",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows"
@@ -8734,6 +8754,11 @@
                 "key": "ctrl+d",
                 "command": "-workbench.action.browser.toggleFavorite",
                 "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (browserHasUrl && activeEditor == 'workbench.editor.browser')"
+            },
+            {
+                "key": "ctrl+shift+alt+s",
+                "command": "-workbench.action.chat.attachAppWindowScreenshot",
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (chatIsEnabled && config.chat.appWindowScreenshots.enabled)"
             },
             {
                 "key": "alt+backspace",
@@ -9709,7 +9734,7 @@
             {
                 "key": "ctrl+b",
                 "command": "-workbench.action.toggleSidebarVisibility",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (!layoutMode)"
             },
             {
                 "key": "ctrl+k z",
@@ -9794,17 +9819,17 @@
             {
                 "key": "ctrl+shift+d",
                 "command": "-workbench.view.debug",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (viewContainer.workbench.view.debug.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (viewContainer.workbench.view.debug.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+e",
                 "command": "-workbench.view.explorer",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (viewContainer.workbench.view.explorer.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (viewContainer.workbench.view.explorer.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+x",
                 "command": "-workbench.view.extensions",
-                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (viewContainer.workbench.view.extensions.enabled)"
+                "when": "config.vscode-default-keybindings.removeOSKeybindings && isWindows && (viewContainer.workbench.view.extensions.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+f",
@@ -10653,11 +10678,6 @@
                 "key": "ctrl+up",
                 "command": "chat.action.focus",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus)"
-            },
-            {
-                "key": "escape",
-                "command": "chat.models.action.clearSearchResults",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (inModelsEditor && inModelsSearch)"
             },
             {
                 "key": "ctrl+u",
@@ -11515,6 +11535,11 @@
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (chatInputHasFocus)"
             },
             {
+                "key": "ctrl+k ctrl+i",
+                "command": "editor.action.showHover",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (inChatInput && textInputFocus)"
+            },
+            {
                 "key": "insert",
                 "command": "editor.action.toggleOvertypeInsertMode",
                 "when": "config.vscode-default-keybindings.linuxKeybindings"
@@ -12078,6 +12103,11 @@
                 "key": "ctrl+d",
                 "command": "workbench.action.browser.toggleFavorite",
                 "when": "config.vscode-default-keybindings.linuxKeybindings && (browserHasUrl && activeEditor == 'workbench.editor.browser')"
+            },
+            {
+                "key": "ctrl+shift+alt+s",
+                "command": "workbench.action.chat.attachAppWindowScreenshot",
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (chatIsEnabled && config.chat.appWindowScreenshots.enabled)"
             },
             {
                 "key": "ctrl+escape",
@@ -13020,7 +13050,7 @@
             {
                 "key": "ctrl+b",
                 "command": "workbench.action.toggleSidebarVisibility",
-                "when": "config.vscode-default-keybindings.linuxKeybindings"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (!layoutMode)"
             },
             {
                 "key": "ctrl+k z",
@@ -13100,17 +13130,17 @@
             {
                 "key": "ctrl+shift+d",
                 "command": "workbench.view.debug",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (viewContainer.workbench.view.debug.enabled)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (viewContainer.workbench.view.debug.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+e",
                 "command": "workbench.view.explorer",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (viewContainer.workbench.view.explorer.enabled)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (viewContainer.workbench.view.explorer.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+x",
                 "command": "workbench.view.extensions",
-                "when": "config.vscode-default-keybindings.linuxKeybindings && (viewContainer.workbench.view.extensions.enabled)"
+                "when": "config.vscode-default-keybindings.linuxKeybindings && (viewContainer.workbench.view.extensions.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+f",
@@ -14987,6 +15017,11 @@
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (chatInputHasFocus)"
             },
             {
+                "key": "cmd+k cmd+i",
+                "command": "editor.action.showHover",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (inChatInput && textInputFocus)"
+            },
+            {
                 "key": "alt+cmd+o",
                 "command": "editor.action.toggleOvertypeInsertMode",
                 "when": "config.vscode-default-keybindings.macOSKeybindings"
@@ -15735,6 +15770,11 @@
                 "key": "cmd+d",
                 "command": "workbench.action.browser.toggleFavorite",
                 "when": "config.vscode-default-keybindings.macOSKeybindings && (browserHasUrl && activeEditor == 'workbench.editor.browser')"
+            },
+            {
+                "key": "ctrl+cmd+s",
+                "command": "workbench.action.chat.attachAppWindowScreenshot",
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (chatIsEnabled && config.chat.appWindowScreenshots.enabled)"
             },
             {
                 "key": "ctrl+escape",
@@ -16772,7 +16812,7 @@
             {
                 "key": "cmd+b",
                 "command": "workbench.action.toggleSidebarVisibility",
-                "when": "config.vscode-default-keybindings.macOSKeybindings"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (!layoutMode)"
             },
             {
                 "key": "cmd+k z",
@@ -16857,17 +16897,17 @@
             {
                 "key": "shift+cmd+d",
                 "command": "workbench.view.debug",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (viewContainer.workbench.view.debug.enabled)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (viewContainer.workbench.view.debug.enabled && !layoutMode)"
             },
             {
                 "key": "shift+cmd+e",
                 "command": "workbench.view.explorer",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (viewContainer.workbench.view.explorer.enabled)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (viewContainer.workbench.view.explorer.enabled && !layoutMode)"
             },
             {
                 "key": "shift+cmd+x",
                 "command": "workbench.view.extensions",
-                "when": "config.vscode-default-keybindings.macOSKeybindings && (viewContainer.workbench.view.extensions.enabled)"
+                "when": "config.vscode-default-keybindings.macOSKeybindings && (viewContainer.workbench.view.extensions.enabled && !layoutMode)"
             },
             {
                 "key": "shift+cmd+f",
@@ -18648,6 +18688,11 @@
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (chatInputHasFocus)"
             },
             {
+                "key": "ctrl+k ctrl+i",
+                "command": "editor.action.showHover",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (inChatInput && textInputFocus)"
+            },
+            {
                 "key": "insert",
                 "command": "editor.action.toggleOvertypeInsertMode",
                 "when": "config.vscode-default-keybindings.windowsKeybindings"
@@ -19221,6 +19266,11 @@
                 "key": "ctrl+d",
                 "command": "workbench.action.browser.toggleFavorite",
                 "when": "config.vscode-default-keybindings.windowsKeybindings && (browserHasUrl && activeEditor == 'workbench.editor.browser')"
+            },
+            {
+                "key": "ctrl+shift+alt+s",
+                "command": "workbench.action.chat.attachAppWindowScreenshot",
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (chatIsEnabled && config.chat.appWindowScreenshots.enabled)"
             },
             {
                 "key": "alt+backspace",
@@ -20196,7 +20246,7 @@
             {
                 "key": "ctrl+b",
                 "command": "workbench.action.toggleSidebarVisibility",
-                "when": "config.vscode-default-keybindings.windowsKeybindings"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (!layoutMode)"
             },
             {
                 "key": "ctrl+k z",
@@ -20281,17 +20331,17 @@
             {
                 "key": "ctrl+shift+d",
                 "command": "workbench.view.debug",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (viewContainer.workbench.view.debug.enabled)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (viewContainer.workbench.view.debug.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+e",
                 "command": "workbench.view.explorer",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (viewContainer.workbench.view.explorer.enabled)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (viewContainer.workbench.view.explorer.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+x",
                 "command": "workbench.view.extensions",
-                "when": "config.vscode-default-keybindings.windowsKeybindings && (viewContainer.workbench.view.extensions.enabled)"
+                "when": "config.vscode-default-keybindings.windowsKeybindings && (viewContainer.workbench.view.extensions.enabled && !layoutMode)"
             },
             {
                 "key": "ctrl+shift+f",
