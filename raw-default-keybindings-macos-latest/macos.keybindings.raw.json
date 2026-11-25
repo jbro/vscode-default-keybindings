@@ -1,4 +1,4 @@
-// Default Keybindings of Visual Studio Code 1.147.0 for macOS
+// Default Keybindings of Visual Studio Code 1.148.0 for macOS
 // Override key bindings by placing them into your key bindings file.
 [
 { "key": "escape escape",         "command": "workbench.action.exitZenMode",
@@ -189,8 +189,6 @@
                                      "when": "chatCursorAtTop && inChatInput && !quickChatHasFocus" },
 { "key": "cmd+up",                "command": "chat.action.focus",
                                      "when": "inChatInput && isLinux && !quickChatHasFocus || inChatInput && isWindows && !quickChatHasFocus" },
-{ "key": "escape",                "command": "chat.models.action.clearSearchResults",
-                                     "when": "inModelsEditor && inModelsSearch" },
 { "key": "shift+escape",          "command": "closeBreakpointWidget",
                                      "when": "breakpointWidgetVisible && textInputFocus" },
 { "key": "escape",                "command": "closeBreakpointWidget",
@@ -622,6 +620,8 @@
                                      "when": "chatInputHasText && inChatInput && !chatSessionRequestInProgress && !chatTranscriptProgressActive" },
 { "key": "shift+alt+enter",       "command": "workbench.action.chat.submitWithoutDispatching",
                                      "when": "chatInputHasText && inChatInput && !chatSessionRequestInProgress && !chatTranscriptProgressActive && chatAgentKind == 'ask'" },
+{ "key": "cmd+escape",            "command": "workbench.action.collapseVisibleComments",
+                                     "when": "commentWidgetVisible && editorFocus" },
 { "key": "alt+f5",                "command": "workbench.action.editor.nextChange",
                                      "when": "editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0'" },
 { "key": "shift+alt+f5",          "command": "workbench.action.editor.previousChange",
@@ -630,8 +630,6 @@
                                      "when": "commentEditorFocused || commentFocused" },
 { "key": "escape",                "command": "workbench.action.hideComment",
                                      "when": "commentEditorFocused || commentFocused" },
-{ "key": "cmd+escape",            "command": "workbench.action.hideComment",
-                                     "when": "commentWidgetVisible && editorFocus" },
 { "key": "cmd+right",             "command": "editor.action.inlineSuggest.acceptNextWord",
                                      "when": "cursorBeforeGhostText && inlineSuggestionVisible && !accessibilityModeEnabled && !editorReadonly" },
 { "key": "alt+f8",                "command": "testing.goToNextMessage",
@@ -791,7 +789,7 @@
 { "key": "shift+cmd+space",       "command": "agentsVoice.pushToTalk",
                                      "when": "agentsVoiceEntitled && agentsVoiceWidgetFocused && chatIsEnabled && config.agents.voice.enabled && !inputFocus || agentsVoiceWidgetFocused && chatIsEnabled && config.agents.voice.enabled && !inputFocus && config.agents.voice.useBYOKVoiceModel =~ /\\S/" },
 { "key": "shift+cmd+space",       "command": "agentsVoice.startVoiceInChat",
-                                     "when": "agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton || chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceEntitled && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && !config.dictation.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !agentsVoiceEntitled && !chatSpeechToTextConfigured && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !agentsVoiceEntitled && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !agentsVoiceEntitled && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceEntitled && !chatSpeechToTextConfigured && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceEntitled && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.dictation.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.agents.voice.showButton && !config.dictation.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !agentsVoiceEntitled && !chatSpeechToTextConfigured && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !agentsVoiceEntitled && !chatSpeechToTextConfigured && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !agentsVoiceEntitled && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceEntitled && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && !config.agents.voice.showButton && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/" },
+                                     "when": "agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton || chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !config.agents.voice.showButton && !(config.agents.voice.useBYOKVoiceModel =~ /\\S/) || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceEntitled && !config.agents.voice.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !chatSpeechToTextConfigured && config.agents.voice.useBYOKVoiceModel =~ /\\S/ || agentsVoiceEntitled && chatIsEnabled && config.agents.voice.enabled && inChatInput && !agentsVoiceConnected && !config.dictation.showButton && config.agents.voice.useBYOKVoiceModel =~ /\\S/" },
 { "key": "shift+cmd+;",           "command": "breadcrumbs.focus",
                                      "when": "breadcrumbsPossible && breadcrumbsVisible" },
 { "key": "shift+cmd+.",           "command": "breadcrumbs.focusAndSelect",
@@ -2191,7 +2189,7 @@
                                      "when": "editorPartModal && editorPartModalNavigation" },
 { "key": "alt+up",                "command": "workbench.action.navigateModalEditorPrevious",
                                      "when": "editorPartModal && editorPartModalNavigation" },
-{ "key": "escape",                "command": "imageCarousel.finishMarkUp",
+{ "key": "escape",                "command": "imageCarousel.cancelMarkUp",
                                      "when": "imageCarouselMarkingUp" },
 { "key": "shift+escape",          "command": "closeReferenceSearch",
                                      "when": "editorTextFocus && referenceSearchVisible && !config.editor.stablePeek || referenceSearchVisible && !config.editor.stablePeek && !inputFocus" },
@@ -2534,6 +2532,7 @@
 // - agentSession.delete
 // - agentSession.enterAgentSessionProjection
 // - agentSession.openCustomizations
+// - agentSession.openCustomizations.sessionsList
 // - agentSession.pin
 // - agentSession.unpin
 // - agentSessionSection.archive
@@ -2598,12 +2597,10 @@
 // - chat.inlineSymbolAnchor.goToImplementations
 // - chat.inlineSymbolAnchor.goToReferences
 // - chat.inlineSymbolAnchor.goToTypeDefinitions
-// - chat.installRecommendation.github.copilot-chat.cli
-// - chat.installRecommendation.github.copilot-chat.cloud
-// - chat.installRecommendation.openai.chatgpt.codex
 // - chat.internal.explain
 // - chat.internal.fix
 // - chat.internal.review
+// - chat.models.action.clearSearchResults
 // - chat.openFileSnapshot
 // - chat.openFileUpdatedBySnapshot
 // - chat.pet.blobby
@@ -2620,6 +2617,7 @@
 // - chatEditing.multidiff.explain
 // - chatEditing.openFileInDiff
 // - chatEditing.toggleExplanationWidget
+// - chatEditing.versionsPicker
 // - chatEditing.viewChanges
 // - chatEditing.viewPreviousEdits
 // - chatEditor.action.reviewChanges
@@ -3154,7 +3152,6 @@
 // - keybindings.editor.showDefaultKeybindings
 // - keybindings.editor.showExtensionKeybindings
 // - keybindings.editor.showUserKeybindings
-// - keywordActivation.status.command
 // - lastCursorLineSelect
 // - lastCursorLineSelectDrag
 // - lastCursorWordSelect
@@ -3449,6 +3446,8 @@
 // - selectFirstSuggestion
 // - selectForCompare
 // - selectLastSuggestion
+// - sessions.chat.disableSessionStorageCleanupSuggestions
+// - sessions.chat.manageAgentSessionWorktrees
 // - sessions.tunnelHost.toggleSharing
 // - setRootFolder
 // - setSelection
@@ -3625,8 +3624,6 @@
 // - workbench.action.chat.agentHost.signInToAgent
 // - workbench.action.chat.agentHost.signInToGitHubForAgent
 // - workbench.action.chat.agentHostNetworkDiagnostics
-// - workbench.action.chat.agentsParallelWork.feedback
-// - workbench.action.chat.agentsParallelWork.learnMore
 // - workbench.action.chat.agentsWindowBanner.mute
 // - workbench.action.chat.agentsWindowBanner.open
 // - workbench.action.chat.applyCompareEdits
@@ -3638,6 +3635,8 @@
 // - workbench.action.chat.attachFolder
 // - workbench.action.chat.attachPinnedEditors
 // - workbench.action.chat.attachSelection
+// - workbench.action.chat.changeAgentSessionsBackground
+// - workbench.action.chat.changeAgentSessionsBackgroundLayout
 // - workbench.action.chat.changeModel
 // - workbench.action.chat.chatSessionPrimaryPicker
 // - workbench.action.chat.clearHistory
@@ -3666,6 +3665,7 @@
 // - workbench.action.chat.copySessionLink
 // - workbench.action.chat.createPlugin
 // - workbench.action.chat.debugAgentHostInDevTools
+// - workbench.action.chat.disableHookWarnings
 // - workbench.action.chat.disablePromptCacheExpirationNotification
 // - workbench.action.chat.disableRemoteByokNotification
 // - workbench.action.chat.disableTips
@@ -3730,6 +3730,7 @@
 // - workbench.action.chat.newChat.commentIcon
 // - workbench.action.chat.newChat.copilotIcon
 // - workbench.action.chat.newChat.newSessionIcon
+// - workbench.action.chat.newChatInWorktree
 // - workbench.action.chat.newEditSession
 // - workbench.action.chat.newLocalChat
 // - workbench.action.chat.nextTip
@@ -3743,7 +3744,6 @@
 // - workbench.action.chat.openAgentHostPermissionModePicker
 // - workbench.action.chat.openAgentHostSettings
 // - workbench.action.chat.openAgentSessionSettings
-// - workbench.action.chat.openAsk
 // - workbench.action.chat.openCompareBlockInDiffEditor
 // - workbench.action.chat.openCopilotCliStateFile
 // - workbench.action.chat.openDelegationPicker
@@ -3754,6 +3754,7 @@
 // - workbench.action.chat.openInSidebar
 // - workbench.action.chat.openLinkWith
 // - workbench.action.chat.openModelFeedbackSurvey
+// - workbench.action.chat.openModelRoutersFolder
 // - workbench.action.chat.openNewChatSessionInPlace.agent-host-claude
 // - workbench.action.chat.openNewChatSessionInPlace.agent-host-codex
 // - workbench.action.chat.openNewChatSessionInPlace.agent-host-copilotcli
@@ -3815,7 +3816,9 @@
 // - workbench.action.chat.switchToNextModel
 // - workbench.action.chat.switchToNextPinnedModel
 // - workbench.action.chat.toggle
+// - workbench.action.chat.toggleAgentHostNewWorktree
 // - workbench.action.chat.toggleAgentMode
+// - workbench.action.chat.toggleAgentSessionsBackgroundTint
 // - workbench.action.chat.toggleCompareBlockDiffViewMode
 // - workbench.action.chat.toggleDefaultVisibility
 // - workbench.action.chat.toggleShowAgentSessions
@@ -3848,7 +3851,6 @@
 // - workbench.action.clearCommandHistory
 // - workbench.action.clearEditorHistory
 // - workbench.action.clearEditorHistoryWithoutConfirm
-// - workbench.action.clearLocalePreference
 // - workbench.action.clearRecentFiles
 // - workbench.action.closeActivePinnedEditor
 // - workbench.action.closeAuxiliaryBar
@@ -3868,7 +3870,6 @@
 // - workbench.action.configureEditor
 // - workbench.action.configureEditorTabs
 // - workbench.action.configureLanguageBasedSettings
-// - workbench.action.configureLocale
 // - workbench.action.configureMeteredConnection
 // - workbench.action.configureRuntimeArguments
 // - workbench.action.continueOn.extensions
@@ -3927,7 +3928,6 @@
 // - workbench.action.expandAllComments
 // - workbench.action.expandUnresolvedComments
 // - workbench.action.exportLogs
-// - workbench.action.extensionHostProfiler.stop
 // - workbench.action.files.newFile
 // - workbench.action.files.newMarkdownDocumentFromNewTabButton
 // - workbench.action.files.newUntitledFileFromNewTabButton
@@ -3968,8 +3968,8 @@
 // - workbench.action.getStartedWithAccessibilityFeatures
 // - workbench.action.gotoOffset
 // - workbench.action.hideEditorActions
+// - workbench.action.hideEditorAreaForChat
 // - workbench.action.hideEditorTabs
-// - workbench.action.holdLockedScrolling
 // - workbench.action.importLog
 // - workbench.action.increaseViewHeight
 // - workbench.action.increaseViewSize
@@ -3997,6 +3997,7 @@
 // - workbench.action.logStorage
 // - workbench.action.logWorkingCopies
 // - workbench.action.manageAccounts
+// - workbench.action.manageSandboxProfiles
 // - workbench.action.manageTrustedDomain
 // - workbench.action.maximizeAuxiliaryBar
 // - workbench.action.maximizeEditorHideSidebar
@@ -4074,7 +4075,6 @@
 // - workbench.action.openGlobalKeybindingsFile
 // - workbench.action.openGlobalSettings
 // - workbench.action.openImagesInCarousel
-// - workbench.action.openIssueReporter
 // - workbench.action.openLanguageModelsJson
 // - workbench.action.openLicenseUrl
 // - workbench.action.openLogFile
@@ -4167,7 +4167,6 @@
 // - workbench.action.removeRootFolder
 // - workbench.action.reopenTextEditor
 // - workbench.action.reopenWithEditor
-// - workbench.action.reportPerformanceIssueUsingReporter
 // - workbench.action.resetFocusedViewLocation
 // - workbench.action.resetViewLocations
 // - workbench.action.restartExtensionHost
@@ -4328,7 +4327,6 @@
 // - workbench.action.toggleKeepEditors
 // - workbench.action.toggleKeybindingsLog
 // - workbench.action.toggleLightDarkThemes
-// - workbench.action.toggleLockedScrolling
 // - workbench.action.toggleMaximizedAuxiliaryBar
 // - workbench.action.toggleMaximizedPanel
 // - workbench.action.toggleModalEditorMaximized
@@ -4496,7 +4494,6 @@
 // - workbench.extensions.action.manageAuthorizedExtensionURIs
 // - workbench.extensions.action.manageTrustedPublishers
 // - workbench.extensions.action.openExtensionHostProfile
-// - workbench.extensions.action.openExtensionsFolder
 // - workbench.extensions.action.recentlyPublishedExtensions
 // - workbench.extensions.action.refreshExtension
 // - workbench.extensions.action.removeExtensionFromWorkspaceRecommendations
@@ -4525,7 +4522,6 @@
 // - workbench.extensions.action.updateAllExtensions
 // - workbench.extensions.actions.gallery.signIn
 // - workbench.extensions.command.installFromVSIX
-// - workbench.extensions.installMissingDependencies
 // - workbench.files.action.acceptLocalChanges
 // - workbench.files.action.collapseExplorerFolders
 // - workbench.files.action.compareFileWith
@@ -4612,15 +4608,6 @@
 // - workbench.profiles.actions.resetWorkspaces
 // - workbench.profiles.actions.switchProfile
 // - workbench.remote.action.closeUnusedPorts
-// - workbench.remoteTunnel.actions.configure
-// - workbench.remoteTunnel.actions.connecting
-// - workbench.remoteTunnel.actions.copyToClipboard
-// - workbench.remoteTunnel.actions.learnMore
-// - workbench.remoteTunnel.actions.manage
-// - workbench.remoteTunnel.actions.rename
-// - workbench.remoteTunnel.actions.showLog
-// - workbench.remoteTunnel.actions.turnOff
-// - workbench.remoteTunnel.actions.turnOn
 // - workbench.scm.action.collapseAll
 // - workbench.scm.action.collapseAllRepositories
 // - workbench.scm.action.expandAllRepositories
